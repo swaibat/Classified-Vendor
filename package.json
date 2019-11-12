@@ -26,7 +26,8 @@
   "dependencies": {
     "esm": "^3.2.25",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.2"
+    "sequelize": "^5.21.2",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "chai": "4.2.0",
