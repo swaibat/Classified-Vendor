@@ -11,7 +11,13 @@
   "scripts": {
     "start": "node -r esm  index.js",
     "test": "nyc mocha  --timeout 200000 --exit",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls "
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls ",
+    "db-migrate": "sequelize db:migrate --env production",
+    "db-migrate:dev": "sequelize db:migrate --env development",
+    "db-seeder:dev": "sequelize db:seed:all --env development",
+    "db-seeder:test": "sequelize db:seed:all --env test",
+    "db-delete:dev": "sequelize db:migrate:undo:all --env development",
+    "db-migrate:test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test"
   },
   "repository": {
     "type": "git",
@@ -24,9 +30,12 @@
   },
   "homepage": "https://github.com/swaibat/Classified-Vendor#readme",
   "dependencies": {
+    "dotenv": "^8.1.0",
     "esm": "^3.2.25",
+    "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.2"
+    "sequelize": "^5.21.2",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "chai": "4.2.0",
