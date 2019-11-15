@@ -20,7 +20,7 @@ module.exports = {
       company: {
         type: Sequelize.STRING
       },
-      adress: {
+      address: {
         type: Sequelize.STRING
       },
       telephone: {
@@ -30,6 +30,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       avatar: {
+        type: Sequelize.STRING
+      },
+      password: {
         type: Sequelize.STRING
       },
       lastSeen: {

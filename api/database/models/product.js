@@ -1,5 +1,6 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+/* eslint-disable no-unused-vars */
+
+export default (sequelize, DataTypes) => {
   const product = sequelize.define('product', {
     name: DataTypes.STRING,
     userId: DataTypes.INTEGER,
@@ -10,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     negotiable: DataTypes.BOOLEAN
   }, {});
-  product.associate = function(models) {
+  product.associate = (models) => {
     // associations can be defined here
   };
   return product;
