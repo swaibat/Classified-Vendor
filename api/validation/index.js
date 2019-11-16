@@ -14,6 +14,21 @@ const Validation = {
     },
     (error) => Response(res, 400, error));
     next();
+  },
+
+  verify(req, res, next) {
+    validate(req.body, {
+      firstName: { req: true, min: 2 },
+    }, (error) => Response(res, 400, error));
+    next();
+  },
+
+  sigin(req, res, next) {
+    validate(req.body, {
+      email: { req: true, min: 2 },
+      password: { req: true, min: 4 },
+    }, (error) => Response(res, 400, error));
+    next();
   }
 
 };

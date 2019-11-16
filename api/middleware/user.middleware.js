@@ -13,10 +13,18 @@ const UserMiddleware = {
 
   async checkuserExist(req, res, next) {
     const user = await UserService.getUser({ email: req.body.email });
-    if (user) return Response(res, 409, 'email address already in use');
-    next();
+    if (user) Response(res, 409, 'email address already in use');
+    return next();
   },
 
+  async getUserDetails(req, res, next) {
+    const { email, password } = req.body;
+    const user = await UserService.getUser({ email });
+    if (user && AuthHelper.comparePassword(password, user.password)) {
+      req.user = user; return next();
+    }
+    return Response(res, 409, 'Invalid login details');
+  },
 };
 
 export default UserMiddleware;

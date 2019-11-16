@@ -10,6 +10,7 @@ const users = {
     telephone: '0783498502'
   },
   wrongData1: {
+    email: 'rswai@gmail.com',
     firstName: 'swaibu',
     lastName: 'rumbiiha',
     password: 'Kanyanyama01%',
