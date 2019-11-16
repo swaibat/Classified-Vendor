@@ -6,6 +6,7 @@ import Validate from '../validation';
 const router = express.Router();
 
 router.post('/verify',
+  Validate.verify,
   UserMiddleware.checkuserExist,
   UserController.verifyEmail);
 
@@ -14,5 +15,10 @@ router.post('/register/:token',
   UserMiddleware.verifyToken,
   UserMiddleware.checkuserExist,
   UserController.signup);
+
+router.post('/login',
+  Validate.sigin,
+  UserMiddleware.getUserDetails,
+  UserController.signin);
 
 export default router;

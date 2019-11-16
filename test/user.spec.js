@@ -76,3 +76,28 @@ describe('user registration', () => {
       });
   });
 });
+describe('user sinin', () => {
+  it('login sucessful', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/login')
+      .send(Data.user1)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('login successful');
+        done();
+      });
+  });
+
+  it('login unsucessful', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/login')
+      .send(Data.wrongData1)
+      .end((err, res) => {
+        res.should.have.status(409);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('Invalid login details');
+        done();
+      });
+  });
+});

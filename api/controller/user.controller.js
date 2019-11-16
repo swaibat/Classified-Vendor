@@ -3,6 +3,7 @@ import Request from '../utils/req.utils';
 import UserService from '../services/user.service';
 import EmailService from '../services/email.service';
 import sgMail from '../config';
+import AuthHelper from '../utils/auth.utils';
 
 const User = {
   async signup(req, res) {
@@ -12,10 +13,16 @@ const User = {
     return Response(res, 201, 'Account created successfully', data);
   },
 
-  async verifyEmail(req, res) {
+  verifyEmail(req, res) {
     const email = { ...EmailService.verifyUser(req, res), to: req.body.email };
     sgMail.send(email);
-    Response(res, 200, `verification instructions sent to ${req.body.email}`);
+    return Response(res, 200, `verification instructions sent to ${req.body.email}`);
+  },
+
+  signin(req, res) {
+    const { email, roleId } = req.user;
+    const token = AuthHelper.createToken(email, roleId);
+    return Response(res, 200, 'login successful', { token });
   },
 
 };
