@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 export default (sequelize, DataTypes) => {
-  const subCategory = sequelize.define('subCategory', {
+  const subCategory = sequelize.define('SubCategory', {
     name: DataTypes.INTEGER
   }, {});
   subCategory.associate = (models) => {

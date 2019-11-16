@@ -1,4 +1,3 @@
-require('esm');
 const path  = require('path')
 module.exports = {
     "config": path.resolve('./api/database', 'config.js'),

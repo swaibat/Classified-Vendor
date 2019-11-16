@@ -13,6 +13,16 @@ const Requests = {
       telephone
     };
     return data;
+  },
+
+  prodBody(req) {
+    const {
+      name, categoryId, subCategoryId, price, negotiable, description, email
+    } = req.body;
+    const data = {
+      name, categoryId, subCategoryId, price, negotiable, description, owner: email
+    };
+    return data;
   }
 
 };

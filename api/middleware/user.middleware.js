@@ -7,7 +7,7 @@ const UserMiddleware = {
   verifyToken(req, res, next) {
     const token = AuthHelper.getToken(req);
     AuthHelper.decodeToken(token, (error, data) => {
-      error ? Response(res, 400, error.message) : (req.body.email = data.email, next());
+      error ? Response(res, 400, error.message) : (req.user = data, next());
     });
   },
 
@@ -23,7 +23,7 @@ const UserMiddleware = {
     if (user && AuthHelper.comparePassword(password, user.password)) {
       req.user = user; return next();
     }
-    return Response(res, 409, 'Invalid login details');
+    return Response(res, 400, 'Invalid login details');
   },
 };
 
