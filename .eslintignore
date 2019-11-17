@@ -15,10 +15,10 @@ node_modules
 coverage
 
 # Migrations
-src/database/migrations
+api/database/migrations
 
 # Seeders
-src/database/seeders
+api/database/seeders
 
 # Models 
-src/database/models
+api/database/models

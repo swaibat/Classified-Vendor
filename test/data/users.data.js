@@ -18,6 +18,10 @@ const users = {
     company: 'vendie',
     address: 'Kampala',
     telephone: '0783498502'
+  },
+  wrongData2: {
+    email: 'admins@gmail.com',
+    password: 'Kanyanyama01%',
   }
 };
 

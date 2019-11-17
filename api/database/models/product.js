@@ -1,18 +1,21 @@
 /* eslint-disable no-unused-vars */
 
 export default (sequelize, DataTypes) => {
-  const product = sequelize.define('product', {
+  const Product = sequelize.define('Product', {
     name: DataTypes.STRING,
-    userId: DataTypes.INTEGER,
+    owner: DataTypes.STRING,
     subCategoryId: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
-    images: DataTypes.STRING,
     description: DataTypes.STRING,
     negotiable: DataTypes.BOOLEAN
+    
   }, {});
-  product.associate = (models) => {
-    // associations can be defined here
-  };
-  return product;
+  Product.associate = function(models) {
+    Product.hasMany(models.productFile, {
+      foreignKey: 'productId',
+      targetKey: 'id',
+    });
 };
+return Product;
+}
