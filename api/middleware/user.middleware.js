@@ -25,6 +25,12 @@ const UserMiddleware = {
     }
     return Response(res, 400, 'Invalid login details');
   },
+
+  async checkRole(req, res, next) {
+    const user = await UserService.getUser({ email: req.user.email });
+    if (user.roleId !== 1) Response(res, 401, 'Not allowed to perform this operation');
+    return next();
+  },
 };
 
 export default UserMiddleware;
