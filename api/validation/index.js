@@ -17,7 +17,7 @@ const Validation = {
 
   verify(req, res, next) {
     validate(req.body, {
-      firstName: { req: true, min: 2 },
+      email: { req: true, email: true },
     }, (error) => Send(res, 400, error));
     next();
   },
