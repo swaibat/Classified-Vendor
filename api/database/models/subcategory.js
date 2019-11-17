@@ -1,11 +1,16 @@
 /* eslint-disable no-unused-vars */
 export default (sequelize, DataTypes) => {
-  const subCategory = sequelize.define('SubCategory', {
+  const SubCategory = sequelize.define('SubCategory', {
     name: DataTypes.STRING,
-    categoryId: DataTypes.STRING
+    CategoryId: DataTypes.STRING
   }, {});
-  subCategory.associate = (models) => {
-    // associations can be defined here
+  SubCategory.associate = (models) => {
+    SubCategory.belongsTo(models.Category, {
+      foreignKey: {
+        allowNull: false,
+      },
+      onDelete: 'CASCADE',
+    });
   };
-  return subCategory;
+  return SubCategory;
 };

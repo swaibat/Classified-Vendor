@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 export default (sequelize, DataTypes) => {
   const Category = sequelize.define('Category', {
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
   }, {});
   Category.associate = (models) => {
-    // associations can be defined here
+    Category.hasMany(models.SubCategory, {
+      foreignKey: 'CategoryId',
+      targetKey: 'id',
+    });
   };
   return Category;
 };
