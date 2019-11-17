@@ -16,6 +16,7 @@
   "scripts": {
     "start": "node -r esm  index.js",
     "dev": "nodemon -r esm index.js ",
+    "db": "npm run db-delete:dev &&  npm run db-migrate:dev && npm run db-seeder:dev",
     "test": "npm run db-migrate:test &&  NODE_ENV=test nyc mocha  --timeout 200000 --exit",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls ",
     "db-migrate": "sequelize db:migrate --env production",
