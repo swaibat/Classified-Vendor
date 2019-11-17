@@ -55,6 +55,13 @@ const Validation = {
       return image.mv(`./api/uploads/products/${image.name}`);
     });
     next();
-  }
+  },
+
+  category(req, res, next) {
+    validate(req.body, {
+      name: { req: true, min: 4 },
+    }, (error) => Send(res, 400, error));
+    next();
+  },
 };
 export default Validation;
