@@ -14,9 +14,9 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    firstName: 'supplier',
-    lastName: 'supplier',
-    email: 'supplier@vendly.com',
+    firstName: 'seller',
+    lastName: 'seller',
+    email: 'seller@vendly.com',
     password,
     company: 'vendly',
     roleId: 2,

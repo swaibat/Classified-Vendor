@@ -15,11 +15,14 @@ router.post('/',
   CategoryMiddleware.checkExist,
   CategoryController.create);
 
-router.post('/seller',
+router.post('/:id/sub',
   UserMiddleware.verifyToken,
-  UserMiddleware.checkSellerRole,
+  UserMiddleware.checkRole,
   Validate.category,
-  CategoryMiddleware.sellerCheckExist,
-  CategoryController.sellerCreate);
+  Validate.params,
+  CategoryMiddleware.checkNoExist,
+  CategoryMiddleware.checkSubExist,
+  CategoryController.createSub);
+
 
 export default router;

@@ -7,7 +7,7 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'supplier',
+    name: 'seller',
     createdAt: new Date(),
     updatedAt: new Date()
   },
