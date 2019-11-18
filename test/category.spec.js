@@ -56,3 +56,57 @@ describe('get categorys', () => {
       });
   });
 });
+
+describe('create supplier category', () => {
+  it('Should create supplier category', (done) => {
+    chai.request(app)
+      .post('/api/v1/categorys/seller')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('supplier@vendly.com', 2, 2)}`)
+      .send({ name: 'Auto Spur' })
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.status.should.eql(201);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+  it('Should check if category exists', (done) => {
+    chai.request(app)
+      .post('/api/v1/categorys/seller')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('supplier@vendly.com', 2, 2)}`)
+      .send({ name: 'Auto Spur' })
+      .end((err, res) => {
+        res.should.have.status(409);
+        res.body.status.should.eql(409);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  it('Should check for role', (done) => {
+    chai.request(app)
+      .post('/api/v1/categorys/seller')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('buyer@vendly.com', 3, 3)}`)
+      .send({ name: 'Example 2' })
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.status.should.eql(401);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  it('Should check if category exists', (done) => {
+    chai.request(app)
+      .post('/api/v1/categorys/seller')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('supplier@vendly.com', 2, 2)}`)
+      .send({ name: '%' })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.status.should.eql(400);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('name should be greater than 3');
+        done();
+      });
+  });
+});

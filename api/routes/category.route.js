@@ -15,4 +15,11 @@ router.post('/',
   CategoryMiddleware.checkExist,
   CategoryController.create);
 
+router.post('/seller',
+  UserMiddleware.verifyToken,
+  UserMiddleware.checkSellerRole,
+  Validate.category,
+  CategoryMiddleware.sellerCheckExist,
+  CategoryController.sellerCreate);
+
 export default router;

@@ -20,6 +20,17 @@ describe('user registration', () => {
         done();
       });
   });
+  it('invalid email field', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/verify')
+      .send({ email: 'jello.com' })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('Invalid email address');
+        done();
+      });
+  });
   it('create user account', (done) => {
     chai.request(app)
       .post(`/api/v1/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
@@ -97,6 +108,18 @@ describe('user sinin', () => {
         res.should.have.status(400);
         res.body.should.be.a('object');
         res.body.should.have.property('message').eql('Invalid login details');
+        done();
+      });
+  });
+
+  it('login unsucessful', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/login')
+      .send({ email: 'hfhfh' })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('Invalid email address');
         done();
       });
   });
