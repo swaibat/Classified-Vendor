@@ -29,16 +29,10 @@ const UserMiddleware = {
   },
 
   async checkRole(req, res, next) {
-    if (req.user.roleId !== 1) Response(res, 401, 'Not allowed to perform this operation');
+    if (req.user.roleId === 3) Response(res, 401, 'Not allowed to perform this operation');
     return next();
   },
 
-  async checkSellerRole(req, res, next) {
-    if (req.user.roleId === 3) {
-      return Response(res, 401, 'Not allowed to perform this operation');
-    }
-    return next();
-  }
 };
 
 export default UserMiddleware;

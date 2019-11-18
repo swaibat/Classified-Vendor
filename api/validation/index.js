@@ -63,5 +63,12 @@ const Validation = {
     }, (error) => Send(res, 400, error));
     next();
   },
+
+  params(req, res, next) {
+    validate(req.params, {
+      id: { req: true, num: true },
+    }, (error) => Send(res, 400, error));
+    next();
+  },
 };
 export default Validation;

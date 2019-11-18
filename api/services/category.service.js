@@ -13,12 +13,28 @@ const CategoryService = {
     return db.Category.findOne({ where: condition });
   },
 
-  Sellercreate(data) {
-    return db.SupplierCategory.create(data);
+  getSellerCategory(condition) {
+    return db.SellerCategory.findOne({ where: condition });
   },
 
-  getSellerCategory(condition) {
-    return db.SupplierCategory.findOne({ where: condition, raw: true });
+  sellerCreate(data) {
+    return db.SellerCategory.create(data);
+  },
+
+  getSubCategory(condition) {
+    return db.SubCategory.findOne({ where: condition });
+  },
+
+  createSub(data) {
+    return db.SubCategory.create(data);
+  },
+
+  sellerCreateSub(data) {
+    return db.SellerSubCategory.create(data);
+  },
+
+  getSellerSubCategory(condition) {
+    return db.SellerSubCategory.findOne({ where: condition });
   },
 };
 

@@ -8,13 +8,21 @@ const Product = {
   },
 
   async create(req, res) {
-    const categorys = await CategoryService.create({ name: req.body.name });
-    return Send(res, 201, 'Category created successfully', categorys);
+    const category = req.user.roleId === 1
+      ? await CategoryService.create({ name: req.body.name })
+      : await CategoryService.sellerCreate({ name: req.body.name, userId: req.user.id });
+    return Send(res, 201, 'Category created successfully', category);
   },
-  async sellerCreate(req, res) {
-    const data = { userId: req.user.id, name: req.body.name };
-    const categorys = await CategoryService.Sellercreate(data);
-    return Send(res, 201, 'Category created successfully', categorys);
+
+  async createSub(req, res) {
+    const subCat = req.user.roleId === 1
+      ? await CategoryService.createSub({
+        CategoryId: req.params.id, name: req.body.name
+      })
+      : await CategoryService.sellerCreateSub({
+        SellerCategoryId: req.params.id, name: req.body.name, userId: req.user.id
+      });
+    return Send(res, 201, 'sub-Category created successfully', subCat);
   },
 };
 
