@@ -6,8 +6,10 @@ import AuthHelper from '../utils/auth.utils';
 const UserMiddleware = {
   verifyToken(req, res, next) {
     const token = AuthHelper.getToken(req);
-    AuthHelper.decodeToken(token, (error, data) => {
-      error ? Response(res, 400, error.message) : (req.user = data, next());
+    AuthHelper.decodeToken(token, async (error, data) => {
+      if (error) Response(res, 400, error.message);
+      const user = data ? await UserService.getUser({ email: data.email }) : '';
+      req.user = user; next();
     });
   },
 
@@ -27,10 +29,16 @@ const UserMiddleware = {
   },
 
   async checkRole(req, res, next) {
-    const user = await UserService.getUser({ email: req.user.email });
-    if (user.roleId !== 1) Response(res, 401, 'Not allowed to perform this operation');
+    if (req.user.roleId !== 1) Response(res, 401, 'Not allowed to perform this operation');
     return next();
   },
+
+  async checkSellerRole(req, res, next) {
+    if (req.user.roleId === 3) {
+      return Response(res, 401, 'Not allowed to perform this operation');
+    }
+    return next();
+  }
 };
 
 export default UserMiddleware;

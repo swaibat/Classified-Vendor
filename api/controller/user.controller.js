@@ -20,8 +20,8 @@ const User = {
   },
 
   signin(req, res) {
-    const { email, roleId } = req.user;
-    const token = AuthHelper.createToken(email, roleId);
+    const { email, roleId, id } = req.user;
+    const token = AuthHelper.createToken(email, roleId, id);
     return Response(res, 200, 'login successful', { token });
   },
 

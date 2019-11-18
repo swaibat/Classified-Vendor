@@ -6,11 +6,19 @@ const CategoryService = {
   },
 
   create(data) {
-    return db.Category.create(data, { include: [{ model: db.SubCategory, required: true }] });
+    return db.Category.create(data);
   },
 
   getCategory(condition) {
     return db.Category.findOne({ where: condition });
+  },
+
+  Sellercreate(data) {
+    return db.SupplierCategory.create(data);
+  },
+
+  getSellerCategory(condition) {
+    return db.SupplierCategory.findOne({ where: condition, raw: true });
   },
 };
 

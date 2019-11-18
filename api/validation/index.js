@@ -24,7 +24,7 @@ const Validation = {
 
   sigin(req, res, next) {
     validate(req.body, {
-      email: { req: true, min: 2 },
+      email: { req: true, email: true },
       password: { req: true, min: 4 },
     }, (error) => Send(res, 400, error));
     next();
