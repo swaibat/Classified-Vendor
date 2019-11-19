@@ -72,7 +72,7 @@ describe('SELLER create category', () => {
         res.should.have.status(201);
         res.body.status.should.eql(201);
         res.body.should.be.a('object');
-        res.body.data.should.have.property('userId');
+        res.body.data.should.have.property('UserId');
         done();
       });
   });

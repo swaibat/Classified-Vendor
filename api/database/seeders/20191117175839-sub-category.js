@@ -139,7 +139,20 @@ module.exports = {
             name: 'Belts',
             createdAt: new Date(),
             updatedAt: new Date()
-          }], {});
+          },
+          //  services 5
+        {
+          CategoryId:5,
+          name: 'Schools',
+          createdAt: new Date(),
+          updatedAt: new Date()
+          },{
+          CategoryId:5,
+          name: 'Hospitals',
+          createdAt: new Date(),
+          updatedAt: new Date()
+          },
+        ], {});
   },
 
   down: (queryInterface, Sequelize) => {

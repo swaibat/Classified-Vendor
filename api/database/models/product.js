@@ -3,7 +3,7 @@
 export default (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     name: DataTypes.STRING,
-    owner: DataTypes.STRING,
+    UserId: DataTypes.INTEGER,
     subCategoryId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
@@ -19,6 +19,12 @@ export default (sequelize, DataTypes) => {
     Product.hasMany(models.Vehicle, {
       foreignKey: 'ProductId',
       targetKey: 'id',
+    });
+    Product.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false,
+      },
+      onDelete: 'CASCADE',
     });
 };
 return Product;

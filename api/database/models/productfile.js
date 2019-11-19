@@ -15,7 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     type: DataTypes.STRING
   }, {});
   productFile.associate = function(models) {
-    // associations can be defined here
+    productFile.belongsTo(models.Product, {
+      foreignKey: {
+        allowNull: false,
+      },
+      onDelete: 'CASCADE',
+    });
   };
   return productFile;
 };
