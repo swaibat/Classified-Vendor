@@ -1,13 +1,13 @@
 
 import UserService from '../services/user.service';
-import Response from '../utils/res.utils';
+import Send from '../utils/res.utils';
 import AuthHelper from '../utils/auth.utils';
 
 const UserMiddleware = {
   verifyToken(req, res, next) {
     const token = AuthHelper.getToken(req);
     AuthHelper.decodeToken(token, async (error, data) => {
-      if (error) Response(res, 400, error.message);
+      if (error) return Send(res, 400, error.message);
       const user = data ? await UserService.getUser({ email: data.email }) : '';
       req.user = user; next();
     });
@@ -15,8 +15,8 @@ const UserMiddleware = {
 
   async checkuserExist(req, res, next) {
     const user = await UserService.getUser({ email: req.body.email });
-    if (user) Response(res, 409, 'email address already in use');
-    return next();
+    if (user) return Send(res, 409, 'email address already in use');
+    next();
   },
 
   async getUserDetails(req, res, next) {
@@ -25,12 +25,12 @@ const UserMiddleware = {
     if (user && AuthHelper.comparePassword(password, user.password)) {
       req.user = user; return next();
     }
-    return Response(res, 400, 'Invalid login details');
+    return Send(res, 400, 'Invalid login details');
   },
 
   async checkRole(req, res, next) {
-    if (req.user.roleId === 3) Response(res, 401, 'Not allowed to perform this operation');
-    return next();
+    if (req.user.roleId === 3) return Send(res, 401, 'Not allowed to perform this operation');
+    next();
   },
 
 };
