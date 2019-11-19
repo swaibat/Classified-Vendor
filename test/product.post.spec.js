@@ -69,7 +69,7 @@ describe('create product', () => {
         done();
       });
   });
-  it('Should create new product', (done) => {
+  it('Should throw invalid image error', (done) => {
     chai.request(app)
       .post('/api/v1/products')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)

@@ -1,4 +1,4 @@
-import Response from '../utils/res.utils';
+import Send from '../utils/res.utils';
 import Request from '../utils/req.utils';
 import UserService from '../services/user.service';
 import EmailService from '../services/email.service';
@@ -10,19 +10,19 @@ const User = {
     const reqData = Request.signUp(req);
     const user = await UserService.createUser(reqData);
     const { password, ...data } = user;
-    return Response(res, 201, 'Account created successfully', data);
+    return Send(res, 201, 'Account created successfully', data);
   },
 
   verifyEmail(req, res) {
     const email = { ...EmailService.verifyUser(req, res), to: req.body.email };
     sgMail.send(email);
-    return Response(res, 200, `verification instructions sent to ${req.body.email}`);
+    return Send(res, 200, `verification instructions sent to ${req.body.email}`);
   },
 
   signin(req, res) {
     const { email, roleId, id } = req.user;
     const token = AuthHelper.createToken(email, roleId, id);
-    return Response(res, 200, 'login successful', { token });
+    return Send(res, 200, 'login successful', { token });
   },
 
 };

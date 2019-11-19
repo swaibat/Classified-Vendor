@@ -3,44 +3,46 @@ import Send from '../utils/res.utils';
 
 const Validation = {
   signup(req, res, next) {
-    validate(req.body, {
+    const err = validate(req.body, {
       firstName: { req: true, min: 2 },
       lastName: { req: true, min: 2 },
       password: { req: true, min: 4, confirm: req.body.confirmPassword },
       company: { min: 2, aplhaNum: true },
       telephone: { req: true, min: 8, num: true },
       address: { req: true, min: 2 }
-    },
-    (error) => Send(res, 400, error));
+    }, (error) => error);
+    if (err) return Send(res, 400, err);
     next();
   },
 
   verify(req, res, next) {
-    validate(req.body, {
+    const err = validate(req.body, {
       email: { req: true, email: true },
-    }, (error) => Send(res, 400, error));
+    }, (error) => error);
+    if (err) return Send(res, 400, err);
     next();
   },
 
   sigin(req, res, next) {
-    validate(req.body, {
+    const err = validate(req.body, {
       email: { req: true, email: true },
       password: { req: true, min: 4 },
-    }, (error) => Send(res, 400, error));
+    }, (error) => error);
+    if (err) return Send(res, 400, err);
     next();
   },
 
   product(req, res, next) {
     req.body.email = req.user.email;
-    validate(req.body, {
+    const err = validate(req.body, {
       name: { req: true, min: 4 },
       CategoryId: { req: true, num: true },
       subCategoryId: { req: true, num: true },
       price: { req: true, num: true, },
       negotiable: { bool: true },
       description: { req: true, min: 10 }
-    },
-    (error) => Send(res, 400, error));
+    }, (error) => error);
+    if (err) return Send(res, 400, err);
     next();
   },
 
@@ -58,9 +60,10 @@ const Validation = {
   },
 
   category(req, res, next) {
-    validate(req.body, {
+    const err = validate(req.body, {
       name: { req: true, min: 4 },
-    }, (error) => Send(res, 400, error));
+    }, (error) => error);
+    if (err) return Send(res, 400, err);
     next();
   },
 
