@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const productFile = sequelize.define('productFile', {
     name:DataTypes.STRING,
-    productId: {
+    ProductId: {
       type: 'integer',
       onDelete: 'CASCADE',
       allowNull: false,

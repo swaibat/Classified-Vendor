@@ -17,14 +17,22 @@ const Requests = {
 
   prodBody(req) {
     const {
-      name, categoryId, subCategoryId, price, negotiable, description, email
+      name, CategoryId, subCategoryId, price, negotiable, description, email
     } = req.body;
     const data = {
-      name, categoryId, subCategoryId, price, negotiable, description, owner: email
+      name, CategoryId, subCategoryId, price, negotiable, description, owner: email
+    };
+    return data;
+  },
+  vehicleBody(req) {
+    const {
+      make, model, fuel, transmission, year, mileage, engine, color
+    } = req.body;
+    const data = {
+      make, model, fuel, transmission, year, mileage, engine, color
     };
     return data;
   }
-
 };
 
 export default Requests;

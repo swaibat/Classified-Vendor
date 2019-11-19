@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Products', [{
     name: 'phone',
-    categoryId: 1,
+    CategoryId: 1,
     subCategoryId: 2,
     price: 200000,
     owner: 'seller@vendly.com',
@@ -14,7 +14,7 @@ module.exports = {
   },
   {
     name: 'laptop',
-    categoryId: 1,
+    CategoryId: 1,
     subCategoryId: 4,
     price: 23400,
     owner:'seller@vendly.com',

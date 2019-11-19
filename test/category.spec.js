@@ -154,8 +154,8 @@ describe('create sub category', () => {
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
-        res.should.have.status(409);
-        res.body.status.should.eql(409);
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
         res.body.should.be.a('object');
         res.body.message.should.eql('Category does not exists');
         done();
@@ -168,10 +168,38 @@ describe('create sub category', () => {
       .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`)
       .send({ name: 'Auto Spurv' })
       .end((err, res) => {
-        res.should.have.status(409);
-        res.body.status.should.eql(409);
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
         res.body.should.be.a('object');
         res.body.message.should.eql('Category does not exists');
+        done();
+      });
+  });
+
+  it('Should check for valid params', (done) => {
+    chai.request(app)
+      .post('/api/v1/categorys/fhhf/sub')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`)
+      .send({ name: 'Auto Spurv' })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.status.should.eql(400);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('id should be an integer');
+        done();
+      });
+  });
+
+  it('Should check for valid params', (done) => {
+    chai.request(app)
+      .post('/api/v1/categorys/2/sub')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`)
+      .send({ name: 'me' })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.status.should.eql(400);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('name should be greater than 3');
         done();
       });
   });
