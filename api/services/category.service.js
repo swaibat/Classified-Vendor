@@ -2,7 +2,9 @@ import db from '../database/models';
 
 const CategoryService = {
   getAll() {
-    return db.Category.findAll({ include: [{ model: db.SubCategory, required: true }] });
+    return db.Category.findAll({
+      include: [{ model: db.SubCategory, include: [{ model: db.SubCategoryOne }] }]
+    });
   },
 
   create(data) {

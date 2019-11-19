@@ -35,7 +35,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
         },
-        // property
+        // property 7
         {
         CategoryId:2,
         name: 'For Rent',
