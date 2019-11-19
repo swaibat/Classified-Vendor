@@ -17,7 +17,7 @@ module.exports = {
       subCategoryId: {
         type: Sequelize.INTEGER
       },
-      categoryId: {
+      CategoryId: {
         type: Sequelize.INTEGER
       },
       price: {

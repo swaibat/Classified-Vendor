@@ -34,7 +34,7 @@ const Validation = {
     req.body.email = req.user.email;
     validate(req.body, {
       name: { req: true, min: 4 },
-      categoryId: { req: true, num: true },
+      CategoryId: { req: true, num: true },
       subCategoryId: { req: true, num: true },
       price: { req: true, num: true, },
       negotiable: { bool: true },
@@ -65,9 +65,10 @@ const Validation = {
   },
 
   params(req, res, next) {
-    validate(req.params, {
+    const err = validate(req.params, {
       id: { req: true, num: true },
-    }, (error) => Send(res, 400, error));
+    }, (error) => error);
+    if (err) return Send(res, 400, err);
     next();
   },
 };

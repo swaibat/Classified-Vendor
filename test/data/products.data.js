@@ -1,7 +1,7 @@
 const product = {
   data1: {
     name: 'phone',
-    categoryId: 1,
+    CategoryId: 1,
     subCategoryId: 1,
     price: 20000,
     negotiable: true,

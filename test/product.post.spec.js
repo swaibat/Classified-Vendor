@@ -36,7 +36,7 @@ describe('create product', () => {
         res.should.have.status(400);
         res.body.status.should.eql(400);
         res.body.should.be.a('object');
-        res.body.message.should.eql('categoryId is required');
+        res.body.message.should.eql('CategoryId is required');
         done();
       });
   });

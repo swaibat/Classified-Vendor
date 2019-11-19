@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     owner: DataTypes.STRING,
     subCategoryId: DataTypes.INTEGER,
-    categoryId: DataTypes.INTEGER,
+    CategoryId: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     description: DataTypes.STRING,
     negotiable: DataTypes.BOOLEAN
@@ -13,7 +13,11 @@ export default (sequelize, DataTypes) => {
   }, {});
   Product.associate = function(models) {
     Product.hasMany(models.productFile, {
-      foreignKey: 'productId',
+      foreignKey: 'ProductId',
+      targetKey: 'id',
+    });
+    Product.hasMany(models.Vehicle, {
+      foreignKey: 'ProductId',
       targetKey: 'id',
     });
 };
