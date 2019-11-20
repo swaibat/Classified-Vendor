@@ -9,7 +9,7 @@ const app = express.Router();
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 app.use('/categorys', CategoryRouter);
-app.use('/pages', PagesRouter);
+app.use('/', PagesRouter);
 
 
 export default app;

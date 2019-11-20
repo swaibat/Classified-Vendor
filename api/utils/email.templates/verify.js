@@ -18,7 +18,7 @@ export default (req, title, message) => `
                                     <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;text-align:center"> ${message}</p>
                                         <br>
                                         <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;margin-bottom:0;text-align:center;">
-                                             <a href="${req.protocol}://${req.headers.host}/api/v1/users/register/${AuthHelper.createToken(req.body.email)}" style="border-radius:3px;background:#3aa54c;color:#fff;display:block;font-weight:700;font-size:16px;line-height:1.25em;margin:24px auto 6px;padding:10px 18px;text-decoration:none;width:180px" target="_blank"> verify now</a> 
+                                             <a href="${req.protocol}://${req.headers.host}/users/register/${AuthHelper.createToken(req.body.email)}" style="border-radius:3px;background:#3aa54c;color:#fff;display:block;font-weight:700;font-size:16px;line-height:1.25em;margin:24px auto 6px;padding:10px 18px;text-decoration:none;width:180px" target="_blank"> verify now</a> 
                                         </p>
                                         <br><br>
                                     <p style="font:14px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333">

@@ -5,10 +5,13 @@ import ProductService from '../services/product.service';
 
 const Product = {
   async get(req, res) {
-    const { dataValues } = await PageService.get({ id: req.params.id });
-    dataValues.Products = await ProductService.SellerGetOwn({ UserId: dataValues.UserId });
-    dataValues.UserCategories = await CategoryService.SellerGetAll({ UserId: dataValues.UserId });
-    return Send(res, 200, undefined, dataValues);
+    const company = req.headers.host.split('.')[0];
+    const page = await PageService.get({ company });
+    if (!page) return Send(res, 200, 'page not found',);
+    const data = page.dataValues;
+    data.Products = await ProductService.SellerGetOwn({ UserId: data.UserId });
+    data.UserCategories = await CategoryService.SellerGetAll({ UserId: data.UserId });
+    return Send(res, 200, undefined, page.dataValues);
   }
 };
 

@@ -11,7 +11,7 @@ chai.should();
 describe('create product', () => {
   it('Should create new product', (done) => {
     chai.request(app)
-      .post('/api/v1/products')
+      .post('/products')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
@@ -27,7 +27,7 @@ describe('create product', () => {
   });
   it('Should create new product', (done) => {
     chai.request(app)
-      .post('/api/v1/products')
+      .post('/products')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field({ name: 'hello' })
@@ -43,7 +43,7 @@ describe('create product', () => {
 
   it('Should create new product', (done) => {
     chai.request(app)
-      .post('/api/v1/products')
+      .post('/products')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
@@ -57,7 +57,7 @@ describe('create product', () => {
   });
   it('Should create new product', (done) => {
     chai.request(app)
-      .post('/api/v1/products')
+      .post('/products')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
@@ -71,7 +71,7 @@ describe('create product', () => {
   });
   it('Should throw invalid image error', (done) => {
     chai.request(app)
-      .post('/api/v1/products')
+      .post('/products')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)

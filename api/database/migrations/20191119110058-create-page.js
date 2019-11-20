@@ -32,6 +32,9 @@ module.exports = {
       faq: {
         type: Sequelize.TEXT
       },
+      company: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

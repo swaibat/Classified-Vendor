@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER,
     aboutUs: DataTypes.TEXT,
     backdrop: DataTypes.STRING,
-    faq: DataTypes.TEXT
+    faq: DataTypes.TEXT,
+    company: DataTypes.STRING,
   }, {});
   Page.associate = function(models) {
     Page.belongsTo(models.User, {

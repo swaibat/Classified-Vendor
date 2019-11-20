@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(fileUpload());
 
-router.get('/:id', PageController.get);
+router.get('/', PageController.get);
 
 
 export default router;
