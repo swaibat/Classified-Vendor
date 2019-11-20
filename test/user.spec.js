@@ -11,7 +11,7 @@ chai.should();
 describe('user registration', () => {
   it('verify email', (done) => {
     chai.request(app)
-      .post('/api/v1/users/verify')
+      .post('/users/verify')
       .send(Data.user1)
       .end((err, res) => {
         res.should.have.status(200);
@@ -22,7 +22,7 @@ describe('user registration', () => {
   });
   it('invalid email field', (done) => {
     chai.request(app)
-      .post('/api/v1/users/verify')
+      .post('/users/verify')
       .send({ email: 'jello.com' })
       .end((err, res) => {
         res.should.have.status(400);
@@ -33,7 +33,7 @@ describe('user registration', () => {
   });
   it('create user account', (done) => {
     chai.request(app)
-      .post(`/api/v1/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
+      .post(`/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
       .send(Data.user1)
       .end((err, res) => {
         res.should.have.status(201);
@@ -44,7 +44,7 @@ describe('user registration', () => {
   });
   it('input validation test', (done) => {
     chai.request(app)
-      .post(`/api/v1/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
+      .post(`/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
       .send(Data.wrongData1)
       .end((err, res) => {
         res.should.have.status(400);
@@ -55,7 +55,7 @@ describe('user registration', () => {
   });
   it('check if user exists', (done) => {
     chai.request(app)
-      .post(`/api/v1/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
+      .post(`/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
       .send(Data.user1)
       .end((err, res) => {
         res.should.have.status(409);
@@ -66,7 +66,7 @@ describe('user registration', () => {
   });
   it('check if no token provided', (done) => {
     chai.request(app)
-      .post('/api/v1/users/register/\'\'')
+      .post('/users/register/\'\'')
       .send(Data.user1)
       .end((err, res) => {
         res.should.have.status(400);
@@ -77,7 +77,7 @@ describe('user registration', () => {
   });
   it('Method not allowed', (done) => {
     chai.request(app)
-      .get(`/api/v1/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
+      .get(`/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
       .end((err, res) => {
         res.should.have.status(405);
         res.body.should.be.a('object');
@@ -90,7 +90,7 @@ describe('user registration', () => {
 describe('user sinin', () => {
   it('login sucessful', (done) => {
     chai.request(app)
-      .post('/api/v1/users/login')
+      .post('/users/login')
       .send(Data.user1)
       .end((err, res) => {
         res.should.have.status(200);
@@ -102,7 +102,7 @@ describe('user sinin', () => {
 
   it('login unsucessful', (done) => {
     chai.request(app)
-      .post('/api/v1/users/login')
+      .post('/users/login')
       .send(Data.wrongData2)
       .end((err, res) => {
         res.should.have.status(400);
@@ -114,7 +114,7 @@ describe('user sinin', () => {
 
   it('login unsucessful', (done) => {
     chai.request(app)
-      .post('/api/v1/users/login')
+      .post('/users/login')
       .send({ email: 'hfhfh' })
       .end((err, res) => {
         res.should.have.status(400);

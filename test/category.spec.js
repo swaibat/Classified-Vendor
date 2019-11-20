@@ -10,7 +10,7 @@ chai.should();
 describe('GET categorys', () => {
   it('Should get all categories', (done) => {
     chai.request(app)
-      .get('/api/v1/categorys')
+      .get('/categorys')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.status.should.eql(200);
@@ -23,7 +23,7 @@ describe('GET categorys', () => {
 describe('ADMIN create categorys', () => {
   it('Should create category', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys')
+      .post('/categorys')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
@@ -36,7 +36,7 @@ describe('ADMIN create categorys', () => {
   });
   it('Should check if category exists', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys')
+      .post('/categorys')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
@@ -49,7 +49,7 @@ describe('ADMIN create categorys', () => {
   });
   it('Should check for role', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys')
+      .post('/categorys')
       .set('Authorization', `Bearer ${AuthHelper.createToken('buyer@vendly.com', 3)}`)
       .send({ name: 'Example 2' })
       .end((err, res) => {
@@ -65,7 +65,7 @@ describe('ADMIN create categorys', () => {
 describe('SELLER create category', () => {
   it('Should create category', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys')
+      .post('/categorys')
       .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
@@ -78,7 +78,7 @@ describe('SELLER create category', () => {
   });
   it('Should check if category exists', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys')
+      .post('/categorys')
       .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
@@ -94,7 +94,7 @@ describe('SELLER create category', () => {
 describe('create sub category', () => {
   it('create admin sub category', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys/1/sub')
+      .post('/categorys/1/sub')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
@@ -108,7 +108,7 @@ describe('create sub category', () => {
   });
   it('Should create seller subcategory', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys/1/sub')
+      .post('/categorys/1/sub')
       .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
@@ -122,7 +122,7 @@ describe('create sub category', () => {
   });
   it('Should check if subcategory exists', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys/1/sub')
+      .post('/categorys/1/sub')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
@@ -136,7 +136,7 @@ describe('create sub category', () => {
 
   it('Should check seller sub category exists', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys/1/sub')
+      .post('/categorys/1/sub')
       .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
@@ -150,7 +150,7 @@ describe('create sub category', () => {
 
   it('Should check if category exists', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys/88/sub')
+      .post('/categorys/88/sub')
       .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
@@ -164,7 +164,7 @@ describe('create sub category', () => {
 
   it('Should check if seller category exists', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys/5/sub')
+      .post('/categorys/5/sub')
       .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`)
       .send({ name: 'Auto Spurv' })
       .end((err, res) => {
@@ -178,7 +178,7 @@ describe('create sub category', () => {
 
   it('Should check for valid params', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys/fhhf/sub')
+      .post('/categorys/fhhf/sub')
       .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`)
       .send({ name: 'Auto Spurv' })
       .end((err, res) => {
@@ -192,7 +192,7 @@ describe('create sub category', () => {
 
   it('Should check for valid params', (done) => {
     chai.request(app)
-      .post('/api/v1/categorys/2/sub')
+      .post('/categorys/2/sub')
       .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`)
       .send({ name: 'me' })
       .end((err, res) => {

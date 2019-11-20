@@ -9,6 +9,7 @@ module.exports = {
         aboutUs: 'lorem ipsum',
         backdrop: null,
         faq: 'lorem ipsum',
+        company:'vendly',
         createdAt: new Date(),
         updatedAt: new Date()
       }
