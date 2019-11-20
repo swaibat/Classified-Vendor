@@ -6,6 +6,11 @@ const CategoryService = {
       include: [{ model: db.SubCategory, include: [{ model: db.SubCategoryOne }] }]
     });
   },
+  SellerGetAll(condition) {
+    return db.SellerCategory.findAll({ where: condition,
+      include: [{ model: db.SellerSubCategory, include: [{ model: db.SellerSubCategoryOne }] }]
+    });
+  },
 
   create(data) {
     return db.Category.create(data);
@@ -38,6 +43,8 @@ const CategoryService = {
   getSellerSubCategory(condition) {
     return db.SellerSubCategory.findOne({ where: condition });
   },
+
+
 };
 
 export default CategoryService;

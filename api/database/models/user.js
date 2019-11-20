@@ -14,7 +14,18 @@ export default (sequelize, DataTypes) => {
     lastSeen: DataTypes.DATE,
   }, {});
   User.associate = (models) => {
-    // associations can be defined here
+    User.hasMany(models.Page, {
+      foreignKey: 'UserId',
+      targetKey: 'id',
+    });
+    User.hasMany(models.Product, {
+      foreignKey: 'UserId',
+      targetKey: 'id',
+    })
+    User.hasMany(models.SellerCategory, {
+      foreignKey: 'UserId',
+      targetKey: 'id',
+    })
   };
   return User;
 };

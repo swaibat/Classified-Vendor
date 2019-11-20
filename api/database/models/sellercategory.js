@@ -2,10 +2,19 @@
 module.exports = (sequelize, DataTypes) => {
   const SellerCategory = sequelize.define('SellerCategory', {
     name: DataTypes.STRING,
-    userId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER
   }, {});
   SellerCategory.associate = function(models) {
-    // associations can be defined here
+    SellerCategory.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false,
+      },
+      onDelete: 'CASCADE',
+    });
+    SellerCategory.hasMany(models.SellerSubCategory, {
+      foreignKey: 'SellerCategoryId',
+      targetKey: 'id',
+    });
   };
   return SellerCategory;
 };

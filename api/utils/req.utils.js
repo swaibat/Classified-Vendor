@@ -17,19 +17,30 @@ const Requests = {
 
   prodBody(req) {
     const {
-      name, CategoryId, subCategoryId, price, negotiable, description, email
+      name, CategoryId, subCategoryId, price, negotiable, description,
     } = req.body;
     const data = {
-      name, CategoryId, subCategoryId, price, negotiable, description, owner: email
+      name, CategoryId, subCategoryId, price, negotiable, description, UserId: req.user.id
     };
     return data;
   },
+
   vehicleBody(req) {
     const {
       make, model, fuel, transmission, year, mileage, engine, color
     } = req.body;
     const data = {
       make, model, fuel, transmission, year, mileage, engine, color
+    };
+    return data;
+  },
+
+  pageBody(req) {
+    const {
+      CategoryId, SubCategoryId, pageTemplateId, UserId
+    } = req.body;
+    const data = {
+      CategoryId, SubCategoryId, pageTemplateId, UserId
     };
     return data;
   }

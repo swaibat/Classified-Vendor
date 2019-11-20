@@ -10,7 +10,7 @@ const Product = {
   async create(req, res) {
     const category = req.user.roleId === 1
       ? await CategoryService.create({ name: req.body.name })
-      : await CategoryService.sellerCreate({ name: req.body.name, userId: req.user.id });
+      : await CategoryService.sellerCreate({ name: req.body.name, UserId: req.user.id });
     return Send(res, 201, 'Category created successfully', category);
   },
 
@@ -20,7 +20,7 @@ const Product = {
         CategoryId: req.params.id, name: req.body.name
       })
       : await CategoryService.sellerCreateSub({
-        SellerCategoryId: req.params.id, name: req.body.name, userId: req.user.id
+        SellerCategoryId: req.params.id, name: req.body.name, UserId: req.user.id
       });
     return Send(res, 201, 'sub-Category created successfully', subCat);
   },
