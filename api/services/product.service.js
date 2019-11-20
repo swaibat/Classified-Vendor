@@ -31,6 +31,20 @@ const ProductService = {
     });
     return result;
   },
+  async SellerGetOwn(condition) {
+    const result = await db.Product.findAll({
+      where: condition,
+      include: [
+        { model: db.Vehicle,
+          attributes: {
+            exclude: ['CategoryId', 'createdAt', 'updatedAt', 'ProductId'] } },
+        { model: db.productFile,
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
+      ]
+    });
+    return result;
+  },
 };
 
 export default ProductService;

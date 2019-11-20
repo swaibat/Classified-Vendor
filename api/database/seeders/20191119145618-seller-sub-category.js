@@ -5,10 +5,12 @@ module.exports = {
       return queryInterface.bulkInsert('SellerSubCategories', [
         {
         SellerCategoryId:2,
+        UserId:1,
         name: 'Laptops',
         createdAt: new Date(),
         updatedAt: new Date()
         },
+
         {
           SellerCategoryId:2,
           name: 'desktops',
