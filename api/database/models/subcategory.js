@@ -11,6 +11,10 @@ export default (sequelize, DataTypes) => {
       },
       onDelete: 'CASCADE',
     });
+    SubCategory.hasMany(models.SubCategoryOne, {
+      foreignKey: 'SubCategoryId',
+      targetKey: 'id',
+    });
   };
   return SubCategory;
 };
