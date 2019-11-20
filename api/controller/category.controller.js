@@ -24,6 +24,7 @@ const Product = {
       });
     return Send(res, 201, 'sub-Category created successfully', subCat);
   },
+
 };
 
 export default Product;
