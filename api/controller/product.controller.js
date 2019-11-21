@@ -32,6 +32,11 @@ const Product = {
     const product = await ProductService.get({ id });
     return Send(res, 201, 'product updated successfully', product);
   },
+
+  async getOne(req, res) {
+    return Send(res, 200, undefined, req.product);
+  }
+
 };
 
 export default Product;
