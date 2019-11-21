@@ -34,6 +34,7 @@ const Product = {
     const pages = await PageService.getAll();
     return Send(res, 200, undefined, { sellers, pages, categories, Products, });
   },
+
 };
 
 export default Product;
