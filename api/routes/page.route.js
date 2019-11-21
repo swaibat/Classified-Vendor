@@ -19,4 +19,10 @@ router.post('/pages',
   PageMiddleware.checkCoExist,
   PageController.create);
 
+router.patch('/pages',
+  Validate.updatePage,
+  userMiddleware.verifyToken,
+  PageMiddleware.checkCoNoExist,
+  PageController.update);
+
 export default router;

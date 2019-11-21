@@ -18,5 +18,12 @@ const ProductService = {
     const result = await db.Page.findAll();
     return result;
   },
+
+  async update(data, condition) {
+    const result = await db.Page.update(data, {
+      where: condition, returning: true, raw: true, plain: true
+    });
+    return result[1];
+  },
 };
 export default ProductService;

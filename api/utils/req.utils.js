@@ -38,17 +38,17 @@ const Requests = {
 
   pageBody(req) {
     const {
-      CategoryId, SubCategoryId, pageTemplateId, UserId
+      CategoryId, SubCategoryId, pageTemplateId, UserId, aboutUs, faq, backdrop
     } = req.body;
     const data = {
-      CategoryId, SubCategoryId, pageTemplateId, UserId
+      CategoryId, SubCategoryId, pageTemplateId, UserId, aboutUs, faq, backdrop
     };
     return data;
   },
 
   updateProdBody(req) {
     const updateData = {};
-    const data = Requests.prodBody(req);
+    const data = this.prodBody(req);
     for (const key in data) {
       if (data[key]) {
         updateData[key] = data[key];
@@ -59,7 +59,7 @@ const Requests = {
 
   updateVehicleBody(req) {
     const updateData = {};
-    const data = Requests.vehicleBody(req);
+    const data = this.vehicleBody(req);
     for (const key in data) {
       if (data[key]) {
         updateData[key] = data[key];
@@ -67,6 +67,17 @@ const Requests = {
     }
     return updateData;
   },
+
+  updatePageBody(req) {
+    const updateData = {};
+    const data = this.pageBody(req);
+    for (const key in data) {
+      if (data[key]) {
+        updateData[key] = data[key];
+      }
+    }
+    return updateData;
+  }
 };
 
 export default Requests;

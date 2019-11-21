@@ -35,6 +35,13 @@ const Product = {
     return Send(res, 200, undefined, { sellers, pages, categories, Products, });
   },
 
+  async update(req, res) {
+    const updateData = Get.updatePageBody(req);
+    console.log(updateData);
+    const page = await PageService.update(updateData, { company: req.user.company });
+    return Send(res, 201, 'page updated successfully', page);
+  },
+
 };
 
 export default Product;
