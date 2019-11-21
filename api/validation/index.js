@@ -49,7 +49,7 @@ const Validation = {
   images(req, res, next) {
     if (!req.files) return Send(res, 400, 'upload atleast one Image');
     let files = req.files.images;
-    if (files.name) files = [files];
+    files = files.name ? files = [files] : '';
     req.files = files;
     files.map(image => {
       if (!image.mimetype.startsWith('image')) return Send(res, 400, `${image.name} image is invalid`);
@@ -79,6 +79,20 @@ const Validation = {
     const err = validate(req.body, {
       CategoryId: { req: true, num: true },
       SubCategoryId: { req: true, num: true },
+    }, (error) => error);
+    if (err) return Send(res, 400, err);
+    next();
+  },
+
+  updateProduct(req, res, next) {
+    req.body.email = req.user.email;
+    const err = validate(req.body, {
+      name: { min: 4 },
+      CategoryId: { num: true },
+      subCategoryId: { num: true },
+      price: { num: true, },
+      negotiable: { bool: true },
+      description: { min: 10 }
     }, (error) => error);
     if (err) return Send(res, 400, err);
     next();

@@ -85,3 +85,51 @@ describe('create product', () => {
       });
   });
 });
+
+describe('Update product', () => {
+  it('Should update product', (done) => {
+    chai.request(app)
+      .patch('/products/1')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .field(product.data1)
+      .attach('images', 'test/data/1.jpg')
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.status.should.eql(201);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('product updated successfully');
+        res.body.data.name.should.eql('phone');
+        done();
+      });
+  });
+  it('Should create new product', (done) => {
+    chai.request(app)
+      .patch('/products/1')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .set('Content-Type', 'multipart/form-data')
+      .field({ CategoryId: 'hello' })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.status.should.eql(400);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('CategoryId should be an integer');
+        done();
+      });
+  });
+
+  it('Should throw invalid image error', (done) => {
+    chai.request(app)
+      .patch('/products/1')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .set('Content-Type', 'multipart/form-data')
+      .field(product.data1)
+      .attach('images', 'test/data/1.mp3')
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.status.should.eql(400);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('1.mp3 image is invalid');
+        done();
+      });
+  });
+});

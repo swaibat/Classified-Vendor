@@ -59,6 +59,20 @@ const ProductService = {
     });
     return result;
   },
+
+  async update(product, condition) {
+    const result = await db.Product.update(product, {
+      where: condition, returning: true, raw: true, plain: true
+    });
+    return result[1];
+  },
+
+  async updateVehicle(data, condition) {
+    const result = await db.Vehicle.update(data, {
+      where: condition, returning: true, raw: true, plain: true
+    });
+    return result[1];
+  },
 };
 
 export default ProductService;

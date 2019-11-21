@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import AuthHelper from './auth.utils';
 
 const Requests = {
@@ -43,7 +44,29 @@ const Requests = {
       CategoryId, SubCategoryId, pageTemplateId, UserId
     };
     return data;
-  }
+  },
+
+  updateProdBody(req) {
+    const updateData = {};
+    const data = Requests.prodBody(req);
+    for (const key in data) {
+      if (data[key]) {
+        updateData[key] = data[key];
+      }
+    }
+    return updateData;
+  },
+
+  updateVehicleBody(req) {
+    const updateData = {};
+    const data = Requests.vehicleBody(req);
+    for (const key in data) {
+      if (data[key]) {
+        updateData[key] = data[key];
+      }
+    }
+    return updateData;
+  },
 };
 
 export default Requests;
