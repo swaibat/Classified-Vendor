@@ -10,6 +10,13 @@ const UserService = {
     return result.get({ plain: true });
   },
 
+  getAllSellers(condition) {
+    return db.User.findAll({ where: condition,
+      raw: true,
+      attributes: { exclude: 'password' }
+    });
+  }
+
 };
 
 export default UserService;

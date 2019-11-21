@@ -47,7 +47,7 @@ const Validation = {
   },
 
   images(req, res, next) {
-    if (!req.files) Send(res, 400, 'upload atleast one Image');
+    if (!req.files) return Send(res, 400, 'upload atleast one Image');
     let files = req.files.images;
     if (files.name) files = [files];
     req.files = files;
@@ -70,6 +70,15 @@ const Validation = {
   params(req, res, next) {
     const err = validate(req.params, {
       id: { req: true, num: true },
+    }, (error) => error);
+    if (err) return Send(res, 400, err);
+    next();
+  },
+
+  page(req, res, next) {
+    const err = validate(req.body, {
+      CategoryId: { req: true, num: true },
+      SubCategoryId: { req: true, num: true },
     }, (error) => error);
     if (err) return Send(res, 400, err);
     next();

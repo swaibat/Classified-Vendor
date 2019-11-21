@@ -13,6 +13,7 @@ router.post('/verify',
 router.post('/register/:token',
   Validate.signup,
   UserMiddleware.verifyToken,
+  UserMiddleware.checkCoExist,
   UserMiddleware.checkuserExist,
   UserController.signup);
 
