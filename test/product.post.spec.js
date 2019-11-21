@@ -168,3 +168,18 @@ describe('GET product', () => {
       });
   });
 });
+
+describe('DELETE product', () => {
+  it('Should Delete product', (done) => {
+    chai.request(app)
+      .delete('/products/2')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('product deleted successfully');
+        done();
+      });
+  });
+});
