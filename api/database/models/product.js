@@ -16,7 +16,7 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'ProductId',
       targetKey: 'id',
     });
-    Product.hasMany(models.Vehicle, {
+    Product.hasOne(models.Vehicle, {
       foreignKey: 'ProductId',
       targetKey: 'id',
     });

@@ -14,5 +14,11 @@ router.post('/',
   Validate.images,
   productController.create);
 
+router.patch('/:id',
+  userMiddleware.verifyToken,
+  Validate.updateProduct,
+  Validate.images,
+  productController.update);
+
 
 export default router;

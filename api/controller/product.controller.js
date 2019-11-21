@@ -16,6 +16,22 @@ const Product = {
     const product = await ProductService.get({ id });
     return Send(res, 201, 'product created successfully', product);
   },
+
+  async update(req, res) {
+    const updateData = Get.updateProdBody(req);
+    const { id, CategoryId } = await ProductService.update(updateData, {
+      UserId: req.user.id, id: req.params.id
+    });
+    req.files.map(async (image) => { await ProductService.postImages(image, id); });
+
+    if (CategoryId === 1) {
+      const vehicleData = { ...Get.updateVehicleBody(req), };
+      await ProductService.updateVehicle(vehicleData, { CategoryId, ProductId: id });
+    }
+
+    const product = await ProductService.get({ id });
+    return Send(res, 201, 'product updated successfully', product);
+  },
 };
 
 export default Product;
