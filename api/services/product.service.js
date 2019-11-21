@@ -73,6 +73,11 @@ const ProductService = {
     });
     return result[1];
   },
+
+  async delete(condition) {
+    const result = await db.Product.destroy({ where: condition });
+    return result;
+  },
 };
 
 export default ProductService;

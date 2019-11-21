@@ -28,5 +28,11 @@ router.get('/:id',
   ProductMiddleware.checkExist,
   productController.getOne);
 
+router.delete('/:id',
+  userMiddleware.verifyToken,
+  Validate.params,
+  ProductMiddleware.checkExist,
+  productController.delete);
+
 
 export default router;
