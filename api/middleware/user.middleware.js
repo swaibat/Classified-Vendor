@@ -9,6 +9,7 @@ const UserMiddleware = {
     AuthHelper.decodeToken(token, async (error, data) => {
       if (error) return Send(res, 400, error.message);
       const user = data ? await UserService.getUser({ email: data.email }) : '';
+      req.body.email = data.email;
       req.user = user; next();
     });
   },
@@ -30,6 +31,12 @@ const UserMiddleware = {
 
   async checkRole(req, res, next) {
     if (req.user.roleId === 3) return Send(res, 401, 'Not allowed to perform this operation');
+    next();
+  },
+
+  async checkCoExist(req, res, next) {
+    const user = await UserService.getUser({ company: req.body.company });
+    if (user) return Send(res, 409, 'Company name already registered');
     next();
   },
 

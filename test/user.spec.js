@@ -56,11 +56,22 @@ describe('user registration', () => {
   it('check if user exists', (done) => {
     chai.request(app)
       .post(`/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
-      .send(Data.user1)
+      .send(Data.coInUse)
       .end((err, res) => {
         res.should.have.status(409);
         res.body.should.be.a('object');
         res.body.should.have.property('message').eql('email address already in use');
+        done();
+      });
+  });
+  it('check if user exists', (done) => {
+    chai.request(app)
+      .post(`/users/register/${AuthHelper.createToken('rswaib@gmail.com')}`)
+      .send(Data.user1)
+      .end((err, res) => {
+        res.should.have.status(409);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('Company name already registered');
         done();
       });
   });
