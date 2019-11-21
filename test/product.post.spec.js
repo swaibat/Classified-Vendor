@@ -116,7 +116,6 @@ describe('Update product', () => {
         done();
       });
   });
-
   it('Should throw invalid image error', (done) => {
     chai.request(app)
       .patch('/products/1')
@@ -129,6 +128,42 @@ describe('Update product', () => {
         res.body.status.should.eql(400);
         res.body.should.be.a('object');
         res.body.message.should.eql('1.mp3 image is invalid');
+        done();
+      });
+  });
+});
+
+describe('GET product', () => {
+  it('Should get product', (done) => {
+    chai.request(app)
+      .get('/products/1')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        res.body.data.name.should.eql('phone');
+        done();
+      });
+  });
+  it('Should validate invalid parameter', (done) => {
+    chai.request(app)
+      .get('/products/tt')
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.status.should.eql(400);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('id should be an integer');
+        done();
+      });
+  });
+  it('Should check not found product', (done) => {
+    chai.request(app)
+      .get('/products/55')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('product with id not found');
         done();
       });
   });

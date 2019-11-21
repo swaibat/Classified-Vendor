@@ -2,6 +2,7 @@ import express from 'express';
 import fileUpload from 'express-fileupload';
 import userMiddleware from '../middleware/user.middleware';
 import productController from '../controller/product.controller';
+import ProductMiddleware from '../middleware/product.middleware';
 import Validate from '../validation';
 
 const router = express.Router();
@@ -16,9 +17,16 @@ router.post('/',
 
 router.patch('/:id',
   userMiddleware.verifyToken,
+  Validate.params,
   Validate.updateProduct,
+  ProductMiddleware.checkExist,
   Validate.images,
   productController.update);
+
+router.get('/:id',
+  Validate.params,
+  ProductMiddleware.checkExist,
+  productController.getOne);
 
 
 export default router;
