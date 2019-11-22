@@ -57,6 +57,16 @@ const Product = {
     const product = await ProductService.getCoPrdct({ UserId: user.id, id: params.id });
     return Send(res, 200, undefined, product);
   },
+
+  async getPrdctsByCat(req, res) {
+    const Products = await ProductService.getAllCoPrdcts({ CategoryId: req.category.id });
+    return Send(res, 200, undefined, Products);
+  },
+
+  async getPrdctsBySubCat(req, res) {
+    const Products = await ProductService.getAllCoPrdcts({ subCategoryId: req.subCategory.id });
+    return Send(res, 200, undefined, Products);
+  },
 };
 
 export default Product;

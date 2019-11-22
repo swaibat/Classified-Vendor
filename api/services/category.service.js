@@ -17,7 +17,7 @@ const CategoryService = {
   },
 
   getCategory(condition) {
-    return db.Category.findOne({ where: condition });
+    return db.Category.findOne({ where: condition, raw: true });
   },
 
   getSellerCategory(condition) {
@@ -29,7 +29,7 @@ const CategoryService = {
   },
 
   getSubCategory(condition) {
-    return db.SubCategory.findOne({ where: condition });
+    return db.SubCategory.findOne({ where: condition, raw: true });
   },
 
   createSub(data) {
@@ -44,6 +44,9 @@ const CategoryService = {
     return db.SellerSubCategory.findOne({ where: condition });
   },
 
+  getAllSubCategory(condition) {
+    return db.SubCategory.findAll({ where: condition, raw: true });
+  },
 
 };
 

@@ -3,10 +3,20 @@ import Validate from '../validation';
 import CategoryController from '../controller/category.controller';
 import UserMiddleware from '../middleware/user.middleware';
 import CategoryMiddleware from '../middleware/category.middleware';
+import ProductController from '../controller/product.controller';
 
 const router = express.Router();
 
 router.get('/', CategoryController.getAll);
+
+router.get('/:category',
+  CategoryMiddleware.getByName,
+  ProductController.getPrdctsByCat);
+
+router.get('/:category/:sub',
+  CategoryMiddleware.getByName,
+  CategoryMiddleware.getSubByName,
+  ProductController.getPrdctsBySubCat);
 
 router.post('/',
   UserMiddleware.verifyToken,

@@ -204,3 +204,38 @@ describe('create sub category', () => {
       });
   });
 });
+
+describe('GET product by category', () => {
+  it('Should Delete product', (done) => {
+    chai.request(app)
+      .get('/categorys/Vehicles')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+  it('Should check category not found', (done) => {
+    chai.request(app)
+      .get('/categorys/example')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('Category does not exists');
+        done();
+      });
+  });
+  it('Should check sub category not found', (done) => {
+    chai.request(app)
+      .get('/categorys/Vehicles/ff')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('sub Category does not exists');
+        done();
+      });
+  });
+});
