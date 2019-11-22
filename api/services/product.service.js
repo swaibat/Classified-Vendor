@@ -78,6 +78,18 @@ const ProductService = {
     const result = await db.Product.destroy({ where: condition });
     return result;
   },
+
+  getAllCoPrdcts(condition) {
+    return db.Product.findAll({
+      where: condition, include: { model: db.productFile }
+    });
+  },
+
+  getCoPrdct(condition) {
+    return db.Product.findOne({
+      where: condition, include: { model: db.productFile }
+    });
+  }
 };
 
 export default ProductService;

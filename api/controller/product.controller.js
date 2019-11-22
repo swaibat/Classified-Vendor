@@ -46,6 +46,17 @@ const Product = {
     const products = await ProductService.getAllPrdcts();
     return Send(res, 200, undefined, products);
   },
+
+  async getAllCoPrdcts(req, res) {
+    const Products = await ProductService.getAllCoPrdcts({ UserId: req.user.id });
+    return Send(res, 200, undefined, Products);
+  },
+
+  async getCoPrdct(req, res) {
+    const { user, params } = req;
+    const product = await ProductService.getCoPrdct({ UserId: user.id, id: params.id });
+    return Send(res, 200, undefined, product);
+  },
 };
 
 export default Product;

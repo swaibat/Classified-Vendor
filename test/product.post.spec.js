@@ -194,3 +194,39 @@ describe('DELETE product', () => {
       });
   });
 });
+
+describe('GET SELLER product', () => {
+  it('GET products by company name', (done) => {
+    chai.request(app)
+      .get('/products/company/vendly')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        res.body.data.should.be.a('array');
+        done();
+      });
+  });
+  it('GET company products by id', (done) => {
+    chai.request(app)
+      .get('/products/1/company/vendly')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  it('check if no company', (done) => {
+    chai.request(app)
+      .get('/products/1/company/vend')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('company website not found');
+        done();
+      });
+  });
+});

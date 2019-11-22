@@ -42,6 +42,13 @@ const UserMiddleware = {
     next();
   },
 
+  async getCoByUser(req, res, next) {
+    const user = await UserService.getUser({ company: req.params.co });
+    if (!user) return Send(res, 404, 'company website not found');
+    req.user = user;
+    next();
+  }
+
 };
 
 export default UserMiddleware;
