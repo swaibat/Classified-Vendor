@@ -40,7 +40,12 @@ const Product = {
   async delete(req, res) {
     await ProductService.delete({ id: req.params.id });
     return Send(res, 200, 'product deleted successfully');
-  }
+  },
+
+  async getAll(req, res) {
+    const products = await ProductService.getAllPrdcts();
+    return Send(res, 200, undefined, products);
+  },
 };
 
 export default Product;

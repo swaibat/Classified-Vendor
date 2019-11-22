@@ -15,6 +15,9 @@ router.post('/',
   Validate.images,
   productController.create);
 
+router.get('/',
+  productController.getAll);
+
 router.patch('/:id',
   userMiddleware.verifyToken,
   Validate.params,

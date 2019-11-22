@@ -97,5 +97,14 @@ const Validation = {
     if (err) return Send(res, 400, err);
     next();
   },
+
+  updatePage(req, res, next) {
+    const err = validate(req.body, {
+      CategoryId: { num: true },
+      SubCategoryId: { num: true },
+    }, (error) => error);
+    if (err) return Send(res, 400, err);
+    next();
+  },
 };
 export default Validation;

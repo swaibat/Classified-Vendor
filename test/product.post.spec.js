@@ -167,6 +167,17 @@ describe('GET product', () => {
         done();
       });
   });
+  it('Should getall product', (done) => {
+    chai.request(app)
+      .get('/products')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        res.body.data.should.be.a('array');
+        done();
+      });
+  });
 });
 
 describe('DELETE product', () => {
