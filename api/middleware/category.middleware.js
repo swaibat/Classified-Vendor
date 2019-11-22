@@ -27,6 +27,20 @@ const categoryMiddleware = {
     next();
   },
 
+  async getByName(req, res, next) {
+    const cat = await CategoryService.getCategory({ name: req.params.category });
+    if (!cat) return Send(res, 404, 'Category does not exists');
+    req.category = cat;
+    next();
+  },
+
+  async getSubByName(req, res, next) {
+    const subCat = await CategoryService.getSubCategory({ name: req.params.sub });
+    if (!subCat) return Send(res, 404, 'sub Category does not exists');
+    req.subCategory = subCat;
+    next();
+  },
+
 };
 
 export default categoryMiddleware;
