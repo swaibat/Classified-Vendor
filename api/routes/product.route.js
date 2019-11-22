@@ -18,6 +18,14 @@ router.post('/',
 router.get('/',
   productController.getAll);
 
+router.get('/company/:co',
+  userMiddleware.getCoByUser,
+  productController.getAllCoPrdcts);
+
+router.get('/:id/company/:co',
+  userMiddleware.getCoByUser,
+  productController.getCoPrdct);
+
 router.patch('/:id',
   userMiddleware.verifyToken,
   Validate.params,
