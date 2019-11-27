@@ -1,5 +1,6 @@
 import Send from '../utils/res.utils';
 import Get from '../utils/req.utils';
+import Adons from '../utils/adons.util';
 import ProductService from '../services/product.service';
 
 const Product = {
@@ -12,7 +13,6 @@ const Product = {
       const vehicleData = { ...Get.vehicleBody(req), CategoryId, ProductId: id };
       await ProductService.createVehicle(vehicleData);
     }
-
     const product = await ProductService.get({ id });
     return Send(res, 201, 'product created successfully', product);
   },
@@ -34,7 +34,8 @@ const Product = {
   },
 
   async getOne(req, res) {
-    return Send(res, 200, undefined, req.product);
+    const product = await Adons.addFields(req.product);
+    return Send(res, 200, undefined, product);
   },
 
   async delete(req, res) {

@@ -20,17 +20,12 @@ const ProductService = {
   async get(condition) {
     const result = await db.Product.findOne({
       where: condition,
-      include: [
-        { model: db.Vehicle,
-          attributes: {
-            exclude: ['CategoryId', 'createdAt', 'updatedAt', 'ProductId'] } },
-        { model: db.productFile,
-          attributes: {
-            exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
-      ]
+      include: { model: db.productFile,
+        attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
     });
     return result;
   },
+
   async SellerGetOwn(condition) {
     const result = await db.Product.findAll({
       where: condition,
@@ -89,7 +84,17 @@ const ProductService = {
     return db.Product.findOne({
       where: condition, include: { model: db.productFile }
     });
+  },
+
+  // Categories ADONS
+  getVehicle(condition) {
+    return db.Vehicle.findOne({ where: condition,
+      raw: true,
+      attributes: {
+        exclude: ['CategoryId', 'createdAt', 'updatedAt', 'ProductId'] }
+    });
   }
+
 };
 
 export default ProductService;
