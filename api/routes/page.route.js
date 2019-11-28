@@ -8,18 +8,17 @@ import Validate from '../validation';
 const router = express.Router();
 
 router.use(fileUpload());
+router.get('/', PageController.getPages);
 
-router.get('/',
-  PageController.get,
-  PageController.home);
+router.get('/:co', PageController.get);
 
-router.post('/pages',
+router.post('/',
   Validate.page,
   userMiddleware.verifyToken,
   PageMiddleware.checkCoExist,
   PageController.create);
 
-router.patch('/pages',
+router.patch('/',
   Validate.updatePage,
   userMiddleware.verifyToken,
   PageMiddleware.checkCoNoExist,
