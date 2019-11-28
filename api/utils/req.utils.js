@@ -26,13 +26,8 @@ const Requests = {
     return data;
   },
 
-  vehicleBody(req) {
-    const {
-      make, model, fuel, transmission, year, mileage, engine, color
-    } = req.body;
-    const data = {
-      make, model, fuel, transmission, year, mileage, engine, color
-    };
+  adons(req) {
+    const { name, CategoryId, subCategoryId, price, negotiable, description, ...data } = req.body;
     return data;
   },
 
@@ -49,17 +44,6 @@ const Requests = {
   updateProdBody(req) {
     const updateData = {};
     const data = this.prodBody(req);
-    for (const key in data) {
-      if (data[key]) {
-        updateData[key] = data[key];
-      }
-    }
-    return updateData;
-  },
-
-  updateVehicleBody(req) {
-    const updateData = {};
-    const data = this.vehicleBody(req);
     for (const key in data) {
       if (data[key]) {
         updateData[key] = data[key];

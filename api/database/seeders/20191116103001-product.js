@@ -9,6 +9,16 @@ module.exports = {
     UserId: 2,
     negotiable: true,
     description: 'No scratches',
+    adons:`{
+        "make": "Toyota",
+        "model": "Noah",
+        "fuel": "petrol",
+        "transmission": "automatic",
+        "year": "2019",
+        "mileage": 234500,
+        "engine": 2000,
+        "color": "silver"
+      }`,
     createdAt: new Date(),
     updatedAt: new Date()
   },

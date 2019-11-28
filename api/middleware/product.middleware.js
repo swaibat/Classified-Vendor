@@ -5,7 +5,7 @@ const Product = {
   async checkExist(req, res, next) {
     const product = await ProductService.get({ id: req.params.id });
     if (!product) return Send(res, 404, 'product with id not found');
-    req.product = product;
+    req.product = product.dataValues;
     next();
   }
 };

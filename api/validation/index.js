@@ -49,7 +49,8 @@ const Validation = {
   images(req, res, next) {
     if (!req.files) return Send(res, 400, 'upload atleast one Image');
     let files = req.files.images;
-    files = files.name ? files = [files] : '';
+
+    files = files.name ? [files] : files;
     req.files = files;
     files.map(image => {
       if (!image.mimetype.startsWith('image')) return Send(res, 400, `${image.name} image is invalid`);
