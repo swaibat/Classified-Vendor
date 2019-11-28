@@ -2,7 +2,9 @@ import db from '../database/models';
 
 const ProductService = {
   async create(product) {
-    const result = await db.Product.create(product,);
+    const result = await db.Product.create(product, {
+      include: [{ model: db.productFile }]
+    });
     return result.get({ plain: true });
   },
 
@@ -11,10 +13,6 @@ const ProductService = {
     return db.productFile.create({
       name, size, type: mimetype, ProductId
     });
-  },
-  async createVehicle(data) {
-    const result = await db.Vehicle.create(data);
-    return result.get({ plain: true });
   },
 
   async get(condition) {
@@ -30,9 +28,6 @@ const ProductService = {
     const result = await db.Product.findAll({
       where: condition,
       include: [
-        { model: db.Vehicle,
-          attributes: {
-            exclude: ['CategoryId', 'createdAt', 'updatedAt', 'ProductId'] } },
         { model: db.productFile,
           attributes: {
             exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
@@ -43,13 +38,9 @@ const ProductService = {
 
   async getAllPrdcts() {
     const result = await db.Product.findAll({
-      include: [
-        { model: db.Vehicle,
-          attributes: {
-            exclude: ['CategoryId', 'createdAt', 'updatedAt', 'ProductId'] } },
-        { model: db.productFile,
-          attributes: {
-            exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
+      include: [{ model: db.productFile,
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
       ]
     });
     return result;
@@ -57,13 +48,6 @@ const ProductService = {
 
   async update(product, condition) {
     const result = await db.Product.update(product, {
-      where: condition, returning: true, raw: true, plain: true
-    });
-    return result[1];
-  },
-
-  async updateVehicle(data, condition) {
-    const result = await db.Vehicle.update(data, {
       where: condition, returning: true, raw: true, plain: true
     });
     return result[1];
@@ -83,15 +67,6 @@ const ProductService = {
   getCoPrdct(condition) {
     return db.Product.findOne({
       where: condition, include: { model: db.productFile }
-    });
-  },
-
-  // Categories ADONS
-  getVehicle(condition) {
-    return db.Vehicle.findOne({ where: condition,
-      raw: true,
-      attributes: {
-        exclude: ['CategoryId', 'createdAt', 'updatedAt', 'ProductId'] }
     });
   }
 

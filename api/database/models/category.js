@@ -8,10 +8,6 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'CategoryId',
       targetKey: 'id',
     });
-    Category.hasMany(models.Vehicle, {
-      foreignKey: 'CategoryId',
-      targetKey: 'id',
-    });
   };
   return Category;
 };
