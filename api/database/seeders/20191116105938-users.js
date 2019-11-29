@@ -1,6 +1,6 @@
-'use strict';
+
 const password = '$2b$10$ed9qlAP/kO3ND6AORh7p/.HLhLfqRG90gvydR8aXPgjP.MfdpihK.';
-module.exports = {
+export default {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Users', [{
     firstName: 'admin',
     lastName: 'admin',

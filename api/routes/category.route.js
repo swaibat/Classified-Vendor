@@ -7,16 +7,21 @@ import ProductController from '../controller/product.controller';
 
 const router = express.Router();
 
-router.get('/', CategoryController.getAll);
+router.get('/', CategoryController.getCatAll);
 
-router.get('/:category',
-  CategoryMiddleware.getByName,
+router.get('/company/:co',
+  UserMiddleware.getCoByUser,
+  CategoryController.getVendorCats);
+
+router.get('/company/:co/:id',
+  Validate.params,
+  CategoryMiddleware.checkCategoryExists,
   ProductController.getPrdctsByCat);
 
-router.get('/:category/:sub',
-  CategoryMiddleware.getByName,
-  CategoryMiddleware.getSubByName,
-  ProductController.getPrdctsBySubCat);
+router.get('/:id',
+  Validate.params,
+  CategoryMiddleware.checkCategoryExists,
+  ProductController.getPrdctsByCat);
 
 router.post('/',
   UserMiddleware.verifyToken,
@@ -24,15 +29,6 @@ router.post('/',
   Validate.category,
   CategoryMiddleware.checkExist,
   CategoryController.create);
-
-router.post('/:id/sub',
-  UserMiddleware.verifyToken,
-  UserMiddleware.checkRole,
-  Validate.category,
-  Validate.params,
-  CategoryMiddleware.checkNoExist,
-  CategoryMiddleware.checkSubExist,
-  CategoryController.createSub);
 
 
 export default router;

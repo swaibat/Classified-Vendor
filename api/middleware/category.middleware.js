@@ -1,46 +1,27 @@
 
+import Sequelize from 'sequelize';
 import CategoryService from '../services/category.service';
 import Send from '../utils/res.utils';
+
+const { Op } = Sequelize;
 
 const categoryMiddleware = {
   async checkExist(req, res, next) {
     const category = req.user.roleId === 1
       ? await CategoryService.getCategory({ name: req.body.name })
-      : await CategoryService.getSellerCategory({ name: req.body.name });
+      : await CategoryService.getVendorCategory({ name: req.body.name });
     if (category) return Send(res, 409, 'Category already exists');
     next();
   },
 
-  async checkSubExist(req, res, next) {
-    const subCat = req.user.roleId === 1
-      ? await CategoryService.getSubCategory({ name: req.body.name })
-      : await CategoryService.getSellerSubCategory({ name: req.body.name });
-    if (subCat) return Send(res, 409, 'Sub-category already exists');
-    next();
-  },
-
-  async checkNoExist(req, res, next) {
-    const cat = req.user.roleId === 1
-      ? await CategoryService.getCategory({ id: req.params.id })
-      : await CategoryService.getSellerCategory({ id: req.params.id });
-    if (!cat) return Send(res, 404, 'Category does not exists');
-    next();
-  },
-
-  async getByName(req, res, next) {
-    const cat = await CategoryService.getCategory({ name: req.params.category });
+  async checkCategoryExists(req, res, next) {
+    const cat = await CategoryService.getAllCats({
+      [Op.or]: [{ ParentId: req.params.id }, { id: req.params.id }]
+    });
     if (!cat) return Send(res, 404, 'Category does not exists');
     req.category = cat;
     next();
   },
-
-  async getSubByName(req, res, next) {
-    const subCat = await CategoryService.getSubCategory({ name: req.params.sub });
-    if (!subCat) return Send(res, 404, 'sub Category does not exists');
-    req.subCategory = subCat;
-    next();
-  },
-
 };
 
 export default categoryMiddleware;

@@ -1,6 +1,9 @@
+import Sequelize from 'sequelize';
 import Send from '../utils/res.utils';
 import Get from '../utils/req.utils';
 import ProductService from '../services/product.service';
+
+const { Op } = Sequelize;
 
 const Product = {
   async create(req, res) {
@@ -45,12 +48,10 @@ const Product = {
   },
 
   async getPrdctsByCat(req, res) {
-    const Products = await ProductService.getAllCoPrdcts({ CategoryId: req.category.id });
-    return Send(res, 200, undefined, Products);
-  },
-
-  async getPrdctsBySubCat(req, res) {
-    const Products = await ProductService.getAllCoPrdcts({ subCategoryId: req.subCategory.id });
+    const category = req.category.map(e => ({ CategoryId: e.id }));
+    const Products = await ProductService.getAllCoPrdcts({
+      [Op.or]: category
+    });
     return Send(res, 200, undefined, Products);
   },
 };

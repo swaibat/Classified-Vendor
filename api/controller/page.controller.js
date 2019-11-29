@@ -10,8 +10,8 @@ const Product = {
     const page = await PageService.get({ company: req.params.co });
     if (!page) return Send(res, 404, 'web page not found',);
     const data = page.dataValues;
-    data.Products = await ProductService.SellerGetOwn({ UserId: data.UserId });
-    data.UserCategories = await CategoryService.SellerGetAll({ UserId: data.UserId });
+    data.Products = await ProductService.VendorGetOwn({ UserId: data.UserId });
+    data.UserCategories = await CategoryService.VendorGetAll({ UserId: data.UserId });
     return Send(res, 200, undefined, page.dataValues);
   },
 
@@ -24,8 +24,8 @@ const Product = {
 
   async home(req, res) {
     const Products = await ProductService.getAllPrdcts();
-    const categories = await CategoryService.getAll();
-    const sellers = await UserService.getAllSellers({ roleId: 2 });
+    const categories = await CategoryService.getAllCats();
+    const sellers = await UserService.getAllVendors({ roleId: 2 });
     const pages = await PageService.getAll();
     return Send(res, 200, undefined, { sellers, pages, categories, Products, });
   },

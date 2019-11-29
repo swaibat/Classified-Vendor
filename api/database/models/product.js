@@ -4,15 +4,14 @@ export default (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     name: DataTypes.STRING,
     UserId: DataTypes.INTEGER,
-    subCategoryId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     description: DataTypes.STRING,
     negotiable: DataTypes.BOOLEAN,
     adons: DataTypes.JSONB
-    
+
   }, {});
-  Product.associate = function(models) {
+  Product.associate = (models) => {
     Product.hasMany(models.productFile, {
       foreignKey: 'ProductId',
       targetKey: 'id',
@@ -23,6 +22,6 @@ export default (sequelize, DataTypes) => {
       },
       onDelete: 'CASCADE',
     });
+  };
+  return Product;
 };
-return Product;
-}

@@ -15,17 +15,16 @@ const ProductService = {
     });
   },
 
-  async get(condition) {
-    const result = await db.Product.findOne({
+  get(condition) {
+    return db.Product.findOne({
       where: condition,
       include: { model: db.productFile,
         attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
     });
-    return result;
   },
 
-  async SellerGetOwn(condition) {
-    const result = await db.Product.findAll({
+  VendorGetOwn(condition) {
+    return db.Product.findAll({
       where: condition,
       include: [
         { model: db.productFile,
@@ -33,17 +32,15 @@ const ProductService = {
             exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
       ]
     });
-    return result;
   },
 
-  async getAllPrdcts() {
-    const result = await db.Product.findAll({
+  getAllPrdcts() {
+    return db.Product.findAll({
       include: [{ model: db.productFile,
         attributes: {
           exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
       ]
     });
-    return result;
   },
 
   async update(product, condition) {
@@ -53,14 +50,13 @@ const ProductService = {
     return result[1];
   },
 
-  async delete(condition) {
-    const result = await db.Product.destroy({ where: condition });
-    return result;
+  delete(condition) {
+    return db.Product.destroy({ where: condition });
   },
 
   getAllCoPrdcts(condition) {
     return db.Product.findAll({
-      where: condition, include: { model: db.productFile }
+      where: condition, include: { model: db.productFile },
     });
   },
 

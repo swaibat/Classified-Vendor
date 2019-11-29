@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: DataTypes.STRING,
@@ -21,11 +19,11 @@ export default (sequelize, DataTypes) => {
     User.hasMany(models.Product, {
       foreignKey: 'UserId',
       targetKey: 'id',
-    })
-    User.hasMany(models.SellerCategory, {
+    });
+    User.hasMany(models.VendorCategory, {
       foreignKey: 'UserId',
       targetKey: 'id',
-    })
+    });
   };
   return User;
 };

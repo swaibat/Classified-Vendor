@@ -10,7 +10,7 @@ const UserService = {
     return result.get({ plain: true });
   },
 
-  getAllSellers(condition) {
+  getAllVendors(condition) {
     return db.User.findAll({ where: condition,
       raw: true,
       attributes: { exclude: 'password' }

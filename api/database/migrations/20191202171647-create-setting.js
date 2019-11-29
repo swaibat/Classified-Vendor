@@ -1,40 +1,44 @@
+
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Users', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Settings', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    firstName: {
+    logo: {
       type: Sequelize.STRING
     },
-    lastName: {
+    slideImg: {
       type: Sequelize.STRING
     },
-    email: {
+    companyName: {
       type: Sequelize.STRING
     },
-    company: {
+    copyrightText: {
       type: Sequelize.STRING
     },
-    address: {
+    customCss: {
       type: Sequelize.STRING
     },
-    telephone: {
+    customJs: {
       type: Sequelize.STRING
     },
-    roleId: {
-      type: Sequelize.INTEGER
-    },
-    avatar: {
+    sgKey: {
       type: Sequelize.STRING
     },
-    password: {
+    emailTemplate: {
       type: Sequelize.STRING
     },
-    lastSeen: {
-      type: Sequelize.DATE
+    googleKeys: {
+      type: Sequelize.STRING
+    },
+    twilo_accountSid: {
+      type: Sequelize.STRING
+    },
+    twilo_authToken: {
+      type: Sequelize.STRING
     },
     createdAt: {
       allowNull: false,
@@ -45,5 +49,5 @@ export default {
       type: Sequelize.DATE
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Users')
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Settings')
 };

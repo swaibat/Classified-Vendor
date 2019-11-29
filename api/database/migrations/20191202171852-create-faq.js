@@ -1,21 +1,15 @@
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('productFiles', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Faqs', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    name: {
+    question: {
       type: Sequelize.STRING
     },
-    ProductId: {
-      type: Sequelize.INTEGER
-    },
-    size: {
-      type: Sequelize.INTEGER
-    },
-    type: {
+    answer: {
       type: Sequelize.STRING
     },
     createdAt: {
@@ -27,5 +21,5 @@ export default {
       type: Sequelize.DATE
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('productFiles')
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Faqs')
 };
