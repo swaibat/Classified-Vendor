@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 export default (sequelize, DataTypes) => {
   const Role = sequelize.define('Role', {
     name: DataTypes.STRING

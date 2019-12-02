@@ -1,15 +1,15 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+
+
+export default (sequelize, DataTypes) => {
   const Page = sequelize.define('Page', {
     CategoryId: DataTypes.INTEGER,
-    SubCategoryId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
     aboutUs: DataTypes.TEXT,
     backdrop: DataTypes.STRING,
     faq: DataTypes.TEXT,
     company: DataTypes.STRING,
   }, {});
-  Page.associate = function(models) {
+  Page.associate = (models) => {
     Page.belongsTo(models.User, {
       foreignKey: {
         allowNull: false,
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     Page.hasMany(models.Product, {
       foreignKey: 'UserId',
       targetKey: 'id',
-    })
+    });
   };
   return Page;
 };

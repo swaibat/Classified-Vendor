@@ -18,25 +18,25 @@ const Requests = {
 
   prodBody(req) {
     const {
-      name, CategoryId, subCategoryId, price, negotiable, description,
+      name, CategoryId, price, negotiable, description,
     } = req.body;
     const data = {
-      name, CategoryId, subCategoryId, price, negotiable, description, UserId: req.user.id
+      name, CategoryId, price, negotiable, description, UserId: req.user.id
     };
     return data;
   },
 
   adons(req) {
-    const { name, CategoryId, subCategoryId, price, negotiable, description, ...data } = req.body;
+    const { name, CategoryId, price, negotiable, description, ...data } = req.body;
     return data;
   },
 
   pageBody(req) {
     const {
-      CategoryId, SubCategoryId, pageTemplateId, UserId, aboutUs, faq, backdrop
+      CategoryId, pageTemplateId, UserId, aboutUs, faq, backdrop
     } = req.body;
     const data = {
-      CategoryId, SubCategoryId, pageTemplateId, UserId, aboutUs, faq, backdrop
+      CategoryId, pageTemplateId, UserId, aboutUs, faq, backdrop
     };
     return data;
   },

@@ -1,6 +1,4 @@
-
-
-module.exports = {
+export default {
   up: (queryInterface) => queryInterface.bulkInsert('Roles', [{
     name: 'admin',
     createdAt: new Date(),

@@ -37,7 +37,6 @@ const Validation = {
     const err = validate(req.body, {
       name: { req: true, min: 4 },
       CategoryId: { req: true, num: true },
-      subCategoryId: { req: true, num: true },
       price: { req: true, num: true, },
       negotiable: { bool: true },
       description: { req: true, min: 10 }
@@ -79,7 +78,6 @@ const Validation = {
   page(req, res, next) {
     const err = validate(req.body, {
       CategoryId: { req: true, num: true },
-      SubCategoryId: { req: true, num: true },
     }, (error) => error);
     if (err) return Send(res, 400, err);
     next();
@@ -90,7 +88,6 @@ const Validation = {
     const err = validate(req.body, {
       name: { min: 4 },
       CategoryId: { num: true },
-      subCategoryId: { num: true },
       price: { num: true, },
       negotiable: { bool: true },
       description: { min: 10 }
@@ -102,7 +99,6 @@ const Validation = {
   updatePage(req, res, next) {
     const err = validate(req.body, {
       CategoryId: { num: true },
-      SubCategoryId: { num: true },
     }, (error) => error);
     if (err) return Send(res, 400, err);
     next();

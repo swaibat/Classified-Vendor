@@ -1,7 +1,6 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const productFile = sequelize.define('productFile', {
-    name:DataTypes.STRING,
+    name: DataTypes.STRING,
     ProductId: {
       type: 'integer',
       onDelete: 'CASCADE',
@@ -14,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     size: DataTypes.INTEGER,
     type: DataTypes.STRING
   }, {});
-  productFile.associate = function(models) {
+  productFile.associate = (models) => {
     productFile.belongsTo(models.Product, {
       foreignKey: {
         allowNull: false,

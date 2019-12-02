@@ -1,11 +1,6 @@
-'use strict';
 
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-      return queryInterface.addColumn('Products', 'SellerCategoryId', Sequelize.INTEGER );
-  },
 
-  down: (queryInterface, Sequelize) => {
-      return queryInterface.removeColumn('Products','SellerCategoryId');
-  }
+export default {
+  up: (queryInterface, Sequelize) => queryInterface.addColumn('Products', 'VendorCategoryId', Sequelize.INTEGER),
+  down: (queryInterface, Sequelize) => queryInterface.removeColumn('Products', 'VendorCategoryId')
 };
