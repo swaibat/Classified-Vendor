@@ -35,12 +35,84 @@ describe('create Page', () => {
         done();
       });
   });
+  it('get page by company', (done) => {
+    chai.request(app)
+      .get('/pages/vendly')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+  it('get page by company', (done) => {
+    chai.request(app)
+      .get('/pages/vens')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('web page not found');
+        done();
+      });
+  });
+  it('update a page', (done) => {
+    chai.request(app)
+      .patch('/pages')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 3)}`)
+      .send(page.data1)
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.status.should.eql(201);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('page updated successfully');
+        done();
+      });
+  });
 
-  it('get one page', (done) => {
+  it('update a page', (done) => {
+    chai.request(app)
+      .patch('/pages')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('buyer@vendly.com', 3)}`)
+      .send(page.data1)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('page not found');
+        done();
+      });
+  });
+  it('validate update a page', (done) => {
+    chai.request(app)
+      .patch('/pages')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 3)}`)
+      .send({ CategoryId: 'hdhdhd' })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.status.should.eql(400);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('CategoryId should be an integer');
+        done();
+      });
+  });
+  it('get all pages', (done) => {
+    chai.request(app)
+      .get('/pages')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+  it('home page', (done) => {
     chai.request(app)
       .get('/')
       .end((err, res) => {
-        res;
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
         done();
       });
   });

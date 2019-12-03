@@ -11,7 +11,7 @@ const Product = {
     if (!page) return Send(res, 404, 'web page not found',);
     const data = page.dataValues;
     data.Products = await ProductService.VendorGetOwn({ UserId: data.UserId });
-    data.UserCategories = await CategoryService.VendorGetAll({ UserId: data.UserId });
+    data.UserCategories = await CategoryService.getVendorCats({ UserId: data.UserId });
     return Send(res, 200, undefined, page.dataValues);
   },
 
