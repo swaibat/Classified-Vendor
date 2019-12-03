@@ -1,5 +1,10 @@
 import sgMail from '@sendgrid/mail';
+import settingService from '../services/settings.service';
+import '@babel/polyfill';
 
-!process.env.NODE_ENV ? sgMail.setApiKey(process.env.SENDGRID_API_KEY) : '';
+const settings = async () => {
+  const { sgKey } = await settingService.get({ id: 1 });
+  return sgKey;
+};
 
-export default sgMail;
+export default settings();

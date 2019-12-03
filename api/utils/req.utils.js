@@ -61,6 +61,18 @@ const Requests = {
       }
     }
     return updateData;
+  },
+
+  updateFaqBody(req) {
+    const updateData = {};
+    const { question, answer } = req.body;
+    const data = { question, answer };
+    for (const key in data) {
+      if (data[key]) {
+        updateData[key] = data[key];
+      }
+    }
+    return updateData;
   }
 };
 

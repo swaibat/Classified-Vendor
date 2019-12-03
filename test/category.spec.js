@@ -60,6 +60,19 @@ describe('ADMIN create categorys', () => {
         done();
       });
   });
+  it('Should validate', (done) => {
+    chai.request(app)
+      .post('/categorys')
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .send({})
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.status.should.eql(400);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('name is required');
+        done();
+      });
+  });
 });
 
 describe('SELLER create category', () => {
@@ -95,6 +108,16 @@ describe('GET product by category', () => {
   it('Should Delete product', (done) => {
     chai.request(app)
       .get('/categorys/1')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+  it('Should Delete product', (done) => {
+    chai.request(app)
+      .get('/categorys/company/vendly')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.status.should.eql(200);

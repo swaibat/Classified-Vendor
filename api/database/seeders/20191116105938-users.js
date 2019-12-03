@@ -30,7 +30,7 @@ export default {
     lastName: 'buyer',
     email: 'buyer@vendly.com',
     password,
-    company: 'vendly',
+    company: 'bounty',
     roleId: 3,
     telephone: '0758307272',
     address: 'kampala',

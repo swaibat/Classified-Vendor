@@ -1,8 +1,9 @@
+import sgMail from '@sendgrid/mail';
 import Send from '../utils/res.utils';
 import Request from '../utils/req.utils';
 import UserService from '../services/user.service';
 import EmailService from '../services/email.service';
-import sgMail from '../config';
+import sgKey from '../config';
 import AuthHelper from '../utils/auth.utils';
 
 const User = {
@@ -13,8 +14,10 @@ const User = {
     return Send(res, 201, 'Account created successfully', data);
   },
 
-  verifyEmail(req, res) {
+  async verifyEmail(req, res) {
     const email = { ...EmailService.verifyUser(req, res), to: req.body.email };
+    const keys = await sgKey;
+    sgMail.setApiKey(keys);
     sgMail.send(email);
     return Send(res, 200, `verification instructions sent to ${req.body.email}`);
   },

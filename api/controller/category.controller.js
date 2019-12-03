@@ -8,12 +8,10 @@ const Product = {
     return Send(res, 200, undefined, Categories(categorys));
   },
 
-
   async getVendorCats(req, res) {
     const categorys = await CategoryService.getVendorCats({ UserId: req.user.id });
     return Send(res, 200, undefined, categorys);
   },
-
 
   async create(req, res) {
     const category = req.user.roleId === 1
