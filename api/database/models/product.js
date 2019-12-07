@@ -1,26 +1,29 @@
 /* eslint-disable no-unused-vars */
 
 export default (sequelize, DataTypes) => {
-  const Product = sequelize.define('Product', {
-    name: DataTypes.STRING,
-    UserId: DataTypes.INTEGER,
-    CategoryId: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
-    description: DataTypes.STRING,
-    negotiable: DataTypes.BOOLEAN,
-    adons: DataTypes.JSONB
-
-  }, {});
-  Product.associate = (models) => {
+  const Product = sequelize.define(
+    'Product',
+    {
+      name: DataTypes.STRING,
+      UserId: DataTypes.INTEGER,
+      CategoryId: DataTypes.INTEGER,
+      price: DataTypes.INTEGER,
+      description: DataTypes.STRING,
+      negotiable: DataTypes.BOOLEAN,
+      adons: DataTypes.JSONB
+    },
+    {}
+  );
+  Product.associate = models => {
     Product.hasMany(models.productFile, {
       foreignKey: 'ProductId',
-      targetKey: 'id',
+      targetKey: 'id'
     });
     Product.belongsTo(models.User, {
       foreignKey: {
-        allowNull: false,
+        allowNull: false
       },
-      onDelete: 'CASCADE',
+      onDelete: 'CASCADE'
     });
   };
   return Product;

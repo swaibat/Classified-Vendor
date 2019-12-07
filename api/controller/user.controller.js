@@ -19,7 +19,11 @@ const User = {
     const keys = await sgKey;
     sgMail.setApiKey(keys);
     sgMail.send(email);
-    return Send(res, 200, `verification instructions sent to ${req.body.email}`);
+    return Send(
+      res,
+      200,
+      `verification instructions sent to ${req.body.email}`
+    );
   },
 
   signin(req, res) {
@@ -28,6 +32,23 @@ const User = {
     return Send(res, 200, 'login successful', { token });
   },
 
+  async getUsers(req, res) {
+    const users = await UserService.getAllUsers();
+    return Send(res, 200, undefined, users);
+  },
+
+  async getUser(req, res) {
+    const user = await UserService.getUser({ id: req.params.id });
+    return Send(res, 200, undefined, user);
+  },
+
+  async updateUser(req, res) {
+    const updateData = Request.updateUserBody(req);
+    const user = await UserService.updateUser(updateData, {
+      id: req.params.id
+    });
+    return Send(res, 200, undefined, user);
+  }
 };
 
 export default User;

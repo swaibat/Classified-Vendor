@@ -22,9 +22,8 @@ const Faq = {
 
   async delete(req, res) {
     FaqService.delete({ id: req.params.id });
-    return Send(res, 201, 'question deleted successfully',);
-  },
-
+    return Send(res, 201, 'question deleted successfully');
+  }
 };
 
 export default Faq;

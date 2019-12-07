@@ -31,7 +31,7 @@ const users = {
   },
   wrongData2: {
     email: 'admins@gmail.com',
-    password: 'Kanyanyama01%',
+    password: 'Kanyanyama01%'
   }
 };
 

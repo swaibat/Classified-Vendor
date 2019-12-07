@@ -8,8 +8,9 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('GET categorys', () => {
-  it('Should get all categories', (done) => {
-    chai.request(app)
+  it('Should get all categories', done => {
+    chai
+      .request(app)
       .get('/categorys')
       .end((err, res) => {
         res.should.have.status(200);
@@ -21,10 +22,14 @@ describe('GET categorys', () => {
 });
 
 describe('ADMIN create categorys', () => {
-  it('Should create category', (done) => {
-    chai.request(app)
+  it('Should create category', done => {
+    chai
+      .request(app)
       .post('/categorys')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
         res.should.have.status(201);
@@ -34,10 +39,14 @@ describe('ADMIN create categorys', () => {
         done();
       });
   });
-  it('Should check if category exists', (done) => {
-    chai.request(app)
+  it('Should check if category exists', done => {
+    chai
+      .request(app)
       .post('/categorys')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
         res.should.have.status(409);
@@ -47,10 +56,14 @@ describe('ADMIN create categorys', () => {
         done();
       });
   });
-  it('Should check for role', (done) => {
-    chai.request(app)
+  it('Should check for role', done => {
+    chai
+      .request(app)
       .post('/categorys')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('buyer@vendly.com', 3)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('buyer@vendly.com', 3)}`
+      )
       .send({ name: 'Example 2' })
       .end((err, res) => {
         res.should.have.status(401);
@@ -60,10 +73,14 @@ describe('ADMIN create categorys', () => {
         done();
       });
   });
-  it('Should validate', (done) => {
-    chai.request(app)
+  it('Should validate', done => {
+    chai
+      .request(app)
       .post('/categorys')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .send({})
       .end((err, res) => {
         res.should.have.status(400);
@@ -76,10 +93,14 @@ describe('ADMIN create categorys', () => {
 });
 
 describe('SELLER create category', () => {
-  it('Should create category', (done) => {
-    chai.request(app)
+  it('Should create category', done => {
+    chai
+      .request(app)
       .post('/categorys')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
+      )
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
         res.should.have.status(201);
@@ -89,10 +110,14 @@ describe('SELLER create category', () => {
         done();
       });
   });
-  it('Should check if category exists', (done) => {
-    chai.request(app)
+  it('Should check if category exists', done => {
+    chai
+      .request(app)
       .post('/categorys')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
+      )
       .send({ name: 'Auto Spur' })
       .end((err, res) => {
         res.should.have.status(409);
@@ -105,8 +130,9 @@ describe('SELLER create category', () => {
 });
 
 describe('GET product by category', () => {
-  it('Should Delete product', (done) => {
-    chai.request(app)
+  it('Should Delete product', done => {
+    chai
+      .request(app)
       .get('/categorys/1')
       .end((err, res) => {
         res.should.have.status(200);
@@ -115,8 +141,9 @@ describe('GET product by category', () => {
         done();
       });
   });
-  it('Should Delete product', (done) => {
-    chai.request(app)
+  it('Should Delete product', done => {
+    chai
+      .request(app)
       .get('/categorys/company/vendly')
       .end((err, res) => {
         res.should.have.status(200);

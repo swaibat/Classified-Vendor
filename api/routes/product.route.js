@@ -9,41 +9,51 @@ const router = express.Router();
 
 router.use(fileUpload());
 
-router.post('/',
+router.post(
+  '/',
   userMiddleware.verifyToken,
   Validate.product,
   Validate.images,
-  productController.create);
+  productController.create
+);
 
-router.get('/',
-  productController.getAll);
+router.get('/', productController.getAll);
 
-router.get('/company/:co',
+router.get(
+  '/company/:co',
   userMiddleware.getCoByUser,
-  productController.getAllCoPrdcts);
+  productController.getAllCoPrdcts
+);
 
-router.get('/:id/company/:co',
+router.get(
+  '/:id/company/:co',
   userMiddleware.getCoByUser,
-  productController.getCoPrdct);
+  productController.getCoPrdct
+);
 
-router.patch('/:id',
+router.patch(
+  '/:id',
   userMiddleware.verifyToken,
   Validate.params,
   Validate.updateProduct,
   ProductMiddleware.checkExist,
   Validate.images,
-  productController.update);
+  productController.update
+);
 
-router.get('/:id',
+router.get(
+  '/:id',
   Validate.params,
   ProductMiddleware.checkExist,
-  productController.getOne);
+  productController.getOne
+);
 
-router.delete('/:id',
+router.delete(
+  '/:id',
   userMiddleware.verifyToken,
   Validate.params,
   ProductMiddleware.checkExist,
-  productController.delete);
-
+  productController.delete
+);
 
 export default router;

@@ -5,16 +5,16 @@ module.exports = {
   production: {
     use_env_variable: 'DATABASE_URL',
     dialect: 'postgres',
-    logging: false,
+    logging: false
   },
   development: {
     use_env_variable: 'DATABASE_URL',
     dialect: 'postgres',
-    logging: false,
+    logging: false
   },
   test: {
     use_env_variable: 'TEST_DB',
     dialect: 'postgres',
-    logging: false,
+    logging: false
   }
 };

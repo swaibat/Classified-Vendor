@@ -8,21 +8,27 @@ const router = express.Router();
 
 router.get('/', FaqController.getFaqs);
 
-router.post('/',
+router.post(
+  '/',
   userMiddleware.verifyToken,
   FaqMiddleware.checkFaqExist,
-  FaqController.create);
+  FaqController.create
+);
 
-router.patch('/:id',
+router.patch(
+  '/:id',
   Validate.params,
   userMiddleware.verifyToken,
   FaqMiddleware.checkNoFaqExist,
-  FaqController.update);
+  FaqController.update
+);
 
-router.delete('/:id',
+router.delete(
+  '/:id',
   Validate.params,
   userMiddleware.verifyToken,
   FaqMiddleware.checkNoFaqExist,
-  FaqController.delete);
+  FaqController.delete
+);
 
 export default router;

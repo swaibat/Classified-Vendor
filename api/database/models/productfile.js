@@ -1,24 +1,28 @@
 export default (sequelize, DataTypes) => {
-  const productFile = sequelize.define('productFile', {
-    name: DataTypes.STRING,
-    ProductId: {
-      type: 'integer',
-      onDelete: 'CASCADE',
-      allowNull: false,
-      references: {
-        model: 'Product',
-        key: 'id',
+  const productFile = sequelize.define(
+    'productFile',
+    {
+      name: DataTypes.STRING,
+      ProductId: {
+        type: 'integer',
+        onDelete: 'CASCADE',
+        allowNull: false,
+        references: {
+          model: 'Product',
+          key: 'id'
+        }
       },
+      size: DataTypes.INTEGER,
+      type: DataTypes.STRING
     },
-    size: DataTypes.INTEGER,
-    type: DataTypes.STRING
-  }, {});
-  productFile.associate = (models) => {
+    {}
+  );
+  productFile.associate = models => {
     productFile.belongsTo(models.Product, {
       foreignKey: {
-        allowNull: false,
+        allowNull: false
       },
-      onDelete: 'CASCADE',
+      onDelete: 'CASCADE'
     });
   };
   return productFile;

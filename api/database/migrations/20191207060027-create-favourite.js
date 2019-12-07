@@ -1,14 +1,17 @@
 export default {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Roles', {
+    return queryInterface.createTable('Favourites', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      UserId: {
+        type: Sequelize.INTEGER
+      },
+      ProductId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -20,5 +23,5 @@ export default {
       }
     });
   },
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Roles')
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Favourites')
 };

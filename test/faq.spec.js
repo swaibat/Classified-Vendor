@@ -9,10 +9,14 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('FAQ', () => {
-  it('Should create new fAQ', (done) => {
-    chai.request(app)
+  it('Should create new fAQ', done => {
+    chai
+      .request(app)
       .post('/faqs')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .send({ question: 'hello', answer: 'world' })
       .end((err, res) => {
         res.should.have.status(201);
@@ -23,10 +27,14 @@ describe('FAQ', () => {
       });
   });
 
-  it('Should check if qestion already exists', (done) => {
-    chai.request(app)
+  it('Should check if qestion already exists', done => {
+    chai
+      .request(app)
       .post('/faqs')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .send({ question: 'hello', answer: 'world' })
       .end((err, res) => {
         res.should.have.status(409);
@@ -36,10 +44,14 @@ describe('FAQ', () => {
         done();
       });
   });
-  it('Should update existing fAQ', (done) => {
-    chai.request(app)
+  it('Should update existing fAQ', done => {
+    chai
+      .request(app)
       .patch('/faqs/1')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .send({ question: 'hellos', answer: 'world' })
       .end((err, res) => {
         res.should.have.status(201);
@@ -49,8 +61,9 @@ describe('FAQ', () => {
         done();
       });
   });
-  it('get faq', (done) => {
-    chai.request(app)
+  it('get faq', done => {
+    chai
+      .request(app)
       .get('/faqs')
       .end((err, res) => {
         res.should.have.status(200);
@@ -61,10 +74,14 @@ describe('FAQ', () => {
         done();
       });
   });
-  it('delete one faq', (done) => {
-    chai.request(app)
+  it('delete one faq', done => {
+    chai
+      .request(app)
       .delete('/faqs/1')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .end((err, res) => {
         res.should.have.status(201);
         res.body.status.should.eql(201);
@@ -73,10 +90,14 @@ describe('FAQ', () => {
         done();
       });
   });
-  it('delete one faq not found', (done) => {
-    chai.request(app)
+  it('delete one faq not found', done => {
+    chai
+      .request(app)
       .delete('/faqs/55')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .end((err, res) => {
         res.should.have.status(404);
         res.body.status.should.eql(404);

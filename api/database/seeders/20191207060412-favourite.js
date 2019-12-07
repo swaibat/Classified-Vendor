@@ -1,11 +1,11 @@
-export default {
+module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      'Settings',
+      'Favourites',
       [
         {
-          sgKey:
-            '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',
+          UserId: 1,
+          ProductId: 2,
           createdAt: new Date(),
           updatedAt: new Date()
         }
@@ -15,6 +15,6 @@ export default {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Settings', null, {});
+    return queryInterface.bulkDelete('Favourites', null, {});
   }
 };

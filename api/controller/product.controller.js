@@ -7,18 +7,23 @@ const { Op } = Sequelize;
 
 const Product = {
   async create(req, res) {
-    const reqData = ({ ...Get.prodBody(req), adons: Get.adons(req) });
+    const reqData = { ...Get.prodBody(req), adons: Get.adons(req) };
     const product = await ProductService.create(reqData);
-    req.files.map(async (image) => { await ProductService.postImages(image, product.id); });
+    req.files.map(async image => {
+      await ProductService.postImages(image, product.id);
+    });
     return Send(res, 201, 'product created successfully', product);
   },
 
   async update(req, res) {
     const updateData = Get.updateProdBody(req);
     const product = await ProductService.update(updateData, {
-      UserId: req.user.id, id: req.params.id
+      UserId: req.user.id,
+      id: req.params.id
     });
-    req.files.map(async (image) => { await ProductService.postImages(image, product.id); });
+    req.files.map(async image => {
+      await ProductService.postImages(image, product.id);
+    });
     return Send(res, 201, 'product updated successfully', product);
   },
 
@@ -37,13 +42,18 @@ const Product = {
   },
 
   async getAllCoPrdcts(req, res) {
-    const Products = await ProductService.getAllCoPrdcts({ UserId: req.user.id });
+    const Products = await ProductService.getAllCoPrdcts({
+      UserId: req.user.id
+    });
     return Send(res, 200, undefined, Products);
   },
 
   async getCoPrdct(req, res) {
     const { user, params } = req;
-    const product = await ProductService.getCoPrdct({ UserId: user.id, id: params.id });
+    const product = await ProductService.getCoPrdct({
+      UserId: user.id,
+      id: params.id
+    });
     return Send(res, 200, undefined, product);
   },
 
@@ -53,7 +63,7 @@ const Product = {
       [Op.or]: category
     });
     return Send(res, 200, undefined, Products);
-  },
+  }
 };
 
 export default Product;

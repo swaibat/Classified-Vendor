@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 
-export default (categorys) => {
+export default categorys => {
   const categories = [];
   const subCategories = [];
   categorys.map(cat => {

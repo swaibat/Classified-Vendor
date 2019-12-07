@@ -13,16 +13,18 @@ const authHelper = {
   getToken(req) {
     const bearerHeader = req.headers.authorization;
     const token = bearerHeader ? bearerHeader.split(' ')[1] : '';
-    return (req.params.token || token);
+    return req.params.token || token;
   },
 
   decodeToken(token, cb) {
-    return jwt.verify(token, process.env.APP_KEY, (err, decoded) => cb(err, decoded));
+    return jwt.verify(token, process.env.APP_KEY, (err, decoded) => {
+      return cb(err, decoded);
+    });
   },
 
   comparePassword(password, hash) {
     return bcrypt.compareSync(password, hash, (err, res) => res);
-  },
+  }
 };
 
 export default authHelper;
