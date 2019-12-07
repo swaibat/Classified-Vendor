@@ -11,15 +11,20 @@ const ProductService = {
   postImages(img, ProductId) {
     const { name, size, mimetype } = img;
     return db.productFile.create({
-      name, size, type: mimetype, ProductId
+      name,
+      size,
+      type: mimetype,
+      ProductId
     });
   },
 
   get(condition) {
     return db.Product.findOne({
       where: condition,
-      include: { model: db.productFile,
-        attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
+      include: {
+        model: db.productFile,
+        attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] }
+      }
     });
   },
 
@@ -27,25 +32,35 @@ const ProductService = {
     return db.Product.findAll({
       where: condition,
       include: [
-        { model: db.productFile,
+        {
+          model: db.productFile,
           attributes: {
-            exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
+            exclude: ['createdAt', 'updatedAt', 'ProductId']
+          }
+        }
       ]
     });
   },
 
   getAllPrdcts() {
     return db.Product.findAll({
-      include: [{ model: db.productFile,
-        attributes: {
-          exclude: ['createdAt', 'updatedAt', 'ProductId'] } },
+      include: [
+        {
+          model: db.productFile,
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'ProductId']
+          }
+        }
       ]
     });
   },
 
   async update(product, condition) {
     const result = await db.Product.update(product, {
-      where: condition, returning: true, raw: true, plain: true
+      where: condition,
+      returning: true,
+      raw: true,
+      plain: true
     });
     return result[1];
   },
@@ -56,16 +71,17 @@ const ProductService = {
 
   getAllCoPrdcts(condition) {
     return db.Product.findAll({
-      where: condition, include: { model: db.productFile },
+      where: condition,
+      include: { model: db.productFile }
     });
   },
 
   getCoPrdct(condition) {
     return db.Product.findOne({
-      where: condition, include: { model: db.productFile }
+      where: condition,
+      include: { model: db.productFile }
     });
   }
-
 };
 
 export default ProductService;

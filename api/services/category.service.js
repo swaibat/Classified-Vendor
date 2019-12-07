@@ -2,7 +2,8 @@ import db from '../database/models';
 
 const CategoryService = {
   getAllCats(condition) {
-    return db.Category.findAll({ where: condition,
+    return db.Category.findAll({
+      where: condition,
       raw: true,
       attributes: { exclude: ['createdAt', 'updatedAt'] }
     });
@@ -26,7 +27,7 @@ const CategoryService = {
 
   sellerCreate(data) {
     return db.VendorCategory.create(data);
-  },
+  }
 };
 
 export default CategoryService;

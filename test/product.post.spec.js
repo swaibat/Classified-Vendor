@@ -9,10 +9,14 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('create product', () => {
-  it('Should create new product', (done) => {
-    chai.request(app)
+  it('Should create new product', done => {
+    chai
+      .request(app)
       .post('/products')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .attach('images', 'test/data/1.jpg')
@@ -25,10 +29,14 @@ describe('create product', () => {
         done();
       });
   });
-  it('Should create new product', (done) => {
-    chai.request(app)
+  it('Should create new product', done => {
+    chai
+      .request(app)
       .post('/products')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .set('Content-Type', 'multipart/form-data')
       .field({ name: 'hello' })
       .attach('images', 'test/data/1.jpg')
@@ -41,10 +49,14 @@ describe('create product', () => {
       });
   });
 
-  it('Should create new product', (done) => {
-    chai.request(app)
+  it('Should create new product', done => {
+    chai
+      .request(app)
       .post('/products')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .end((err, res) => {
@@ -55,10 +67,14 @@ describe('create product', () => {
         done();
       });
   });
-  it('Should create new product', (done) => {
-    chai.request(app)
+  it('Should create new product', done => {
+    chai
+      .request(app)
       .post('/products')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .end((err, res) => {
@@ -69,10 +85,14 @@ describe('create product', () => {
         done();
       });
   });
-  it('Should throw invalid image error', (done) => {
-    chai.request(app)
+  it('Should throw invalid image error', done => {
+    chai
+      .request(app)
       .post('/products')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .attach('images', 'test/data/1.mp3')
@@ -87,10 +107,14 @@ describe('create product', () => {
 });
 
 describe('Update product', () => {
-  it('Should update product', (done) => {
-    chai.request(app)
+  it('Should update product', done => {
+    chai
+      .request(app)
       .patch('/products/1')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
+      )
       .field(product.data1)
       .attach('images', 'test/data/1.jpg')
       .end((err, res) => {
@@ -102,10 +126,14 @@ describe('Update product', () => {
         done();
       });
   });
-  it('Should create new product', (done) => {
-    chai.request(app)
+  it('Should create new product', done => {
+    chai
+      .request(app)
       .patch('/products/1')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
+      )
       .set('Content-Type', 'multipart/form-data')
       .field({ CategoryId: 'hello' })
       .end((err, res) => {
@@ -116,10 +144,14 @@ describe('Update product', () => {
         done();
       });
   });
-  it('Should throw invalid image error', (done) => {
-    chai.request(app)
+  it('Should throw invalid image error', done => {
+    chai
+      .request(app)
       .patch('/products/1')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
+      )
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .attach('images', 'test/data/1.mp3')
@@ -134,8 +166,9 @@ describe('Update product', () => {
 });
 
 describe('GET product', () => {
-  it('Should get product', (done) => {
-    chai.request(app)
+  it('Should get product', done => {
+    chai
+      .request(app)
       .get('/products/1')
       .end((err, res) => {
         res.should.have.status(200);
@@ -145,8 +178,9 @@ describe('GET product', () => {
         done();
       });
   });
-  it('Should validate invalid parameter', (done) => {
-    chai.request(app)
+  it('Should validate invalid parameter', done => {
+    chai
+      .request(app)
       .get('/products/tt')
       .end((err, res) => {
         res.should.have.status(400);
@@ -156,8 +190,9 @@ describe('GET product', () => {
         done();
       });
   });
-  it('Should check not found product', (done) => {
-    chai.request(app)
+  it('Should check not found product', done => {
+    chai
+      .request(app)
       .get('/products/55')
       .end((err, res) => {
         res.should.have.status(404);
@@ -167,8 +202,9 @@ describe('GET product', () => {
         done();
       });
   });
-  it('Should getall product', (done) => {
-    chai.request(app)
+  it('Should getall product', done => {
+    chai
+      .request(app)
       .get('/products')
       .end((err, res) => {
         res.should.have.status(200);
@@ -181,10 +217,14 @@ describe('GET product', () => {
 });
 
 describe('DELETE product', () => {
-  it('Should Delete product', (done) => {
-    chai.request(app)
+  it('Should Delete product', done => {
+    chai
+      .request(app)
       .delete('/products/2')
-      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
+      )
       .end((err, res) => {
         res.should.have.status(200);
         res.body.status.should.eql(200);
@@ -196,8 +236,9 @@ describe('DELETE product', () => {
 });
 
 describe('GET SELLER product', () => {
-  it('GET products by company name', (done) => {
-    chai.request(app)
+  it('GET products by company name', done => {
+    chai
+      .request(app)
       .get('/products/company/vendly')
       .end((err, res) => {
         res.should.have.status(200);
@@ -207,8 +248,9 @@ describe('GET SELLER product', () => {
         done();
       });
   });
-  it('GET company products by id', (done) => {
-    chai.request(app)
+  it('GET company products by id', done => {
+    chai
+      .request(app)
       .get('/products/1/company/vendly')
       .end((err, res) => {
         res.should.have.status(200);
@@ -218,8 +260,9 @@ describe('GET SELLER product', () => {
       });
   });
 
-  it('check if no company', (done) => {
-    chai.request(app)
+  it('check if no company', done => {
+    chai
+      .request(app)
       .get('/products/1/company/vend')
       .end((err, res) => {
         res.should.have.status(404);

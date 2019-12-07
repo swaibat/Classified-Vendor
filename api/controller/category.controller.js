@@ -9,16 +9,22 @@ const Product = {
   },
 
   async getVendorCats(req, res) {
-    const categorys = await CategoryService.getVendorCats({ UserId: req.user.id });
+    const categorys = await CategoryService.getVendorCats({
+      UserId: req.user.id
+    });
     return Send(res, 200, undefined, categorys);
   },
 
   async create(req, res) {
-    const category = req.user.roleId === 1
-      ? await CategoryService.create({ name: req.body.name })
-      : await CategoryService.sellerCreate({ name: req.body.name, UserId: req.user.id });
+    const category =
+      req.user.roleId === 1
+        ? await CategoryService.create({ name: req.body.name })
+        : await CategoryService.sellerCreate({
+            name: req.body.name,
+            UserId: req.user.id
+          });
     return Send(res, 201, 'Category created successfully', category);
-  },
+  }
 };
 
 export default Product;

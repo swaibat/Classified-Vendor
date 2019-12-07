@@ -15,7 +15,10 @@ const FaqService = {
 
   async update(data, condition) {
     const faq = await db.Faq.update(data, {
-      where: condition, returning: true, raw: true, plain: true
+      where: condition,
+      returning: true,
+      raw: true,
+      plain: true
     });
     return faq[1];
   },

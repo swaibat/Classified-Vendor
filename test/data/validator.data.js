@@ -9,5 +9,5 @@ export default {
   phone: 'hdhdhdhhdhd',
   password2: 'hdhdhdh',
   password3: '**  *',
-  doors: 1,
+  doors: 1
 };

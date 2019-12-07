@@ -4,6 +4,7 @@ import productRouter from './product.route';
 import CategoryRouter from './category.route';
 import PagesRouter from './page.route';
 import FaqRouter from './faq.route';
+import FavRouter from './favourite.route';
 import all from '../controller/page.controller';
 
 const app = express.Router();
@@ -14,6 +15,6 @@ app.use('/products', productRouter);
 app.use('/categorys', CategoryRouter);
 app.use('/pages', PagesRouter);
 app.use('/faqs', FaqRouter);
-
+app.use('/favourite', FavRouter);
 
 export default app;

@@ -5,21 +5,52 @@ import Validate from '../validation';
 
 const router = express.Router();
 
-router.post('/verify',
+router.post(
+  '/verify',
   Validate.verify,
   UserMiddleware.checkuserExist,
-  UserController.verifyEmail);
+  UserController.verifyEmail
+);
 
-router.post('/register/:token',
+router.post(
+  '/register/:token',
   Validate.signup,
   UserMiddleware.verifyToken,
   UserMiddleware.checkCoExist,
   UserMiddleware.checkuserExist,
-  UserController.signup);
+  UserController.signup
+);
 
-router.post('/login',
+router.post(
+  '/login',
   Validate.sigin,
   UserMiddleware.getUserDetails,
-  UserController.signin);
+  UserController.signin
+);
+
+router.get(
+  '/',
+  UserMiddleware.verifyToken,
+  UserMiddleware.checkAdminRole,
+  UserController.getUsers
+);
+
+router.get(
+  '/:id/profile',
+  Validate.params,
+  UserMiddleware.verifyToken,
+  UserMiddleware.getUserById,
+  UserMiddleware.checkIfOwner,
+  UserController.getUser
+);
+
+router.patch(
+  '/:id/profile',
+  Validate.params,
+  UserMiddleware.verifyToken,
+  UserMiddleware.getUserById,
+  UserMiddleware.checkIfOwner,
+  UserController.updateUser
+);
 
 export default router;

@@ -12,16 +12,20 @@ router.get('/', PageController.getPages);
 
 router.get('/:co', PageController.get);
 
-router.post('/',
+router.post(
+  '/',
   Validate.page,
   userMiddleware.verifyToken,
   PageMiddleware.checkCoExist,
-  PageController.create);
+  PageController.create
+);
 
-router.patch('/',
+router.patch(
+  '/',
   Validate.updatePage,
   userMiddleware.verifyToken,
   PageMiddleware.checkCoNoExist,
-  PageController.update);
+  PageController.update
+);
 
 export default router;

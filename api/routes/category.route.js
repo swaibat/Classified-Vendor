@@ -9,26 +9,33 @@ const router = express.Router();
 
 router.get('/', CategoryController.getCatAll);
 
-router.get('/company/:co',
+router.get(
+  '/company/:co',
   UserMiddleware.getCoByUser,
-  CategoryController.getVendorCats);
+  CategoryController.getVendorCats
+);
 
-router.get('/company/:co/:id',
+router.get(
+  '/company/:co/:id',
   Validate.params,
   CategoryMiddleware.checkCategoryExists,
-  ProductController.getPrdctsByCat);
+  ProductController.getPrdctsByCat
+);
 
-router.get('/:id',
+router.get(
+  '/:id',
   Validate.params,
   CategoryMiddleware.checkCategoryExists,
-  ProductController.getPrdctsByCat);
+  ProductController.getPrdctsByCat
+);
 
-router.post('/',
+router.post(
+  '/',
   UserMiddleware.verifyToken,
   UserMiddleware.checkRole,
   Validate.category,
   CategoryMiddleware.checkExist,
-  CategoryController.create);
-
+  CategoryController.create
+);
 
 export default router;
