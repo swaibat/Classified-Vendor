@@ -4,3 +4,7 @@ package-lock.json
 .vscode
 .env
 api/uploads/products/**
+coverage
+test/data/.DS_Store
+test/.DS_Store
+.DS_Store

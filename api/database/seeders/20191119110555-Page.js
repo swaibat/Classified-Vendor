@@ -5,7 +5,7 @@ export default {
       [
         {
           CategoryId: 7,
-          UserId: 2,
+          UserId: 1,
           aboutUs: 'lorem ipsum',
           backdrop: null,
           faq: 'lorem ipsum',

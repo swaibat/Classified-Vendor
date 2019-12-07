@@ -31,17 +31,15 @@ const UserMiddleware = {
   },
 
   async checkRole(req, res, next) {
-    if (req.user) {
-      if (req.user.roleId === 3)
-        return Send(res, 401, 'Not allowed to perform this operation');
+    if (req.user && req.user.roleId === 3) {
+      return Send(res, 401, 'Not allowed to perform this operation');
     }
     next();
   },
 
   async checkAdminRole(req, res, next) {
-    if (req.user) {
-      if (req.user.roleId !== 1)
-        return Send(res, 401, 'Not allowed to perform this operation');
+    if (req.user && req.user.roleId !== 1) {
+      return Send(res, 401, 'Not allowed to perform this operation');
     }
     next();
   },

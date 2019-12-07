@@ -9,6 +9,25 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('FAQ', () => {
+  before(() => {
+    chai
+      .request(app)
+      .delete('/faqs/1')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      );
+  });
+  it('get faq', done => {
+    chai
+      .request(app)
+      .get('/faqs')
+      .end((err, res) => {
+        res.body.should.be.a('object');
+        res.body.message.should.eql('Oops no results found');
+        done();
+      });
+  });
   it('Should create new fAQ', done => {
     chai
       .request(app)
@@ -26,7 +45,23 @@ describe('FAQ', () => {
         done();
       });
   });
-
+  it('Should create new fAQ', done => {
+    chai
+      .request(app)
+      .post('/faqs')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
+      .send({ question: 'hello' })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.status.should.eql(400);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('answer is required');
+        done();
+      });
+  });
   it('Should check if qestion already exists', done => {
     chai
       .request(app)
@@ -61,16 +96,20 @@ describe('FAQ', () => {
         done();
       });
   });
-  it('get faq', done => {
+  it('Should update existing fAQ', done => {
     chai
       .request(app)
-      .get('/faqs')
+      .patch('/faqs/1')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
+      .send({ question: 'hellos' })
       .end((err, res) => {
-        res.should.have.status(200);
-        res.body.status.should.eql(200);
+        res.should.have.status(201);
+        res.body.status.should.eql(201);
         res.body.should.be.a('object');
-        res.body.data[0].should.have.property('question');
-        res.body.data[0].should.have.property('answer');
+        res.body.message.should.eql('question updated successfully');
         done();
       });
   });
