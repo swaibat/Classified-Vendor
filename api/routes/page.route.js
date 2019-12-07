@@ -16,6 +16,7 @@ router.post(
   '/',
   Validate.page,
   userMiddleware.verifyToken,
+  userMiddleware.checkRole,
   PageMiddleware.checkCoExist,
   PageController.create
 );

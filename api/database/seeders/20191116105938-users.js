@@ -21,7 +21,7 @@ export default {
           lastName: 'seller',
           email: 'seller@vendly.com',
           password,
-          company: 'vendly',
+          company: 'mambo',
           roleId: 2,
           telephone: '0758307272',
           address: 'kampala',

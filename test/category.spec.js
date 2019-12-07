@@ -133,6 +133,18 @@ describe('GET product by category', () => {
   it('Should Delete product', done => {
     chai
       .request(app)
+      .get('/categorys/99')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('Oops no results found');
+        done();
+      });
+  });
+  it('Should Delete product', done => {
+    chai
+      .request(app)
       .get('/categorys/1')
       .end((err, res) => {
         res.should.have.status(200);
@@ -149,6 +161,30 @@ describe('GET product by category', () => {
         res.should.have.status(200);
         res.body.status.should.eql(200);
         res.body.should.be.a('object');
+        done();
+      });
+  });
+  // it('Should not find category in a company', done => {
+  //   chai
+  //     .request(app)
+  //     .get('/categorys/company/vendly/1')
+  //     .end((err, res) => {
+  //       res.should.have.status(404);
+  //       res.body.status.should.eql(404);
+  //       res.body.should.be.a('object');
+  //       res.body.message.should.eql('Oops no results found');
+  //       done();
+  //     });
+  // });
+  it('Should find no category with Id', done => {
+    chai
+      .request(app)
+      .get('/categorys/1000')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('Oops no results found');
         done();
       });
   });

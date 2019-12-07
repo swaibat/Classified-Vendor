@@ -158,3 +158,104 @@ describe('user sinin', () => {
       });
   });
 });
+
+describe('Users CRUD', () => {
+  it('Should update user profile', done => {
+    chai
+      .request(app)
+      .patch('/users/1/profile')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
+      .send({ address: 'Nakasongola' })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        res.body.data.address.should.eql('Nakasongola');
+        done();
+      });
+  });
+
+  it('Should edit own profile except admin', done => {
+    chai
+      .request(app)
+      .patch('/users/1/profile')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('buyer@vendly.com', 1)}`
+      )
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.status.should.eql(401);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('Not allowed to perform this operation');
+        done();
+      });
+  });
+  it('Should get a single user profile', done => {
+    chai
+      .request(app)
+      .get('/users/1/profile')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        res.body.data.email.should.eql('admin@vendly.com');
+        done();
+      });
+  });
+
+  it('only admin should get all users', done => {
+    chai
+      .request(app)
+      .get('/users')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.status.should.eql(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+  it('shouldnt get all users if not admin', done => {
+    chai
+      .request(app)
+      .get('/users')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`
+      )
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.status.should.eql(401);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('Not allowed to perform this operation');
+        done();
+      });
+  });
+  it('check if user exists', done => {
+    chai
+      .request(app)
+      .get('/users/55/profile')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.status.should.eql(404);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('user not found');
+        done();
+      });
+  });
+});

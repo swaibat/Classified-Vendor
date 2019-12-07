@@ -64,14 +64,13 @@ const Validation = {
   images(req, res, next) {
     if (!req.files) return Send(res, 400, 'upload atleast one Image');
     let files = req.files.images;
-
     files = files.name ? [files] : files;
     req.files = files;
     files.map(image => {
       if (!image.mimetype.startsWith('image'))
         return Send(res, 400, `${image.name} image is invalid`);
-      if (image.size > 5e6)
-        return Send(res, 400, `${image.name} size exceeds 5Mbs`);
+      if (image.size > 4e6)
+        return Send(res, 400, `${image.name} size exceeds 4Mbs`);
       return image.mv(`./api/uploads/products/${image.name}`);
     });
     next();
@@ -135,6 +134,19 @@ const Validation = {
       req.body,
       {
         CategoryId: { num: true }
+      },
+      error => error
+    );
+    if (err) return Send(res, 400, err);
+    next();
+  },
+
+  faq(req, res, next) {
+    const err = validate(
+      req.body,
+      {
+        question: { req: true },
+        answer: { req: true }
       },
       error => error
     );

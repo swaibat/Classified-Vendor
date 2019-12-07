@@ -10,6 +10,7 @@ router.get('/', FaqController.getFaqs);
 
 router.post(
   '/',
+  Validate.faq,
   userMiddleware.verifyToken,
   FaqMiddleware.checkFaqExist,
   FaqController.create

@@ -15,7 +15,7 @@ describe('create Page', () => {
       .post('/pages')
       .set(
         'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+        `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`
       )
       .send(page.data1)
       .end((err, res) => {
@@ -23,6 +23,40 @@ describe('create Page', () => {
         res.body.status.should.eql(201);
         res.body.should.be.a('object');
         res.body.message.should.eql('page created successfully');
+        done();
+      });
+  });
+  it('buyer should not create a page', done => {
+    chai
+      .request(app)
+      .post('/pages')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('buyer@vendly.com', 1)}`
+      )
+      .send(page.data1)
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.status.should.eql(401);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('Not allowed to perform this operation');
+        done();
+      });
+  });
+  it('Should decline creating a new website if it exists', done => {
+    chai
+      .request(app)
+      .post('/pages')
+      .set(
+        'Authorization',
+        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
+      )
+      .send(page.data1)
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.status.should.eql(401);
+        res.body.should.be.a('object');
+        res.body.message.should.eql('We only accept one website per user');
         done();
       });
   });
