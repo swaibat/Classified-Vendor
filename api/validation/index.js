@@ -66,14 +66,14 @@ const Validation = {
     let files = req.files.images;
     files = files.name ? [files] : files;
     req.files = files;
-    files.map(image => {
+    return files.map(image => {
       if (!image.mimetype.startsWith('image'))
         return Send(res, 400, `${image.name} image is invalid`);
       if (image.size > 4e6)
         return Send(res, 400, `${image.name} size exceeds 4Mbs`);
-      return image.mv(`./api/uploads/products/${image.name}`);
+      image.mv(`./api/uploads/products/${image.name}`);
+      next();
     });
-    next();
   },
 
   category(req, res, next) {
@@ -147,6 +147,19 @@ const Validation = {
       {
         question: { req: true },
         answer: { req: true }
+      },
+      error => error
+    );
+    if (err) return Send(res, 400, err);
+    next();
+  },
+
+  chat(req, res, next) {
+    const err = validate(
+      req.body,
+      {
+        message: { req: true, min: 5 },
+        ReceiverId: { req: true }
       },
       error => error
     );

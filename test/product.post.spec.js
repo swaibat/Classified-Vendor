@@ -194,7 +194,7 @@ describe('GET product', () => {
         res.should.have.status(200);
         res.body.status.should.eql(200);
         res.body.should.be.a('object');
-        res.body.data.name.should.eql('phone');
+        res.body.data.name.should.eql('phones');
         done();
       });
   });
