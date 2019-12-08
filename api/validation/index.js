@@ -159,7 +159,35 @@ const Validation = {
       req.body,
       {
         message: { req: true, min: 5 },
-        ReceiverId: { req: true }
+        ReceiverId: { req: true, num: true }
+      },
+      error => error
+    );
+    if (err) return Send(res, 400, err);
+    next();
+  },
+
+  notification(req, res, next) {
+    const err = validate(
+      req.body,
+      {
+        subject: { req: true, min: 5 },
+        message: { req: true, min: 5 },
+        ReceiverId: { num: true }
+      },
+      error => error
+    );
+    if (err) return Send(res, 400, err);
+    next();
+  },
+
+  rating(req, res, next) {
+    const err = validate(
+      req.body,
+      {
+        feedback: { req: true, min: 5 },
+        cout: { req: true, num: true },
+        UserId: { num: true }
       },
       error => error
     );
