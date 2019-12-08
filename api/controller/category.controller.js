@@ -16,13 +16,12 @@ const Product = {
   },
 
   async create(req, res) {
-    const category =
-      req.user.roleId === 1
-        ? await CategoryService.create({ name: req.body.name })
-        : await CategoryService.sellerCreate({
-            name: req.body.name,
-            UserId: req.user.id
-          });
+    const category = req.user.roleId === 1
+      ? await CategoryService.create({ name: req.body.name })
+      : await CategoryService.sellerCreate({
+        name: req.body.name,
+        UserId: req.user.id
+      });
     return Send(res, 201, 'Category created successfully', category);
   }
 };

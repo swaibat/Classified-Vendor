@@ -13,10 +13,7 @@ describe('create product', () => {
     chai
       .request(app)
       .post('/products')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .attach('images', 'test/data/1.jpg')
@@ -33,10 +30,7 @@ describe('create product', () => {
     chai
       .request(app)
       .post('/products')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field({ name: 'hello' })
       .attach('images', 'test/data/1.jpg')
@@ -53,10 +47,7 @@ describe('create product', () => {
     chai
       .request(app)
       .post('/products')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .attach('images', 'test/data/2.png')
@@ -73,10 +64,7 @@ describe('create product', () => {
     chai
       .request(app)
       .post('/products')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .end((err, res) => {
@@ -91,10 +79,7 @@ describe('create product', () => {
     chai
       .request(app)
       .post('/products')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .end((err, res) => {
@@ -109,10 +94,7 @@ describe('create product', () => {
     chai
       .request(app)
       .post('/products')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .attach('images', 'test/data/1.mp3')
@@ -131,10 +113,7 @@ describe('Update product', () => {
     chai
       .request(app)
       .patch('/products/1')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
       .field({ name: 'phones' })
       .attach('images', 'test/data/1.jpg')
       .end((err, res) => {
@@ -150,10 +129,7 @@ describe('Update product', () => {
     chai
       .request(app)
       .patch('/products/1')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
       .set('Content-Type', 'multipart/form-data')
       .field({ CategoryId: 'hello' })
       .end((err, res) => {
@@ -168,10 +144,7 @@ describe('Update product', () => {
     chai
       .request(app)
       .patch('/products/1')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
       .set('Content-Type', 'multipart/form-data')
       .field(product.data1)
       .attach('images', 'test/data/1.mp3')
@@ -241,10 +214,7 @@ describe('DELETE product', () => {
     chai
       .request(app)
       .delete('/products/2')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 2)}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.status.should.eql(200);

@@ -6,10 +6,9 @@ const { Op } = Sequelize;
 
 const categoryMiddleware = {
   async checkExist(req, res, next) {
-    const category =
-      req.user.roleId === 1
-        ? await CategoryService.getCategory({ name: req.body.name })
-        : await CategoryService.getVendorCategory({ name: req.body.name });
+    const category = req.user.roleId === 1
+      ? await CategoryService.getCategory({ name: req.body.name })
+      : await CategoryService.getVendorCategory({ name: req.body.name });
     if (category) return Send(res, 409, 'Category already exists');
     next();
   },

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import sgMail from '@sendgrid/mail';
 import Send from '../utils/res.utils';
 import Request from '../utils/req.utils';
@@ -10,12 +12,15 @@ const User = {
   async signup(req, res) {
     const reqData = Request.signUp(req);
     const user = await UserService.createUser(reqData);
-    const { password, ...data } = user;
+    const { password, ...data } = user.dataValues;
     return Send(res, 201, 'Account created successfully', data);
   },
 
   async verifyEmail(req, res) {
-    const email = { ...EmailService.verifyUser(req, res), to: req.body.email };
+    const email = {
+      ...EmailService.verifyUser(req, res),
+      to: req.body.email
+    };
     const keys = await sgKey;
     sgMail.setApiKey(keys);
     sgMail.send(email);
@@ -48,6 +53,17 @@ const User = {
       id: req.params.id
     });
     return Send(res, 200, undefined, user);
+  },
+
+  async logout(req, res) {
+    UserService.updateUser({ lastSeen: new Date() }, { email: req.user.email });
+    return Send(res, 200, 'logout successfull');
+  },
+
+  async resetPassword(req, res) {
+    const password = AuthHelper.hashPassword(req.body.password);
+    await UserService.updateUser({ password }, { email: req.user.email });
+    Send(res, 200, 'password updated successfully');
   }
 };
 

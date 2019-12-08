@@ -39,9 +39,9 @@ function validate(object, data, cb) {
       ? (error = `${key} should be less than ${value.max}`)
       : '';
 
-    value.email &&
-    objValue &&
-    !objValue.match(
+    value.email
+    && objValue
+    && !objValue.match(
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     )
       ? (error = `Invalid ${key} address`)

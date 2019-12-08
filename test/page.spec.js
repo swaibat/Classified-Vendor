@@ -8,7 +8,7 @@ import AuthHelper from '../api/utils/auth.utils';
 chai.use(chaiHttp);
 chai.should();
 
-describe('create Page', () => {
+describe('PAGES', () => {
   it('Should create new page', done => {
     chai
       .request(app)
@@ -163,15 +163,15 @@ describe('create Page', () => {
         done();
       });
   });
-  it('home page', done => {
-    chai
-      .request(app)
-      .get('/')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.status.should.eql(200);
-        res.body.should.be.a('object');
-        done();
-      });
-  });
+  // it('home page', done => {
+  //   chai
+  //     .request(app)
+  //     .get('/')
+  //     .end((err, res) => {
+  //       res.should.have.status(200);
+  //       res.body.status.should.eql(200);
+  //       res.body.should.be.a('object');
+  //       done();
+  //     });
+  // });
 });

@@ -17,9 +17,7 @@ const authHelper = {
   },
 
   decodeToken(token, cb) {
-    return jwt.verify(token, process.env.APP_KEY, (err, decoded) => {
-      return cb(err, decoded);
-    });
+    return jwt.verify(token, process.env.APP_KEY, (err, decoded) => cb(err, decoded));
   },
 
   comparePassword(password, hash) {

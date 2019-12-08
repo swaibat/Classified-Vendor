@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import UserService from '../services/user.service';
 import Send from '../utils/res.utils';
 import AuthHelper from '../utils/auth.utils';
@@ -67,6 +68,27 @@ const UserMiddleware = {
   async getUserById(req, res, next) {
     const user = await UserService.getUser({ id: req.params.id });
     if (!user) return Send(res, 404, 'user not found');
+    next();
+  },
+
+  async getUserbyEmail(req, res, next) {
+    const user = await UserService.getUser({ email: req.body.email });
+    if (!user) return Send(res, 404, 'user not found');
+    next();
+  },
+
+  connect(req, res, next) {
+    const { io } = req;
+    req.me = 'gghjjjhj';
+    io.on('connection', async socket => {
+      UserService.updateActivity({ online: true }, { email: req.user.email });
+      return socket.on('disconnect', async () => {
+        UserService.updateActivity(
+          { online: false, lastSeen: new Date() },
+          { email: req.user.email }
+        );
+      });
+    });
     next();
   }
 };
