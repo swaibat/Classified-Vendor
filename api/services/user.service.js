@@ -2,7 +2,10 @@ import db from '../database/models';
 
 const UserService = {
   async getUser(condition) {
-    return db.User.findOne({ where: condition, raw: true });
+    return db.User.findOne({
+      where: condition,
+      include: [{ model: db.Rating }]
+    });
   },
 
   async updateUser(data, condition) {
@@ -24,7 +27,7 @@ const UserService = {
   getAllVendors(condition) {
     return db.User.findAll({
       where: condition,
-      raw: true,
+      include: [{ model: db.Rating }],
       attributes: { exclude: 'password' }
     });
   },
@@ -32,7 +35,7 @@ const UserService = {
   getAllUsers(condition) {
     return db.User.findAll({
       where: condition,
-      raw: true,
+      include: [{ model: db.Rating }],
       attributes: { exclude: 'password' }
     });
   }

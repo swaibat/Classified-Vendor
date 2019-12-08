@@ -7,6 +7,8 @@ import FaqRouter from './faq.route';
 import FavRouter from './favourite.route';
 import all from '../controller/page.controller';
 import chatRouter from './chat.route';
+import NotifyRouter from './notification.route';
+// import RatingsRouter from './rating.route';
 
 const app = express.Router();
 
@@ -18,5 +20,7 @@ app.use('/pages', PagesRouter);
 app.use('/faqs', FaqRouter);
 app.use('/favourite', FavRouter);
 app.use('/chats', chatRouter);
+app.use('/notifications', NotifyRouter);
+// app.use('/ratings', RatingsRouter);
 
 export default app;

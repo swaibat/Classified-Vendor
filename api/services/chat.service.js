@@ -18,12 +18,9 @@ const ChatService = {
       where: {
         [Op.or]: [
           { SenderId: userId },
-          { ReceiverId: null },
           { ReceiverId: userId },
         ],
       },
-      offset,
-      limit,
     });
     return groupBy(chats, 'SenderId');
   }

@@ -22,6 +22,7 @@ export default (sequelize, DataTypes) => {
       foreignKey: {
         allowNull: false
       },
+      hooks: true,
       onDelete: 'CASCADE'
     });
   };

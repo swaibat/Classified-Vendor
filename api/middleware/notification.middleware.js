@@ -1,19 +1,14 @@
 import UserService from '../services/user.service';
 import Send from '../utils/res.utils';
 
-const Chat = {
+const Notification = {
   async checkReceiverExist(req, res, next) {
     const { ReceiverId } = req.body;
+    if (!ReceiverId) return next();
     const user = await UserService.getUser({ id: ReceiverId });
     if (user) return next();
-    return Send(res, 400, 'receiver does not exist');
-  },
-
-  async checkSelfSend(req, res, next) {
-    if (req.user.id === JSON.parse(req.body.ReceiverId))
-      return Send(res, 400, 'message can not be sent');
-    next();
+    return Send(res, 404, 'receiver does not exist');
   }
 };
 
-export default Chat;
+export default Notification;

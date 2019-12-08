@@ -8,7 +8,7 @@ import AuthHelper from '../api/utils/auth.utils';
 chai.use(chaiHttp);
 chai.should();
 
-describe('create Page', () => {
+describe('PAGES', () => {
   it('Should create new page', done => {
     chai
       .request(app)
