@@ -12,10 +12,7 @@ describe('CHATS', () => {
     chai
       .request(app)
       .post('/chats')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ message: 'hello', ReceiverId: 2 })
       .end((err, res) => {
         res.should.have.status(201);
@@ -29,10 +26,7 @@ describe('CHATS', () => {
     chai
       .request(app)
       .post('/chats')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ message: 'hello', ReceiverId: 2 })
       .end((err, res) => {
         res.should.have.status(201);
@@ -46,10 +40,7 @@ describe('CHATS', () => {
     chai
       .request(app)
       .post('/chats')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ message: 'hello', ReceiverId: 1 })
       .end((err, res) => {
         res.should.have.status(400);
@@ -63,10 +54,7 @@ describe('CHATS', () => {
     chai
       .request(app)
       .post('/chats')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ message: 'hello' })
       .end((err, res) => {
         res.should.have.status(400);
@@ -80,10 +68,7 @@ describe('CHATS', () => {
     chai
       .request(app)
       .post('/chats')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ message: 'hello', ReceiverId: 66 })
       .end((err, res) => {
         res.should.have.status(400);
@@ -97,10 +82,7 @@ describe('CHATS', () => {
     chai
       .request(app)
       .get('/chats')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.status.should.eql(200);

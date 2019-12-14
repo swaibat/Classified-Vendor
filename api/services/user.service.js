@@ -11,6 +11,15 @@ const UserService = {
   async updateUser(data, condition) {
     const result = await db.User.update(data, {
       where: condition,
+      returning: true,
+      raw: true,
+      plain: true
+    });
+    return result[1];
+  },
+
+  async updateActivity(data, condition) {
+    const result = await db.userActivity.update(data, {
       where: condition,
       returning: true,
       raw: true,
@@ -19,9 +28,8 @@ const UserService = {
     return result[1];
   },
 
-  async createUser(user) {
-    const result = await db.User.create(user);
-    return result.get({ plain: true });
+  createUser(user) {
+    return db.User.create(user);
   },
 
   getAllVendors(condition) {

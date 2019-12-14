@@ -10,8 +10,7 @@ const Chat = {
   },
 
   async checkSelfSend(req, res, next) {
-    if (req.user.id === JSON.parse(req.body.ReceiverId))
-      return Send(res, 400, 'message can not be sent');
+    if (req.user.id === JSON.parse(req.body.ReceiverId)) return Send(res, 400, 'message can not be sent');
     next();
   }
 };

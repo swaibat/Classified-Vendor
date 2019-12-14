@@ -42,8 +42,7 @@ router.patch(
 );
 
 router.get(
-  '/:id',
-  Validate.params,
+  '/:name',
   ProductMiddleware.checkExist,
   productController.getOne
 );

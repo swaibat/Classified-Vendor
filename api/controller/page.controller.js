@@ -1,8 +1,8 @@
+/* eslint-disable no-console */
 import Send from '../utils/res.utils';
 import PageService from '../services/page.service';
 import CategoryService from '../services/category.service';
 import ProductService from '../services/product.service';
-import UserService from '../services/user.service';
 import Get from '../utils/req.utils';
 
 const Product = {
@@ -24,14 +24,6 @@ const Product = {
     return Send(res, 201, 'page created successfully', page);
   },
 
-  async home(req, res) {
-    const Products = await ProductService.getAllPrdcts();
-    const categories = await CategoryService.getAllCats();
-    const sellers = await UserService.getAllVendors({ roleId: 2 });
-    const pages = await PageService.getAll();
-    return Send(res, 200, undefined, { sellers, pages, categories, Products });
-  },
-
   async getPages(req, res) {
     const pages = await PageService.getAll();
     return Send(res, 200, undefined, pages);
@@ -43,6 +35,16 @@ const Product = {
       company: req.user.company
     });
     return Send(res, 201, 'page updated successfully', page);
+  },
+  // eslint-disable-next-line no-unused-vars
+  async home(req, res) {
+    const { io } = req;
+    io.on('connection', (socket) => {
+      console.log('a user connected');
+      socket.on('disconnect', () => {
+        console.log('user disconnected');
+      });
+    });
   }
 };
 

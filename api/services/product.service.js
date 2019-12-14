@@ -1,47 +1,48 @@
+/* eslint-disable array-callback-return */
 import db from '../database/models';
 
 const ProductService = {
-  create(product, files) {
-    return db.Product.create(product, {
+  create(createData, req) {
+    return db.Product.create(createData, {
       include: [{ model: db.productFile }],
       raw: true
     })
       .then(product => {
         const data = [];
-        files.map(e => {
+        req.files.map(e => {
           const { name, size } = e;
-          data.push({ name, size, ProductId: product.dataValues.id });
+          data.push({
+            link: `${req.protocol}://${req.headers.host}/products/${name}`,
+            size,
+            ProductId: product.dataValues.id
+          });
         });
         return db.productFile.bulkCreate(data);
       })
-      .then(b => {
-        return db.Product.findOne({
-          where: { id: b[0].dataValues.ProductId },
-          attributes: { exclude: ['createdAt', 'updatedAt'] },
-          include: {
-            model: db.productFile,
-            attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] }
-          }
-        });
-      });
-  },
-
-  async update(product, condition, files) {
-    return db.Product.update(product, {
-      where: condition,
-      returning: true,
-      raw: true,
-      plain: true
-    }).then(b => {
-      return db.Product.findOne({
-        where: { id: b[1].id },
+      .then(b => db.Product.findOne({
+        where: { id: b[0].dataValues.ProductId },
         attributes: { exclude: ['createdAt', 'updatedAt'] },
         include: {
           model: db.productFile,
           attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] }
         }
-      });
-    });
+      }));
+  },
+
+  async update(product, condition) {
+    return db.Product.update(product, {
+      where: condition,
+      returning: true,
+      raw: true,
+      plain: true
+    }).then(b => db.Product.findOne({
+      where: { id: b[1].id },
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
+      include: {
+        model: db.productFile,
+        attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] }
+      }
+    }));
   },
 
   get(condition) {

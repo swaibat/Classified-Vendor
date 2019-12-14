@@ -5,8 +5,8 @@ import Get from '../utils/req.utils';
 const Rating = {
   async create(req, res) {
     const { feedback, VendorId, count } = req.body;
-    const Rating = await RatingService.create({ feedback, VendorId, count });
-    return Send(res, 201, 'question created successfully', Rating);
+    const rating = await RatingService.create({ feedback, VendorId, count });
+    return Send(res, 201, 'question created successfully', rating);
   },
 
   async update(req, res) {

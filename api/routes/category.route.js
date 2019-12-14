@@ -23,8 +23,8 @@ router.get(
 );
 
 router.get(
-  '/:id',
-  Validate.params,
+  '/:name',
+  CategoryMiddleware.getCatByName,
   CategoryMiddleware.checkCategoryExists,
   ProductController.getPrdctsByCat
 );

@@ -3,7 +3,7 @@ package-lock.json
 .nyc_output
 .vscode
 .env
-api/uploads/products/**
+api/uploads/**/**
 coverage
 test/data/.DS_Store
 test/.DS_Store

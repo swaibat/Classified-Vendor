@@ -1,6 +1,7 @@
 import express from 'express';
 import UserMiddleware from '../middleware/user.middleware';
 import UserController from '../controller/user.controller';
+import EmailsController from '../controller/email.controller';
 import Validate from '../validation';
 
 const router = express.Router();
@@ -26,6 +27,21 @@ router.post(
   Validate.sigin,
   UserMiddleware.getUserDetails,
   UserController.signin
+);
+
+router.get('/logout/:token', UserMiddleware.verifyToken, UserController.logout);
+
+router.post(
+  '/reset-password',
+  Validate.email,
+  UserMiddleware.getUserbyEmail,
+  EmailsController.sendResetEmail
+);
+
+router.patch(
+  '/reset-password/:token',
+  Validate.password,
+  UserController.resetPassword
 );
 
 router.get(

@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import validate from '../utils/validator.util';
 import Send from '../utils/res.utils';
 
@@ -63,25 +64,25 @@ const Validation = {
 
   images(req, res, next) {
     if (!req.files) return Send(res, 400, 'upload atleast one Image');
-    let files = req.files.images;
-    files = files.name ? [files] : files;
+    const { images } = req.files;
+    const files = images.name ? [images] : images;
     req.files = files;
-    return files.map(image => {
-      if (!image.mimetype.startsWith('image'))
+    files.map(image => {
+      if (!image.mimetype.startsWith('image')) {
         return Send(res, 400, `${image.name} image is invalid`);
-      if (image.size > 4e6)
+      }
+      if (image.size > 4e6) {
         return Send(res, 400, `${image.name} size exceeds 4Mbs`);
+      }
       image.mv(`./api/uploads/products/${image.name}`);
-      next();
     });
+    next();
   },
 
   category(req, res, next) {
     const err = validate(
       req.body,
-      {
-        name: { req: true, min: 4 }
-      },
+      { name: { req: true, min: 4 } },
       error => error
     );
     if (err) return Send(res, 400, err);
@@ -91,9 +92,7 @@ const Validation = {
   params(req, res, next) {
     const err = validate(
       req.params,
-      {
-        id: { req: true, num: true }
-      },
+      { id: { req: true, num: true } },
       error => error
     );
     if (err) return Send(res, 400, err);
@@ -103,9 +102,7 @@ const Validation = {
   page(req, res, next) {
     const err = validate(
       req.body,
-      {
-        CategoryId: { req: true, num: true }
-      },
+      { CategoryId: { req: true, num: true } },
       error => error
     );
     if (err) return Send(res, 400, err);
@@ -132,9 +129,7 @@ const Validation = {
   updatePage(req, res, next) {
     const err = validate(
       req.body,
-      {
-        CategoryId: { num: true }
-      },
+      { CategoryId: { num: true } },
       error => error
     );
     if (err) return Send(res, 400, err);
@@ -193,6 +188,27 @@ const Validation = {
     );
     if (err) return Send(res, 400, err);
     next();
+  },
+
+  email(req, res, next) {
+    const err = validate(
+      req.body,
+      { email: { req: true, email: true } },
+      error => error
+    );
+    if (err) return Send(res, 400, err);
+    next();
+  },
+
+  password(req, res, next) {
+    const err = validate(
+      req.body,
+      { password: { req: true, min: 5 } },
+      error => error
+    );
+    if (err) return Send(res, 400, err);
+    next();
   }
 };
+
 export default Validation;

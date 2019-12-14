@@ -1,16 +1,15 @@
 export default {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert(
-      'Products',
-      [
-        {
-          name: 'Harrier kawundo',
-          CategoryId: 16,
-          price: 200000,
-          UserId: 2,
-          negotiable: true,
-          description: 'No scratches',
-          adons: `{
+  up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
+    'Products',
+    [
+      {
+        name: 'Harrier kawundo',
+        CategoryId: 16,
+        price: 200000,
+        UserId: 2,
+        negotiable: true,
+        description: 'No scratches',
+        adons: `{
         "make": "Toyota",
         "model": "Harrier",
         "fuel": "petrol",
@@ -20,18 +19,18 @@ export default {
         "engine": 2000,
         "color": "silver"
       }`,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          name: '2007 MERCEDES-BENZ GL-CLASS GL550 4MATIC',
-          CategoryId: 1,
-          price: 200000,
-          UserId: 2,
-          negotiable: true,
-          description:
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: '2007 MERCEDES-BENZ GL-CLASS GL550 4MATIC',
+        CategoryId: 1,
+        price: 200000,
+        UserId: 2,
+        negotiable: true,
+        description:
             '[Registration Year/month] is a registration date in Japan',
-          adons: `{
+        adons: `{
         "make": "Toyota",
         "model": "Harrier",
         "fuel": "petrol",
@@ -43,17 +42,17 @@ export default {
         "color": "Maroon",
         "Registration Year/month":"2007/11"
       }`,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          name: 'house for rent in kigali',
-          CategoryId: 2,
-          price: 23400,
-          UserId: 2,
-          negotiable: true,
-          description: 'as good as new',
-          adons: `{
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'house for rent in kigali',
+        CategoryId: 2,
+        price: 23400,
+        UserId: 2,
+        negotiable: true,
+        description: 'as good as new',
+        adons: `{
       "New Property": "No",
       "Bedrooms": 2,
       "Bathrooms": 2,
@@ -61,15 +60,12 @@ export default {
       "Furnished": "No",
       "Pets allowed": "No"
     }`,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      ],
-      {}
-    );
-  },
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ],
+    {}
+  ),
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Products', null, {});
-  }
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Products', null, {})
 };

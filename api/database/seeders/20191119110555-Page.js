@@ -1,24 +1,14 @@
 export default {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert(
-      'Pages',
-      [
-        {
-          CategoryId: 7,
-          UserId: 1,
-          aboutUs: 'lorem ipsum',
-          backdrop: null,
-          faq: 'lorem ipsum',
-          company: 'vendly',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      ],
-      {}
-    );
-  },
+  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Pages', [{
+    CategoryId: 7,
+    UserId: 1,
+    aboutUs: 'lorem ipsum',
+    backdrop: null,
+    faq: 'lorem ipsum',
+    company: 'vendly',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }], {}),
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Pages', null, {});
-  }
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Pages', null, {})
 };

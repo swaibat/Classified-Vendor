@@ -1,4 +1,3 @@
-import sgMail from '@sendgrid/mail';
 import settingService from '../services/settings.service';
 import '@babel/polyfill';
 

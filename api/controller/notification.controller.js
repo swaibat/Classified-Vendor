@@ -10,9 +10,7 @@ const NotificationController = {
   },
 
   async getNotifications(req, res) {
-    const notifications = await NotificationService.getNotifications(
-      req.user.id
-    );
+    const notifications = await NotificationService.getNotifications(req.user.id);
     Send(res, 200, 'Notification list', notifications);
   }
 };

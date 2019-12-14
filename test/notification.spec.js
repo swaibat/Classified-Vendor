@@ -12,10 +12,7 @@ describe('NOTIFICATIONS', () => {
     chai
       .request(app)
       .post('/notifications')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ subject: 'good be well', message: 'hello' })
       .end((err, res) => {
         res.should.have.status(201);
@@ -29,10 +26,7 @@ describe('NOTIFICATIONS', () => {
     chai
       .request(app)
       .post('/notifications')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ subject: 'good be well', message: 'hello', ReceiverId: 3 })
       .end((err, res) => {
         res.should.have.status(201);
@@ -46,10 +40,7 @@ describe('NOTIFICATIONS', () => {
     chai
       .request(app)
       .post('/notifications')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ message: 'hello' })
       .end((err, res) => {
         res.should.have.status(400);
@@ -63,10 +54,7 @@ describe('NOTIFICATIONS', () => {
     chai
       .request(app)
       .post('/notifications')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ subject: 'good tests', message: 'hello', ReceiverId: 66 })
       .end((err, res) => {
         res.should.have.status(404);
@@ -80,10 +68,7 @@ describe('NOTIFICATIONS', () => {
     chai
       .request(app)
       .get('/notifications')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.status.should.eql(200);

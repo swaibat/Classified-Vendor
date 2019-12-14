@@ -43,9 +43,7 @@ describe('user registration', () => {
       .end((err, res) => {
         res.should.have.status(201);
         res.body.should.be.a('object');
-        res.body.should.have
-          .property('message')
-          .eql('Account created successfully');
+        res.body.should.have.property('message').eql('Account created successfully');
         done();
       });
   });
@@ -57,9 +55,7 @@ describe('user registration', () => {
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.should.have
-          .property('message')
-          .eql('password provided do not match');
+        res.body.should.have.property('message').eql('password provided do not match');
         done();
       });
   });
@@ -71,9 +67,7 @@ describe('user registration', () => {
       .end((err, res) => {
         res.should.have.status(409);
         res.body.should.be.a('object');
-        res.body.should.have
-          .property('message')
-          .eql('email address already in use');
+        res.body.should.have.property('message').eql('email address already in use');
         done();
       });
   });
@@ -85,9 +79,7 @@ describe('user registration', () => {
       .end((err, res) => {
         res.should.have.status(409);
         res.body.should.be.a('object');
-        res.body.should.have
-          .property('message')
-          .eql('Company name already registered');
+        res.body.should.have.property('message').eql('Company name already registered');
         done();
       });
   });
@@ -111,9 +103,7 @@ describe('user registration', () => {
         res.should.have.status(405);
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql(405);
-        res.body.should.have
-          .property('error')
-          .eql('Ooops this method is not allowed');
+        res.body.should.have.property('error').eql('Ooops this method is not allowed');
         done();
       });
   });
@@ -164,10 +154,7 @@ describe('Users CRUD', () => {
     chai
       .request(app)
       .patch('/users/1/profile')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .send({ address: 'Nakasongola' })
       .end((err, res) => {
         res.should.have.status(200);
@@ -182,10 +169,7 @@ describe('Users CRUD', () => {
     chai
       .request(app)
       .patch('/users/1/profile')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('buyer@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('buyer@vendly.com', 1)}`)
       .end((err, res) => {
         res.should.have.status(401);
         res.body.status.should.eql(401);
@@ -198,10 +182,7 @@ describe('Users CRUD', () => {
     chai
       .request(app)
       .get('/users/1/profile')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.status.should.eql(200);
@@ -215,10 +196,7 @@ describe('Users CRUD', () => {
     chai
       .request(app)
       .get('/users')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.status.should.eql(200);
@@ -230,10 +208,7 @@ describe('Users CRUD', () => {
     chai
       .request(app)
       .get('/users')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('seller@vendly.com', 1)}`)
       .end((err, res) => {
         res.should.have.status(401);
         res.body.status.should.eql(401);
@@ -246,10 +221,7 @@ describe('Users CRUD', () => {
     chai
       .request(app)
       .get('/users/55/profile')
-      .set(
-        'Authorization',
-        `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`
-      )
+      .set('Authorization', `Bearer ${AuthHelper.createToken('admin@vendly.com', 1)}`)
       .end((err, res) => {
         res.should.have.status(404);
         res.body.status.should.eql(404);

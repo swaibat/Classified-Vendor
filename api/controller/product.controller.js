@@ -7,7 +7,7 @@ import UploadService from '../services/file.upload.service';
 const Product = {
   async create(req, res) {
     const reqData = { ...Get.prodBody(req), adons: Get.adons(req) };
-    const product = await ProductService.create(reqData, req.files);
+    const product = await ProductService.create(reqData, req);
     return Send(res, 201, 'product created successfully', product);
   },
 
