@@ -9,7 +9,7 @@ const EmailService = {
       subject: title,
       html: EmailTemp(
         title,
-        `${req.protocol}://${req.headers.host}/users/register/${AuthHelper.createToken(
+        `${req.protocol}://localhost:8080/register/${AuthHelper.createToken(
           req.body.email
         )}`,
         'Click the button below to verify your email address'
@@ -23,7 +23,7 @@ const EmailService = {
       subject: 'Password Reset',
       html: EmailTemp(
         'Password Reset',
-        `${req.protocol}://${req.headers.host}/users/reset-password/${AuthHelper.createToken(
+        `${req.protocol}://localhost:8080/reset-password/${AuthHelper.createToken(
           req.body.email
         )}`,
         'Click the button below to reset your password'

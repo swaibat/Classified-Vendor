@@ -1,32 +1,30 @@
 import db from '../database/models';
 
 const CategoryService = {
-  getAllCats(condition) {
-    return db.Category.findAll({
-      where: condition,
-      raw: true,
-      attributes: { exclude: ['createdAt', 'updatedAt'] }
-    });
-  },
-
-  getVendorCats(condition) {
-    return db.VendorCategory.findAll({ where: condition, raw: true });
+  get(condition) {
+    return db.Category.findAll({ where: condition, raw: true });
   },
 
   create(data) {
     return db.Category.create(data);
   },
 
-  getCategory(condition) {
+  async update(data, condition) {
+    const category = await db.Category.update(data, {
+      where: condition,
+      returning: true,
+      raw: true,
+      plain: true
+    });
+    return category[1];
+  },
+
+  getOne(condition) {
     return db.Category.findOne({ where: condition, raw: true });
   },
 
-  getVendorCategory(condition) {
-    return db.VendorCategory.findOne({ where: condition });
-  },
-
-  sellerCreate(data) {
-    return db.VendorCategory.create(data);
+  delete(condition) {
+    return db.Category.destroy({ where: condition, raw: true });
   }
 };
 

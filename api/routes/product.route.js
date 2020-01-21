@@ -18,6 +18,7 @@ router.post(
 );
 
 router.get('/', productController.getAll);
+router.get('/admin', productController.getAll);
 
 router.get(
   '/company/:co',

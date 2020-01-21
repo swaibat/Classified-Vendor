@@ -4,7 +4,7 @@ const UserService = {
   async getUser(condition) {
     return db.User.findOne({
       where: condition,
-      include: [{ model: db.Rating }]
+      include: [{ model: db.Rating }, { model: db.Product }]
     });
   },
 

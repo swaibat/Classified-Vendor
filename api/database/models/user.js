@@ -19,7 +19,7 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'UserId',
       targetKey: 'id'
     });
-    User.hasMany(models.VendorCategory, {
+    User.hasMany(models.Category, {
       foreignKey: 'UserId',
       targetKey: 'id'
     });

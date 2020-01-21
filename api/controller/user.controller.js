@@ -5,7 +5,7 @@ import Send from '../utils/res.utils';
 import Request from '../utils/req.utils';
 import UserService from '../services/user.service';
 import EmailService from '../services/email.service';
-import sgKey from '../config';
+import { transporter } from '../config';
 import AuthHelper from '../utils/auth.utils';
 
 const User = {
@@ -21,18 +21,19 @@ const User = {
       ...EmailService.verifyUser(req, res),
       to: req.body.email
     };
-    const keys = await sgKey;
-    sgMail.setApiKey(keys);
-    sgMail.send(email);
-    return Send(
-      res,
-      200,
-      `verification instructions sent to ${req.body.email}`
-    );
+    await transporter.sendMail(email, (error, success) => {
+      if (error) {
+        return Send(res, 400, error.message);
+      }
+      return Send(
+        res,
+        200,
+        `verification instructions sent to ${req.body.email}`
+      );
+    });
   },
 
   signin(req, res) {
-    const ip = req.connection.remoteAddress;
     const { email, roleId, id } = req.user;
     const token = AuthHelper.createToken(email, roleId, id);
     return Send(res, 200, 'login successful', { token });

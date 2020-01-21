@@ -12,7 +12,7 @@ router.get('/', userMiddleware.verifyToken, FavController.getFavs);
 router.post(
   '/:id',
   Validate.params,
-  ProductMiddleware.checkExist,
+  ProductMiddleware.checkItemExist,
   userMiddleware.verifyToken,
   FavMiddleware.checkFavExist,
   FavController.addToFavourite

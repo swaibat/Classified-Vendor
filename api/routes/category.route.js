@@ -7,13 +7,9 @@ import ProductController from '../controller/product.controller';
 
 const router = express.Router();
 
-router.get('/', CategoryController.getCatAll);
+router.get('/', CategoryController.get);
 
-router.get(
-  '/company/:co',
-  UserMiddleware.getCoByUser,
-  CategoryController.getVendorCats
-);
+router.get('/company/:co', UserMiddleware.getCoByUser, CategoryController.get);
 
 router.get(
   '/company/:co/:id',
@@ -36,6 +32,22 @@ router.post(
   Validate.category,
   CategoryMiddleware.checkExist,
   CategoryController.create
+);
+
+router.patch(
+  '/:id',
+  UserMiddleware.verifyToken,
+  UserMiddleware.checkRole,
+  Validate.category,
+  CategoryMiddleware.checkCategoryExist,
+  CategoryController.update
+);
+
+router.delete(
+  '/:id',
+  UserMiddleware.verifyToken,
+  UserMiddleware.checkRole,
+  CategoryController.delete
 );
 
 export default router;
