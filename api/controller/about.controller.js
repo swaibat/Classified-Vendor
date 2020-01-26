@@ -9,6 +9,7 @@ const About = {
   },
 
   async create(req, res) {
+    req.body.UserId = req.user.id;
     const about = await AboutService.create(req.body);
     return Send(res, 201, 'question created successfully', about);
   },

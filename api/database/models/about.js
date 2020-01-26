@@ -1,12 +1,12 @@
 export default (sequelize, DataTypes) => {
   const About = sequelize.define('About', {
-    company_name: DataTypes.STRING,
+    name: DataTypes.STRING,
     UserId: DataTypes.INTEGER,
-    company_duration: DataTypes.STRING,
-    company_employees: DataTypes.STRING,
-    company_images: DataTypes.STRING,
-    company_video: DataTypes.STRING,
-    company_description: DataTypes.STRING,
+    startDate: DataTypes.STRING,
+    employees: DataTypes.STRING,
+    images: DataTypes.STRING,
+    video: DataTypes.STRING,
+    description: DataTypes.STRING,
     adons: DataTypes.JSONB
   },
   {});
