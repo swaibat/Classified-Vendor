@@ -6,19 +6,24 @@ import Validate from '../validation';
 
 const router = express.Router();
 
+/**
+ * verify user email before register
+ */
 router.post(
   '/verify',
   Validate.verify,
   UserMiddleware.checkuserExist,
   UserController.verifyEmail
 );
-
+/**
+ * register user with valid token
+ */
 router.post(
   '/register/:token',
   Validate.signup,
-  UserMiddleware.verifyToken,
+  UserMiddleware.decodeToken,
+  UserMiddleware.checkForTokenData,
   UserMiddleware.checkCoExist,
-  UserMiddleware.checkuserExist,
   UserController.signup
 );
 
@@ -52,11 +57,8 @@ router.get(
 );
 
 router.get(
-  '/:id/profile',
-  Validate.params,
+  '/profile',
   UserMiddleware.verifyToken,
-  UserMiddleware.getUserById,
-  UserMiddleware.checkIfOwner,
   UserController.getUser
 );
 

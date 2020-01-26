@@ -10,6 +10,8 @@ import NotifyRouter from './notification.route';
 import UserMiddleware from '../middleware/user.middleware';
 import PlanRouter from './plan.route';
 import AboutRouter from './about.route';
+import CurrencyRouter from './curreny.route';
+import SettingsRouter from './settings.route';
 // import RatingsRouter from './rating.route';
 
 const app = express.Router();
@@ -25,6 +27,8 @@ app.use('/chats', chatRouter);
 app.use('/notifications', NotifyRouter);
 app.use('/plans', PlanRouter);
 app.use('/about', AboutRouter);
+app.use('/currency', CurrencyRouter);
+app.use('/settings', SettingsRouter);
 // app.use('/ratings', RatingsRouter);
 
 export default app;

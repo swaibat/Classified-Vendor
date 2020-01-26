@@ -34,8 +34,15 @@ const User = {
   },
 
   signin(req, res) {
-    const { email, roleId, id } = req.user;
-    const token = AuthHelper.createToken(email, roleId, id);
+    const { id, firstName, email, Role, avatar } = req.user;
+    const { name } = Role;
+    const token = AuthHelper.createToken({
+      id,
+      firstName,
+      email,
+      role: name,
+      avatar
+    });
     return Send(res, 200, 'login successful', { token });
   },
 
@@ -45,7 +52,7 @@ const User = {
   },
 
   async getUser(req, res) {
-    const user = await UserService.getUser({ id: req.params.id });
+    const user = await UserService.getUser({ id: req.user.id });
     return Send(res, 200, undefined, user);
   },
 

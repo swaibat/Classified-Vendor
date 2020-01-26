@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const authHelper = {
-  createToken(email, roleId) {
-    return jwt.sign({ email, roleId }, process.env.APP_KEY);
+  createToken(userData) {
+    return jwt.sign(userData, process.env.APP_KEY);
   },
 
   hashPassword(password) {
