@@ -52,11 +52,8 @@ router.get(
 );
 
 router.get(
-  '/:id/profile',
-  Validate.params,
+  '/profile',
   UserMiddleware.verifyToken,
-  UserMiddleware.getUserById,
-  UserMiddleware.checkIfOwner,
   UserController.getUser
 );
 

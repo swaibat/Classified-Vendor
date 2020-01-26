@@ -45,7 +45,7 @@ const User = {
   },
 
   async getUser(req, res) {
-    const user = await UserService.getUser({ id: req.params.id });
+    const user = await UserService.getUser({ id: req.user.id });
     return Send(res, 200, undefined, user);
   },
 

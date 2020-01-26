@@ -7,9 +7,8 @@ const About = {
     if (about) return Send(res, 409, 'about already exists');
     next();
   },
-
   async checkNoAboutExist(req, res, next) {
-    const about = await AboutService.getOne({ id: req.params.id });
+    const about = await AboutService.getOne({ UserId: req.user.id});
     if (!about) return Send(res, 404, 'about page doesnt exist');
     next();
   }

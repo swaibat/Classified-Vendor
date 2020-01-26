@@ -9,8 +9,7 @@ const UserMiddleware = {
     AuthHelper.decodeToken(token, async (error, data) => {
       if (error) return Send(res, 400, error.message);
       const user = data ? await UserService.getUser({ email: data.email }) : '';
-      req.body.email = data.email;
-      req.user = user;
+      req.user = user.dataValues;
       next();
     });
   },
@@ -66,7 +65,7 @@ const UserMiddleware = {
   },
 
   async getUserById(req, res, next) {
-    const user = await UserService.getUser({ id: req.params.id });
+    const user = await UserService.getUser({ id: req.user.id });
     if (!user) return Send(res, 404, 'user not found');
     next();
   },
