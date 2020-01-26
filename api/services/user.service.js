@@ -7,6 +7,11 @@ const UserService = {
       include: [{ model: db.Rating }, { model: db.Product }]
     });
   },
+  async deleteUser(condition) {
+    return db.User.destroy({
+      where: condition,
+    });
+  },
 
   async updateUser(data, condition) {
     const result = await db.User.update(data, {

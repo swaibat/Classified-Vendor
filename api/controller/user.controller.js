@@ -66,6 +66,11 @@ const User = {
     const password = AuthHelper.hashPassword(req.body.password);
     await UserService.updateUser({ password }, { email: req.user.email });
     Send(res, 200, 'password updated successfully');
+  },
+
+  async deleteUser(req, res) {
+    await UserService.deleteUser({ id: req.params.id });
+    return Send(res, 200, 'user successfulyy deleted');
   }
 };
 

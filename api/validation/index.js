@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable camelcase */
 /* eslint-disable array-callback-return */
+import fs from 'fs';
 import validate from '../utils/validator.util';
 import Send from '../utils/res.utils';
 
@@ -67,14 +70,20 @@ const Validation = {
     const { images } = req.files;
     const files = images.name ? [images] : images;
     req.files = files;
-    files.map(image => {
+    files.map(async image => {
       if (!image.mimetype.startsWith('image')) {
         return Send(res, 400, `${image.name} image is invalid`);
       }
       if (image.size > 4e6) {
         return Send(res, 400, `${image.name} size exceeds 4Mbs`);
       }
-      image.mv(`./api/uploads/products/${image.name}`);
+      if (req.originalUrl === '/about') {
+        await fs.mkdir(`./api/uploads/about/${req.user.company}/`, () => {
+          image.mv(`./api/uploads/about/${req.user.company}/${image.name}`);
+        });
+      } else {
+        image.mv(`./api/uploads/products/${image.name}`);
+      }
     });
     next();
   },
@@ -204,6 +213,19 @@ const Validation = {
     const err = validate(
       req.body,
       { password: { req: true, min: 5 } },
+      error => error
+    );
+    if (err) return Send(res, 400, err);
+    next();
+  },
+  about(req, res, next) {
+    const err = validate(
+      req.body,
+      {
+        employees: { req: true },
+        description: { req: true },
+        startDate: { req: true }
+      },
       error => error
     );
     if (err) return Send(res, 400, err);

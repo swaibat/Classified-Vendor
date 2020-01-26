@@ -9,7 +9,6 @@ const UserMiddleware = {
     AuthHelper.decodeToken(token, async (error, data) => {
       if (error) return Send(res, 400, error.message);
       const user = data ? await UserService.getUser({ email: data.email }) : '';
-      req.body.email = data.email;
       req.user = user;
       next();
     });
