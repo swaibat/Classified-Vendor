@@ -5,17 +5,16 @@ import CategoryRouter from './category.route';
 import PagesRouter from './page.route';
 import FaqRouter from './faq.route';
 import FavRouter from './favourite.route';
-// import all from '../controller/page.controller';
 import chatRouter from './chat.route';
 import NotifyRouter from './notification.route';
 import UserMiddleware from '../middleware/user.middleware';
 import PlanRouter from './plan.route';
+import AboutRouter from './about.route';
 // import RatingsRouter from './rating.route';
 
 const app = express.Router();
 
 app.use(UserMiddleware.connect);
-// app.get('/', all.home);
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 app.use('/category', CategoryRouter);
@@ -24,7 +23,8 @@ app.use('/faqs', FaqRouter);
 app.use('/favourite', FavRouter);
 app.use('/chats', chatRouter);
 app.use('/notifications', NotifyRouter);
-app.use('/notifications', PlanRouter);
+app.use('/plans', PlanRouter);
+app.use('/about', AboutRouter);
 // app.use('/ratings', RatingsRouter);
 
 export default app;
