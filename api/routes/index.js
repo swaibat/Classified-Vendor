@@ -9,6 +9,7 @@ import FavRouter from './favourite.route';
 import chatRouter from './chat.route';
 import NotifyRouter from './notification.route';
 import UserMiddleware from '../middleware/user.middleware';
+import PlanRouter from './plan.route';
 // import RatingsRouter from './rating.route';
 
 const app = express.Router();
@@ -23,6 +24,7 @@ app.use('/faqs', FaqRouter);
 app.use('/favourite', FavRouter);
 app.use('/chats', chatRouter);
 app.use('/notifications', NotifyRouter);
+app.use('/notifications', PlanRouter);
 // app.use('/ratings', RatingsRouter);
 
 export default app;

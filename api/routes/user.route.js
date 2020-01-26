@@ -69,4 +69,11 @@ router.patch(
   UserController.updateUser
 );
 
+router.delete(
+  '/',
+  UserMiddleware.verifyToken,
+  UserMiddleware.checkAdminRole,
+  UserController.deleteUser
+);
+
 export default router;
