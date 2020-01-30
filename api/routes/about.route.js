@@ -7,6 +7,14 @@ import Validate from '../validation';
 
 const router = express.Router();
 
+router.use(fileUpload());
+router.get(
+  '/:id',
+  Validate.params,
+  AboutMiddleware.checkNoAboutExist,
+  AboutController.getAbout
+);
+
 router.post(
   '/',
   userMiddleware.verifyToken,
