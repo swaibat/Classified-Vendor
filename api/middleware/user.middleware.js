@@ -31,10 +31,36 @@ const UserMiddleware = {
   },
 
   async checkuserExist(req, res, next) {
-    const user = await UserService.getUser({ email: req.body.email });
-    if (user) return Send(res, 409, 'email address already in use');
-    next();
+    if (req.body.email) {
+      const user = await UserService.getUser({ email: req.body.email });
+      if (user) return Send(res, 409, 'email address already in use');
+      return next();
+    }
+    if (req.body.telephone) {
+      const user = await UserService.getUser({ telephone: req.body.telephone });
+      if (user) return Send(res, 409, 'email address already in use');
+      return next();
+    }
   },
+
+  async  OauthLogin(req, res) {
+    const {
+      id, email
+    } = await UserService.findOrCreateUser(req.user, req.user.email);
+    return res.redirect(`${process.env.FRONTEND_BASE_URL}/login?token=${AuthHelper.createToken(id, email)}`);
+  },
+
+  async  OauthLoginFacebook(req, res) {
+    const {
+      id, email
+    } = await UserService.findOrCreateUser(req.user, req.user.email);
+    return Send(res, 201, 'User logged successfully', {
+      id,
+      email,
+      token: AuthHelper.createToken(id, email)
+    });
+  },
+
 
   async getUserDetails(req, res, next) {
     const { email, password } = req.body;

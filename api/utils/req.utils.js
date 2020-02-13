@@ -46,6 +46,8 @@ const Requests = {
       price,
       negotiable,
       description,
+      subCategoryId,
+      email,
       ...data
     } = req.body;
     return data;

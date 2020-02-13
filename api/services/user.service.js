@@ -66,7 +66,16 @@ const UserService = {
         }
       ]
     });
-  }
+  },
+
+  async findOrCreateUser(userData, email) {
+    const [data] = await db.Users.findOrCreate({
+      where: { email },
+      defaults: userData.user,
+      raw: true
+    });
+    return data;
+  },
 };
 
 export default UserService;

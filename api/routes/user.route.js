@@ -1,19 +1,46 @@
+/* eslint-disable camelcase */
 import express from 'express';
+import passport from 'passport';
 import UserMiddleware from '../middleware/user.middleware';
 import UserController from '../controller/user.controller';
 import EmailsController from '../controller/email.controller';
 import Validate from '../validation';
+import '../config/passport';
 
 const router = express.Router();
+router.get(
+  '/google',
+  passport.authenticate('google', {
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email'
+    ]
+  })
+);
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  UserMiddleware.OauthLogin
+);
 
-/**
- * verify user email before register
- */
+router.post(
+  '/auth/facebook',
+  passport.authenticate('facebook-token'),
+  UserMiddleware.OauthLoginFacebook
+);
+
 router.post(
   '/verify',
   Validate.verify,
   UserMiddleware.checkuserExist,
   UserController.verifyEmail
+);
+
+router.post(
+  '/verify/:code',
+  Validate.verify,
+  UserMiddleware.checkuserExist,
+  UserController.verifyCode
 );
 /**
  * register user with valid token
@@ -56,11 +83,7 @@ router.get(
   UserController.getUsers
 );
 
-router.get(
-  '/profile',
-  UserMiddleware.verifyToken,
-  UserController.getUser
-);
+router.get('/profile', UserMiddleware.verifyToken, UserController.getUser);
 
 router.patch(
   '/:id/profile',

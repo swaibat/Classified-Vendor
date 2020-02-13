@@ -1,5 +1,6 @@
 import ChatService from '../services/chat.service';
 import Send from '../utils/res.utils';
+import groupBy from '../utils/grouper.util';
 import SocketUtil from '../utils/sockect.util';
 
 const ChatController = {
@@ -18,9 +19,9 @@ const ChatController = {
   },
 
   async getChats(req, res) {
-    const { id } = req.user;
-    const chatList = await ChatService.getChat(id);
-    Send(res, 200, 'chat list', chatList);
+    const chatList = await ChatService.getChat(req.user);
+    const groupBySender = groupBy('SenderId', req.user);
+    Send(res, 200, 'chat list', groupBySender(chatList));
   }
 };
 

@@ -20,6 +20,14 @@ module.exports = {
       );
       await queryInterface.addColumn(
         'Settings',
+        'currencyCountry',
+        {
+          type: Sequelize.STRING
+        },
+        { transaction }
+      );
+      await queryInterface.addColumn(
+        'Settings',
         'currencyFlagDisplay',
         {
           type: Sequelize.BOOLEAN

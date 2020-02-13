@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import db from '../database/models';
 
@@ -29,30 +30,61 @@ const ProductService = {
       }));
   },
 
-  async update(product, condition) {
+  async update(product, condition, req) {
+    req.body.removedImages.split(',').map(e => db.productFile.destroy({ where: { id: e } }));
     return db.Product.update(product, {
       where: condition,
       returning: true,
       raw: true,
       plain: true
-    }).then(b => db.Product.findOne({
-      where: { id: b[1].id },
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      include: {
-        model: db.productFile,
-        attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] }
-      }
-    }));
+    }).then(x => {
+      const data = [];
+      req.files.map(e => {
+        const { name, size } = e;
+        data.push({
+          link: `${req.protocol}://${req.headers.host}/products/${name}`,
+          size,
+          ProductId: x[1].id
+        });
+      });
+      return db.productFile.bulkCreate(data);
+    });
   },
 
   get(condition) {
+    let data = {};
     return db.Product.findOne({
       where: condition,
-      include: {
-        model: db.productFile,
-        attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] }
-      }
-    });
+      include: [
+        {
+          model: db.productFile,
+          attributes: { exclude: ['createdAt', 'updatedAt', 'ProductId'] }
+        },
+        {
+          model: db.Category,
+          attributes: { exclude: ['createdAt', 'updatedAt', 'UserId'] }
+        }
+      ]
+    })
+      .then(elem => {
+        data = JSON.parse(JSON.stringify(elem));
+        if (data.Category.ParentId) {
+          return db.Category.findOne({ where: { id: data.Category.ParentId } });
+        }
+      })
+      .then(e => {
+        if (data.Category.ParentId) {
+          const {
+            ParentId,
+            UserId,
+            createdAt,
+            updatedAt,
+            ...parent
+          } = e.dataValues;
+          data.Category.parent = parent;
+        }
+        return data;
+      });
   },
 
   VendorGetOwn(condition) {

@@ -27,7 +27,9 @@ const Validation = {
     const err = validate(
       req.body,
       {
-        email: { req: true, email: true }
+        email: { email: true },
+        code: { min: 6, max: 7 },
+        telephone: { min: 10 }
       },
       error => error
     );
@@ -162,7 +164,7 @@ const Validation = {
     const err = validate(
       req.body,
       {
-        message: { req: true, min: 5 },
+        message: { req: true, min: 1 },
         ReceiverId: { req: true, num: true }
       },
       error => error

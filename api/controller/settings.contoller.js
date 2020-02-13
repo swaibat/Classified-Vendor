@@ -9,7 +9,7 @@ const Settings = {
 
   async update(req, res) {
     const curr = await SettingService.update(req.body);
-    return Send(res, 200, 'settings.service updated successfully', curr);
+    return Send(res, 200, 'settings updated successfully', curr);
   }
 };
 
