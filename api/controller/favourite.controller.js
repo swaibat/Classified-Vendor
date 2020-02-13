@@ -4,7 +4,7 @@ import FavService from '../services/favourite.service';
 const Fav = {
   async getFavs(req, res) {
     const favs = await FavService.getAll({ UserId: req.user.id });
-    return Send(res, 200, undefined, favs);
+    return Send(res, 200, '', favs);
   },
 
   async addToFavourite(req, res) {

@@ -13,29 +13,41 @@ export default (sequelize, DataTypes) => {
       googleKeys: DataTypes.STRING,
       twilo_accountSid: DataTypes.STRING,
       twilo_authToken: DataTypes.STRING,
+      twilo_serviceId: DataTypes.STRING,
       currency: {
         type: DataTypes.STRING,
+        allowNull: true,
         defaultValue: 'EURO'
+      },
+      currencyCountry: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: 'BE'
       },
       currencyFlagDisplay: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
         defaultValue: true
       },
       autoCurrency: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
         defaultValue: true
       },
       autoProductApproval: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
         defaultValue: true
       },
       currencyDisplayBy: {
         type: DataTypes.STRING,
+        allowNull: true,
         defaultValue: 'code'
       },
       fixerKeys: DataTypes.STRING,
       autoCurrencyRate: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
         defaultValue: true
       },
     },

@@ -11,7 +11,8 @@ const authHelper = {
   },
 
   getToken(req) {
-    const token = req.headers.authorization;
+    const getToken = req.headers.authorization;
+    const token = getToken && getToken.match('Bearer') ? getToken.split(' ')[1] : getToken;
     return req.params.token || token;
   },
 

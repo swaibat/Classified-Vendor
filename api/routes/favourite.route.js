@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', userMiddleware.verifyToken, FavController.getFavs);
 
-router.post(
+router.get(
   '/:id',
   Validate.params,
   ProductMiddleware.checkItemExist,

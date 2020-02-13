@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import express from 'express';
 import UserMiddleware from '../middleware/user.middleware';
 import UserController from '../controller/user.controller';
@@ -6,14 +7,18 @@ import Validate from '../validation';
 
 const router = express.Router();
 
-/**
- * verify user email before register
- */
 router.post(
   '/verify',
   Validate.verify,
   UserMiddleware.checkuserExist,
   UserController.verifyEmail
+);
+
+router.post(
+  '/verify/:code',
+  Validate.verify,
+  UserMiddleware.checkuserExist,
+  UserController.verifyCode
 );
 /**
  * register user with valid token
@@ -56,11 +61,7 @@ router.get(
   UserController.getUsers
 );
 
-router.get(
-  '/profile',
-  UserMiddleware.verifyToken,
-  UserController.getUser
-);
+router.get('/profile', UserMiddleware.verifyToken, UserController.getUser);
 
 router.patch(
   '/:id/profile',

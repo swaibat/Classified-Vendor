@@ -1,11 +1,13 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-import sgMail from '@sendgrid/mail';
+import { client, serviceId, transporter } from '../config';
 import Send from '../utils/res.utils';
 import Request from '../utils/req.utils';
 import UserService from '../services/user.service';
 import EmailService from '../services/email.service';
-import { transporter } from '../config';
+
 import AuthHelper from '../utils/auth.utils';
 
 const User = {
@@ -17,20 +19,42 @@ const User = {
   },
 
   async verifyEmail(req, res) {
-    const email = {
-      ...EmailService.verifyUser(req, res),
-      to: req.body.email
-    };
-    await transporter.sendMail(email, (error, success) => {
-      if (error) {
-        return Send(res, 400, error.message);
-      }
-      return Send(
-        res,
-        200,
-        `verification instructions sent to ${req.body.email}`
+    req.body.telephone
+      ? client.verify
+        .services(serviceId)
+        .verifications.create({
+          channel: req.body.channel,
+          to: req.body.telephone
+        })
+        .then(message => Send(res, 200, `verification code sent to ${message.to}`))
+        .catch(error => Send(res, 400, error.message))
+      : await transporter.sendMail(
+        {
+          ...EmailService.verifyUser(req, res),
+          to: req.body.email
+        },
+        (error, success) => {
+          if (error) {
+            return Send(res, 400, error.message);
+          }
+          return Send(
+            res,
+            200,
+            `verification instructions sent to ${req.body.email}`
+          );
+        }
       );
-    });
+  },
+
+  async verifyCode(req, res) {
+    client.verify
+      .services(serviceId)
+      .verificationChecks.create({
+        code: req.params.code,
+        to: req.body.telephone
+      })
+      .then(() => Send(res, 200, 'verification successful'))
+      .catch(error => Send(res, 400, error.message));
   },
 
   signin(req, res) {

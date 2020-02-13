@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { Op } from 'sequelize';
 import UserService from '../services/user.service';
 import Send from '../utils/res.utils';
 import AuthHelper from '../utils/auth.utils';
@@ -31,9 +32,16 @@ const UserMiddleware = {
   },
 
   async checkuserExist(req, res, next) {
-    const user = await UserService.getUser({ email: req.body.email });
-    if (user) return Send(res, 409, 'email address already in use');
-    next();
+    if (req.body.email) {
+      const user = await UserService.getUser({ email: req.body.email });
+      if (user) return Send(res, 409, 'email address already in use');
+      return next();
+    }
+    if (req.body.telephone) {
+      const user = await UserService.getUser({ telephone: req.body.telephone });
+      if (user) return Send(res, 409, 'email address already in use');
+      return next();
+    }
   },
 
   async getUserDetails(req, res, next) {
