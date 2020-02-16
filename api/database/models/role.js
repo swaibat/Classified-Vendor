@@ -5,7 +5,11 @@ export default (sequelize, DataTypes) => {
     }, {}
   );
   Role.associate = models => {
-    // associations can be defined here
+    Role.belongsTo(models.User, {
+      foreignKey: 'id',
+      targetKey: 'roleId',
+      allowNull: false
+    });
   };
   return Role;
 };

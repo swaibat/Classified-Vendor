@@ -4,12 +4,21 @@ const UserService = {
   async getUser(condition) {
     return db.User.findOne({
       where: condition,
-      include: [{ model: db.Rating }, { model: db.Product }]
+      include: [
+        { model: db.Rating },
+        { model: db.Product },
+        { model: db.About },
+        { model: db.Favourite },
+        {
+          model: db.Role,
+          attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }
+        }
+      ]
     });
   },
   async deleteUser(condition) {
     return db.User.destroy({
-      where: condition,
+      where: condition
     });
   },
 
@@ -48,8 +57,14 @@ const UserService = {
   getAllUsers(condition) {
     return db.User.findAll({
       where: condition,
-      include: [{ model: db.Rating }],
-      attributes: { exclude: 'password' }
+      attributes: { exclude: 'password' },
+      include: [
+        { model: db.Rating },
+        {
+          model: db.Role,
+          attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }
+        }
+      ]
     });
   }
 };

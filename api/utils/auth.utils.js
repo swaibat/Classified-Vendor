@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const authHelper = {
-  createToken(email, roleId) {
-    return jwt.sign({ email, roleId }, process.env.APP_KEY);
+  createToken(userData) {
+    return jwt.sign(userData, process.env.APP_KEY);
   },
 
   hashPassword(password) {
@@ -11,7 +11,8 @@ const authHelper = {
   },
 
   getToken(req) {
-    const token = req.headers.authorization;
+    const getToken = req.headers.authorization;
+    const token = getToken && getToken.match('Bearer') ? getToken.split(' ')[1] : getToken;
     return req.params.token || token;
   },
 

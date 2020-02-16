@@ -27,6 +27,18 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'VendorId',
       targetKey: 'id'
     });
+    User.hasOne(models.About, {
+      foreignKey: 'UserId',
+      targetKey: 'id'
+    });
+    User.hasMany(models.Favourite, {
+      foreignKey: 'UserId',
+      targetKey: 'id'
+    });
+    User.hasOne(models.Role, {
+      foreignKey: 'id',
+      targetKey: 'roleId'
+    });
   };
   return User;
 };

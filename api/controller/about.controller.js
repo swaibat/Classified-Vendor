@@ -3,10 +3,6 @@ import AboutService from '../services/about.service';
 import Get from '../utils/req.utils';
 
 const About = {
-  async getAbout(req, res) {
-    const about = await AboutService.getOne({ UserId: req.user.id });
-    return Send(res, 200, 'question created successfully', about);
-  },
 
   async create(req, res) {
     req.body.UserId = req.user.id;

@@ -6,13 +6,6 @@ import AboutMiddleware from '../middleware/about.middleware';
 import Validate from '../validation';
 
 const router = express.Router();
-router.use(fileUpload());
-router.get(
-  '/:id',
-  Validate.params,
-  AboutMiddleware.checkNoAboutExist,
-  AboutController.getAbout
-);
 
 router.post(
   '/',
@@ -24,8 +17,7 @@ router.post(
 );
 
 router.patch(
-  '/:id',
-  Validate.params,
+  '/',
   userMiddleware.verifyToken,
   AboutMiddleware.checkNoAboutExist,
   AboutController.update

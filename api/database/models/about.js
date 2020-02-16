@@ -11,7 +11,11 @@ export default (sequelize, DataTypes) => {
   },
   {});
   About.associate = models => {
-    // associations can be defined here
+    About.belongsTo(models.User, {
+      foreignKey: 'UserId',
+      targetKey: 'id',
+      allowNull: false
+    });
   };
   return About;
 };

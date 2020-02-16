@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import express from 'express';
 import UserMiddleware from '../middleware/user.middleware';
 import UserController from '../controller/user.controller';
@@ -14,11 +15,20 @@ router.post(
 );
 
 router.post(
+  '/verify/:code',
+  Validate.verify,
+  UserMiddleware.checkuserExist,
+  UserController.verifyCode
+);
+/**
+ * register user with valid token
+ */
+router.post(
   '/register/:token',
   Validate.signup,
-  UserMiddleware.verifyToken,
+  UserMiddleware.decodeToken,
+  UserMiddleware.checkForTokenData,
   UserMiddleware.checkCoExist,
-  UserMiddleware.checkuserExist,
   UserController.signup
 );
 
@@ -51,14 +61,7 @@ router.get(
   UserController.getUsers
 );
 
-router.get(
-  '/:id/profile',
-  Validate.params,
-  UserMiddleware.verifyToken,
-  UserMiddleware.getUserById,
-  UserMiddleware.checkIfOwner,
-  UserController.getUser
-);
+router.get('/profile', UserMiddleware.verifyToken, UserController.getUser);
 
 router.patch(
   '/:id/profile',

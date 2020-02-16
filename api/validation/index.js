@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable camelcase */
 /* eslint-disable array-callback-return */
-import fs from 'fs';
-import validate from '../utils/validator.util';
-import Send from '../utils/res.utils';
+import fs from "fs";
+import validate from "../utils/validator.util";
+import Send from "../utils/res.utils";
 
 const Validation = {
   signup(req, res, next) {
@@ -27,7 +27,9 @@ const Validation = {
     const err = validate(
       req.body,
       {
-        email: { req: true, email: true }
+        email: { email: true },
+        code: { min: 6, max: 7 },
+        telephone: { min: 10 }
       },
       error => error
     );
@@ -66,18 +68,18 @@ const Validation = {
   },
 
   images(req, res, next) {
-    if (!req.files) return Send(res, 400, 'upload atleast one Image');
+    if (!req.files) return Send(res, 400, "upload atleast one Image");
     const { images } = req.files;
     const files = images.name ? [images] : images;
     req.files = files;
     files.map(async image => {
-      if (!image.mimetype.startsWith('image')) {
+      if (!image.mimetype.startsWith("image")) {
         return Send(res, 400, `${image.name} image is invalid`);
       }
       if (image.size > 4e6) {
         return Send(res, 400, `${image.name} size exceeds 4Mbs`);
       }
-      if (req.originalUrl === '/about') {
+      if (req.originalUrl === "/about") {
         await fs.mkdir(`./api/uploads/about/${req.user.company}/`, () => {
           image.mv(`./api/uploads/about/${req.user.company}/${image.name}`);
         });

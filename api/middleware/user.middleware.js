@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { Op } from 'sequelize';
 import UserService from '../services/user.service';
 import Send from '../utils/res.utils';
 import AuthHelper from '../utils/auth.utils';
@@ -9,15 +10,38 @@ const UserMiddleware = {
     AuthHelper.decodeToken(token, async (error, data) => {
       if (error) return Send(res, 400, error.message);
       const user = data ? await UserService.getUser({ email: data.email }) : '';
-      req.user = user;
+      req.data = data;
+      req.user = user.dataValues;
       next();
     });
   },
 
-  async checkuserExist(req, res, next) {
-    const user = await UserService.getUser({ email: req.body.email });
+  decodeToken(req, res, next) {
+    const token = AuthHelper.getToken(req);
+    AuthHelper.decodeToken(token, async (error, data) => {
+      if (error) return Send(res, 400, error.message);
+      req.data = data;
+      next();
+    });
+  },
+
+  async checkForTokenData(req, res, next) {
+    const user = await UserService.getUser({ email: req.data.email });
     if (user) return Send(res, 409, 'email address already in use');
     next();
+  },
+
+  async checkuserExist(req, res, next) {
+    if (req.body.email) {
+      const user = await UserService.getUser({ email: req.body.email });
+      if (user) return Send(res, 409, 'email address already in use');
+      return next();
+    }
+    if (req.body.telephone) {
+      const user = await UserService.getUser({ telephone: req.body.telephone });
+      if (user) return Send(res, 409, 'email address already in use');
+      return next();
+    }
   },
 
   async getUserDetails(req, res, next) {
@@ -65,7 +89,7 @@ const UserMiddleware = {
   },
 
   async getUserById(req, res, next) {
-    const user = await UserService.getUser({ id: req.params.id });
+    const user = await UserService.getUser({ id: req.user.id });
     if (!user) return Send(res, 404, 'user not found');
     next();
   },

@@ -4,7 +4,11 @@ export default (sequelize, DataTypes) => {
     ProductId: DataTypes.INTEGER
   }, {});
   Favourite.associate = models => {
-    // associations can be defined here
+    Favourite.belongsTo(models.User, {
+      foreignKey: 'UserId',
+      targetKey: 'id',
+      allowNull: false
+    });
   };
   return Favourite;
 };

@@ -9,14 +9,12 @@ const Plan = {
   },
 
   async create(req, res) {
-    const { answer, question } = req.body;
-    const plan = await PlanService.create({ answer, question });
+    const plan = await PlanService.create(req.body);
     return Send(res, 201, 'question created successfully', plan);
   },
 
   async update(req, res) {
-    const updateData = Get.updatePlanBody(req);
-    const plan = await PlanService.update(updateData, { id: req.params.id });
+    const plan = await PlanService.update(req.body, { id: req.params.id });
     return Send(res, 201, 'question updated successfully', plan);
   },
 

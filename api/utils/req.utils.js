@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-syntax */
 import AuthHelper from './auth.utils';
 
@@ -7,19 +8,20 @@ const Requests = {
       firstName,
       lastName,
       password,
-      email,
       company,
       address,
-      telephone
+      telephone,
+      roleId
     } = req.body;
     const data = {
       firstName,
       lastName,
       password: AuthHelper.hashPassword(password),
-      email,
+      email: req.data.email,
       company,
       address,
-      telephone
+      telephone,
+      roleId
     };
     return data;
   },
