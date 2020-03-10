@@ -84,7 +84,16 @@ const Validation = {
           image.mv(`./api/uploads/about/${req.user.company}/${image.name}`);
         });
       } else {
-        image.mv(`./api/uploads/products/${image.name}`);
+        (image.link = `${req.protocol}://${req.headers.host}/products/${`${Date.now()}-${req.body.name.replace(
+          / /g,
+          '-'
+        )}.${image.mimetype.split('/')[1]}`}`);
+        image.mv(
+          `./api/uploads/products/${`${Date.now()}-${req.body.name.replace(
+            / /g,
+            '-'
+          )}.${image.mimetype.split('/')[1]}`}`
+        );
       }
     });
     next();

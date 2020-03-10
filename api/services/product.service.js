@@ -11,10 +11,11 @@ const ProductService = {
       .then(product => {
         const data = [];
         req.files.map(e => {
-          const { name, size } = e;
+          const { size, link, mimetype } = e;
           data.push({
-            link: `${req.protocol}://${req.headers.host}/products/${name}`,
+            link,
             size,
+            type: mimetype,
             ProductId: product.dataValues.id
           });
         });
@@ -31,7 +32,9 @@ const ProductService = {
   },
 
   async update(product, condition, req) {
-    req.body.removedImages.split(',').map(e => db.productFile.destroy({ where: { id: e } }));
+    req.body.removedImages
+      .split(',')
+      .map(e => db.productFile.destroy({ where: { id: e } }));
     return db.Product.update(product, {
       where: condition,
       returning: true,
