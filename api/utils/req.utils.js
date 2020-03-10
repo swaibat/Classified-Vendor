@@ -3,6 +3,7 @@
 import AuthHelper from './auth.utils';
 
 const Requests = {
+
   signUp(req) {
     const {
       firstName,

@@ -12,11 +12,13 @@ import PlanRouter from './plan.route';
 import AboutRouter from './about.route';
 import CurrencyRouter from './curreny.route';
 import SettingsRouter from './settings.route';
+import landing from './landing.route';
 // import RatingsRouter from './rating.route';
 
 const app = express.Router();
 
 app.use(UserMiddleware.connect);
+app.use('/', landing);
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 app.use('/category', CategoryRouter);

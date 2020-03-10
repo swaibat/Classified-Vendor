@@ -3,64 +3,56 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.addColumn(
-        'Settings',
-        'fixerKeys',
+        'Products',
+        'views',
+        {
+          type: Sequelize.INTEGER
+        },
+        { transaction }
+      );
+      await queryInterface.addColumn(
+        'Products',
+        'discountPrice',
+        {
+          type: Sequelize.INTEGER
+        },
+        { transaction }
+      );
+      await queryInterface.addColumn(
+        'Products',
+        'VendorId',
+        {
+          type: Sequelize.INTEGER
+        },
+        { transaction }
+      );
+      await queryInterface.addColumn(
+        'Products',
+        'tags',
         {
           type: Sequelize.STRING
         },
         { transaction }
       );
       await queryInterface.addColumn(
-        'Settings',
-        'currency',
-        {
-          type: Sequelize.STRING
-        },
-        { transaction }
-      );
-      await queryInterface.addColumn(
-        'Settings',
-        'currencyCountry',
-        {
-          type: Sequelize.STRING
-        },
-        { transaction }
-      );
-      await queryInterface.addColumn(
-        'Settings',
-        'currencyFlagDisplay',
+        'Products',
+        'variants',
         {
           type: Sequelize.BOOLEAN
         },
         { transaction }
       );
       await queryInterface.addColumn(
-        'Settings',
-        'autoCurrency',
+        'Products',
+        'quantity',
         {
-          type: Sequelize.BOOLEAN
+          type: Sequelize.INTEGER
         },
         { transaction }
       );
       await queryInterface.addColumn(
-        'Settings',
-        'autoProductApproval',
-        {
-          type: Sequelize.BOOLEAN
-        },
-        { transaction }
-      );
-      await queryInterface.addColumn(
-        'Settings',
-        'currencyDisplayBy',
-        {
-          type: Sequelize.STRING
-        },
-        { transaction }
-      );
-      await queryInterface.addColumn(
-        'Settings',
-        'autoCurrencyRate',
+        'Products',
+        'chargeTax',
         {
           type: Sequelize.BOOLEAN
         },
