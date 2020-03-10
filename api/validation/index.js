@@ -12,7 +12,7 @@ const Validation = {
       {
         firstName: { req: true, min: 2 },
         lastName: { req: true, min: 2 },
-        password: { req: true, min: 4, confirm: req.body.confirmPassword },
+        password: { req: true, min: 4 },
         company: { min: 2, aplhaNum: true },
         telephone: { req: true, min: 8, num: true },
         address: { req: true, min: 2 }
@@ -84,7 +84,16 @@ const Validation = {
           image.mv(`./api/uploads/about/${req.user.company}/${image.name}`);
         });
       } else {
-        image.mv(`./api/uploads/products/${image.name}`);
+        (image.link = `${req.protocol}://${req.headers.host}/products/${`${Date.now()}-${req.body.name.replace(
+          / /g,
+          '-'
+        )}.${image.mimetype.split('/')[1]}`}`);
+        image.mv(
+          `./api/uploads/products/${`${Date.now()}-${req.body.name.replace(
+            / /g,
+            '-'
+          )}.${image.mimetype.split('/')[1]}`}`
+        );
       }
     });
     next();
