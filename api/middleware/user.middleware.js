@@ -120,12 +120,8 @@ const UserMiddleware = {
 
   connect(req, res, next) {
     const { io } = req;
-    io.on('connection', async socket => {
-      console.log('conected');
-      return socket.on('disconnect', async () => {
-        console.log('disconne');
-      });
-    });
+    io.on('connection', async socket => socket.on('disconnect', async () => {
+    }));
     next();
   }
 };

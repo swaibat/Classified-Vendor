@@ -15,6 +15,7 @@ app.post(
   ChatController.postChat
 );
 
+
 app.get('/', UserMiddleware.verifyToken, ChatController.getChats);
 
 export default app;
