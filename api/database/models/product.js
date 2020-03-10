@@ -15,6 +15,12 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'ProductId',
       targetKey: 'id'
     });
+    Product.belongsTo(models.Category, {
+      foreignKey: {
+        allowNull: false
+      },
+      onDelete: 'CASCADE'
+    });
     Product.belongsTo(models.User, {
       foreignKey: {
         allowNull: false

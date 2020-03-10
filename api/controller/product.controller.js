@@ -16,7 +16,7 @@ const Product = {
     const product = await ProductService.update(
       updateData,
       { UserId: req.user.id, id: req.params.id },
-      req.files
+      req
     );
     return Send(res, 201, 'product updated successfully', product);
   },

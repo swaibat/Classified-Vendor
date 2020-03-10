@@ -10,6 +10,10 @@ const authHelper = {
     return bcrypt.hashSync(password, 10, (err, hash) => hash);
   },
 
+  hashData(password) {
+    return bcrypt.hashSync(password, 10, (err, hash) => hash);
+  },
+
   getToken(req) {
     const getToken = req.headers.authorization;
     const token = getToken && getToken.match('Bearer') ? getToken.split(' ')[1] : getToken;
@@ -21,6 +25,10 @@ const authHelper = {
   },
 
   comparePassword(password, hash) {
+    return bcrypt.compareSync(password, hash, (err, res) => res);
+  },
+
+  decrypt(password, hash) {
     return bcrypt.compareSync(password, hash, (err, res) => res);
   }
 };

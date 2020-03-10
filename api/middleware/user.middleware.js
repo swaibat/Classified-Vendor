@@ -44,6 +44,25 @@ const UserMiddleware = {
     }
   },
 
+  async  OauthLogin(req, res) {
+    const {
+      id, email
+    } = await UserService.findOrCreateUser(req.user, req.user.email);
+    return res.redirect(`${process.env.FRONTEND_BASE_URL}/login?token=${AuthHelper.createToken(id, email)}`);
+  },
+
+  async  OauthLoginFacebook(req, res) {
+    const {
+      id, email
+    } = await UserService.findOrCreateUser(req.user, req.user.email);
+    return Send(res, 201, 'User logged successfully', {
+      id,
+      email,
+      token: AuthHelper.createToken(id, email)
+    });
+  },
+
+
   async getUserDetails(req, res, next) {
     const { email, password } = req.body;
     const user = await UserService.getUser({ email });
@@ -102,12 +121,8 @@ const UserMiddleware = {
 
   connect(req, res, next) {
     const { io } = req;
-    io.on('connection', async socket => {
-      console.log('conected');
-      return socket.on('disconnect', async () => {
-        console.log('disconne');
-      });
-    });
+    io.on('connection', async socket => socket.on('disconnect', async () => {
+    }));
     next();
   }
 };

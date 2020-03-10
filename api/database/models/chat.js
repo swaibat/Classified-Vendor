@@ -8,12 +8,14 @@ export default (sequelize, DataTypes) => {
     Chat.belongsTo(models.User, {
       foreignKey: 'SenderId',
       targetKey: 'id',
-      allowNull: false
+      allowNull: false,
+      as: 'sender'
     });
     Chat.belongsTo(models.User, {
       foreignKey: 'ReceiverId',
       targetKey: 'id',
-      allowNull: true
+      allowNull: false,
+      as: 'receiver'
     });
   };
   return Chat;
