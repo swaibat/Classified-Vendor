@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { Op } from 'sequelize';
 import UserService from '../services/user.service';
 import Send from '../utils/res.utils';
 import AuthHelper from '../utils/auth.utils';
