@@ -26,7 +26,7 @@ const UserMiddleware = {
   },
 
   async checkForTokenData(req, res, next) {
-    const user = await UserService.getUser({ email: req.data.email });
+    const user = await UserService.getUser({ email: req.body.email });
     if (user) return Send(res, 409, 'email address already in use');
     next();
   },
@@ -95,8 +95,10 @@ const UserMiddleware = {
   },
 
   async checkCoExist(req, res, next) {
-    const user = await UserService.getUser({ company: req.body.company });
-    if (user) return Send(res, 409, 'Company name already registered');
+    if (req.body.company) {
+      const company = await UserService.getUser({ company: req.body.company });
+      if (company) return Send(res, 409, 'Company name already registered');
+    }
     next();
   },
 

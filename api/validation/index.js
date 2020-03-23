@@ -12,7 +12,7 @@ const Validation = {
       {
         firstName: { req: true, min: 2 },
         lastName: { req: true, min: 2 },
-        password: { req: true, min: 4, confirm: req.body.confirmPassword },
+        password: { req: true, min: 4 },
         company: { min: 2, aplhaNum: true },
         telephone: { req: true, min: 8, num: true },
         address: { req: true, min: 2 }

@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "babel-node index.js",
-    "dev": "babel-watch --exec babel-node index.js ",
+    "dev": "nodemon --exec babel-node index.js ",
     "db": "npm run db-delete:dev &&  npm run db-migrate:dev && npm run db-seeder:dev",
     "test": "npm run db-migrate:test && npm run db-seeder:test &&  NODE_ENV=test nyc mocha  --timeout 200000 --exit",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls ",
@@ -79,7 +79,6 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "babel-plugin-istanbul": "^5.2.0",
-    "babel-watch": "^7.0.0",
     "chai": "4.2.0",
     "chai-http": "4.3.0",
     "coveralls": "^3.0.6",

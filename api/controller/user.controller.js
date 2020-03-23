@@ -101,7 +101,7 @@ const User = {
 
   async deleteUser(req, res) {
     await UserService.deleteUser({ id: req.params.id });
-    return Send(res, 200, 'user successfulyy deleted');
+    return Send(res, 200, 'user successfuly deleted');
   }
 };
 

@@ -54,6 +54,15 @@ router.post(
   UserController.signup
 );
 
+// router.post(
+//   '/create',
+//   Validate.signup,
+//   UserMiddleware.decodeToken,
+//   UserMiddleware.checkForTokenData,
+//   UserMiddleware.checkCoExist,
+//   UserController.signup
+// );
+
 router.post(
   '/login',
   Validate.sigin,
@@ -95,7 +104,7 @@ router.patch(
 );
 
 router.delete(
-  '/',
+  '/:id',
   UserMiddleware.verifyToken,
   UserMiddleware.checkAdminRole,
   UserController.deleteUser
