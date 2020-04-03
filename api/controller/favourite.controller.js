@@ -1,10 +1,12 @@
 import Send from '../utils/res.utils';
 import FavService from '../services/favourite.service';
+import ProductService from '../services/product.service';
 
 const Fav = {
   async getFavs(req, res) {
     const favs = await FavService.getAll({ UserId: req.user.id });
-    return Send(res, 200, '', favs);
+    const favourites = favs.map(fav => ProductService.get({ id: fav.ProductId }).then(e => e));
+    Promise.all(favourites).then(allFavs => Send(res, 200, '', allFavs));
   },
 
   async addToFavourite(req, res) {

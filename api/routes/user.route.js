@@ -54,14 +54,6 @@ router.post(
   UserController.signup
 );
 
-// router.post(
-//   '/create',
-//   Validate.signup,
-//   UserMiddleware.decodeToken,
-//   UserMiddleware.checkForTokenData,
-//   UserMiddleware.checkCoExist,
-//   UserController.signup
-// );
 
 router.post(
   '/login',

@@ -1,4 +1,6 @@
+/* eslint-disable no-tabs */
 import express from 'express';
+import cheerio from 'cheerio';
 import userRouter from './user.route';
 import productRouter from './product.route';
 import CategoryRouter from './category.route';
@@ -14,11 +16,64 @@ import CurrencyRouter from './curreny.route';
 import SettingsRouter from './settings.route';
 import landing from './landing.route';
 // import RatingsRouter from './rating.route';
+const axios = require('axios');
 
 const app = express.Router();
 
 app.use(UserMiddleware.connect);
 app.use('/', landing);
+
+// app.use('/cont', (req, res, next) => {
+//   const arr = [];
+//   const avg = [];
+//   axios.get('https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population').then(async html => {
+//     const $ = await cheerio.load(html.data);
+//     $('.wikitable > tbody > tr').each((i, el) => {
+//       arr.push($(el).text());
+//     });
+//     arr.map(e => {
+//       avg.push({ country: e.trim().split(/\n/g,)[1].trim(), population: e.trim().split(/\n/g,)[2] });
+//     });
+//     avg.shift();
+//     avg.pop();
+//     res.send({ data: avg });
+//   });
+// });
+
+// app.use('/cont', (req, res, next) => {
+//   const arr = [];
+//   const avg = [];
+//   axios.get('https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population').then(async html => {
+//     const $ = await cheerio.load(html.data);
+//     $('.wikitable > tbody > tr').each((i, el) => {
+//       arr.push($(el).text());
+//     });
+//     arr.map(e => {
+//       avg.push({ country: e.trim().split(/\n/g,)[1].trim(), population: e.trim().split(/\n/g,)[2] });
+//     });
+//     avg.shift();
+//     avg.pop();
+//     res.send({ data: avg });
+//   });
+// });
+
+app.use('/cont', (req, res, next) => {
+  const arr = [];
+  const avg = [];
+  axios.get('http://127.0.0.1:5500/Latest%20movies%20on%20MunoWatch.htm').then(async html => {
+    const $ = await cheerio.load(html.data);
+    $('.g-py-15').each((i, el) => {
+      arr.push($(el).text());
+    });
+    arr.map(e => {
+      avg.push({ country: e.trim().split(/\n/g,)[1].trim(), population: e.trim().split(/\n/g,)[2] });
+    });
+    avg.shift();
+    avg.pop();
+    res.send({ data: avg });
+  });
+});
+
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 app.use('/category', CategoryRouter);
