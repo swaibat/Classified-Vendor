@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="form" style="display: block;text-align: center;">
+      <small
+        id="helper-text"
+        style="color: red; display: block; width: 100%;"
+      ></small>
+      <input
+        id="email"
+        type="email"
+        placeholder="email"
+        style="width: 80%; display: block; padding: 10px 20px; margin: 10px;"
+      />
+      <input
+        id="password"
+        type="password"
+        placeholder="password"
+        style="width: 80%; display: block; padding: 10px 20px; margin: 10px;"
+      />
+      <button
+        id="button"
+        type="submit"
+        value="submit"
+        style="width: 80%; display: block; padding:  10px 20px; margin: 10px;"
+      >
+        submit
+      </button>
+    </form>
+    <script>
+      const users = [
+        { name: "hawah", email: "hawa@gmail.com", role: "LF", password:'hello' },
+        { name: "maira", email: "maira@gmail.com", role: "student", password:'hello'},
+        { name: "swai", email: "swai@gmail.com", role: "admin", password:'hello'}
+      ];
+
+      document.getElementById("form").addEventListener("submit", event => {
+        // stop page from refreshing
+        event.preventDefault();
+        // get values from the form
+        const name = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        // check all fields first
+        const user = users.find(user => user.email === name)
+        if(!user){
+            document.getElementById("helper-text").innerHTML = "Invalid email";
+        }
+        if(user.password !== password){
+            document.getElementById("helper-text").innerHTML = "Invalid password";
+        }
+        if(user.role === 'LF' && user.password === password){
+            window.location.replace('./lf.html')
+        }
+        if(user.role === 'student' && user.password === password){
+            window.location.replace('./student.html')
+        }
+        if(user.role === 'admin' && user.password === password){
+            window.location.replace('./admin.html')
+        }
+      });
+    </script>
+  </body>
+</html>

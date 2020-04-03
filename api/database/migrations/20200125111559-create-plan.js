@@ -1,5 +1,3 @@
-
-
 export default {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Plans', {
     id: {

@@ -12,13 +12,14 @@ const Requests = {
       company,
       address,
       telephone,
-      roleId
+      roleId,
+      email
     } = req.body;
     const data = {
       firstName,
       lastName,
       password: AuthHelper.hashPassword(password),
-      email: req.data.email,
+      email,
       company,
       address,
       telephone,
@@ -28,30 +29,52 @@ const Requests = {
   },
 
   prodBody(req) {
-    const { name, CategoryId, price, negotiable, description } = req.body;
-    const data = {
-      name,
-      CategoryId,
-      price,
-      negotiable,
-      description,
-      UserId: req.user.id
-    };
-    return data;
-  },
-
-  adons(req) {
     const {
       name,
       CategoryId,
       price,
       negotiable,
       description,
-      subCategoryId,
-      email,
-      ...data
+      variants,
+      quantity,
+      chargeTax,
+      tags,
+      views,
+      discountPrice
     } = req.body;
+    const data = {
+      name,
+      CategoryId,
+      price,
+      negotiable,
+      description,
+      UserId: req.user.id,
+      variants,
+      quantity,
+      chargeTax,
+      tags,
+      views,
+      discountPrice
+    };
     return data;
+  },
+
+  adons(req) {
+    const {
+      // vehicles
+      brand,
+      model,
+      bodyType,
+      transition,
+      fuelType,
+      engineSize,
+      yearOfManufacture,
+      Mileage,
+      steering,
+      // property
+
+    } = req.body;
+    // return data;
   },
 
   pageBody(req) {
