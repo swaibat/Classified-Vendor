@@ -6,7 +6,6 @@ export default (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     duration: DataTypes.STRING,
     billingInterval: DataTypes.STRING,
-    adons: DataTypes.JSONB
   }, {});
   Plan.associate = (models) => {
     // associations can be defined here

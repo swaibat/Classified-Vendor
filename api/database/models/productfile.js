@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const productFile = sequelize.define('productFile', {
-    link: DataTypes.STRING,
+    name: DataTypes.STRING,
     ProductId: {
       type: 'integer',
       onDelete: 'CASCADE',

@@ -1,15 +1,15 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => Promise.all([
-    queryInterface.addColumn('Plans', 'duration', {
+    queryInterface.addColumn('Products', 'slug', {
       type: Sequelize.STRING,
     }),
-    queryInterface.addColumn('Plans', 'billingInterval', {
+    queryInterface.addColumn('Products', 'brand', {
       type: Sequelize.STRING,
     }),
-    queryInterface.addColumn('Plans', 'condition', {
+    queryInterface.addColumn('Products', 'condition', {
       type: Sequelize.STRING,
     }),
-    queryInterface.addColumn('Plans', 'currency', {
+    queryInterface.addColumn('Products', 'currency', {
       type: Sequelize.STRING,
     }),
   ]),

@@ -3,7 +3,7 @@ import db from '../database/models';
 const UserService = {
   async getUser(condition) {
     return db.User.findOne({
-      where: condition,
+      where: condition.username && condition.username.match('@') ? { email: condition.username } : condition,
       include: [
         { model: db.Rating },
         { model: db.Product },

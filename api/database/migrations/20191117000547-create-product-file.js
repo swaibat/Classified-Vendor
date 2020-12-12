@@ -1,24 +1,19 @@
-
-
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Plans', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('productFiles', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    link: {
+    name: {
       type: Sequelize.STRING
     },
-    amount: {
+    ProductId: {
       type: Sequelize.INTEGER
     },
-    description: {
-      type: Sequelize.STRING
-    },
-    adons: {
-      type: Sequelize.JSONB
+    size: {
+      type: Sequelize.INTEGER
     },
     type: {
       type: Sequelize.STRING
@@ -32,5 +27,5 @@ export default {
       type: Sequelize.DATE
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Plans')
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('productFiles')
 };

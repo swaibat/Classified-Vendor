@@ -4,6 +4,7 @@ export default {
     'Users',
     [
       {
+        username: 'admin',
         firstName: 'admin',
         lastName: 'admin',
         email: 'admin@vendly.com',
@@ -16,6 +17,7 @@ export default {
         updatedAt: new Date()
       },
       {
+        username: 'seller',
         firstName: 'seller',
         lastName: 'seller',
         email: 'seller@vendly.com',
@@ -28,6 +30,7 @@ export default {
         updatedAt: new Date()
       },
       {
+        username: 'buyer',
         firstName: 'buyer',
         lastName: 'buyer',
         email: 'buyer@vendly.com',
@@ -40,6 +43,7 @@ export default {
         updatedAt: new Date()
       },
       {
+        username: 'both',
         firstName: 'both',
         lastName: 'both',
         email: 'both@vendly.com',

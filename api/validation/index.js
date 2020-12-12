@@ -10,12 +10,14 @@ const Validation = {
     const err = validate(
       req.body,
       {
-        firstName: { req: true, min: 2 },
-        lastName: { req: true, min: 2 },
+        email: { req: true, email: true },
+        username: { req: true, min: 3 },
+        firstName: { min: 2 },
+        lastName: { min: 2 },
         password: { req: true, min: 4 },
         company: { min: 2, aplhaNum: true },
-        telephone: { req: true, min: 8, num: true },
-        address: { req: true, min: 2 }
+        telephone: { min: 8, num: true },
+        address: { min: 2 }
       },
       error => error
     );
@@ -41,7 +43,7 @@ const Validation = {
     const err = validate(
       req.body,
       {
-        email: { req: true, email: true },
+        username: { req: true },
         password: { req: true, min: 4 }
       },
       error => error
@@ -58,7 +60,6 @@ const Validation = {
         name: { req: true, min: 4 },
         CategoryId: { req: true, num: true },
         price: { req: true, num: true },
-        negotiable: { bool: true },
         description: { req: true, min: 10 }
       },
       error => error
@@ -137,7 +138,6 @@ const Validation = {
         name: { min: 4 },
         CategoryId: { num: true },
         price: { num: true },
-        negotiable: { bool: true },
         description: { min: 10 }
       },
       error => error

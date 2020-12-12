@@ -15,9 +15,6 @@ export default {
     description: {
       type: Sequelize.STRING
     },
-    adons: {
-      type: Sequelize.JSONB
-    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE

@@ -44,7 +44,7 @@ function validate(object, data, cb) {
     && !objValue.match(
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     )
-      ? (error = `Invalid ${key} address`)
+      ? (error = `Invalid ${key}`)
       : '';
 
     value.confirm && objValue && !value.confirm.match(objValue)

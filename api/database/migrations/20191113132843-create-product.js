@@ -19,10 +19,7 @@ export default {
       type: Sequelize.INTEGER
     },
     description: {
-      type: Sequelize.STRING
-    },
-    negotiable: {
-      type: Sequelize.BOOLEAN
+      type: Sequelize.STRING(5000)
     },
     createdAt: {
       allowNull: false,

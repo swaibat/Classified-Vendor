@@ -49,9 +49,9 @@ app.use(cookieParser());
 app.use(methodOverride());
 app.use(express.json());
 app.use(cors());
-app.use(apiRoutes);
+app.use('/api/v1/', apiRoutes);
 app.use(err.methodError);
 
-server.listen(process.env.PORT);
+server.listen(process.env.PORT || 5000);
 
 export default app;

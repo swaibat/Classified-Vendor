@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { Op } from 'sequelize';
 import UserService from '../services/user.service';
 import Send from '../utils/res.utils';
 import AuthHelper from '../utils/auth.utils';
@@ -9,7 +8,8 @@ const UserMiddleware = {
     const token = AuthHelper.getToken(req);
     AuthHelper.decodeToken(token, async (error, data) => {
       if (error) return Send(res, 400, error.message);
-      const user = data ? await UserService.getUser({ email: data.email }) : '';
+      const user = data && await UserService.getUser({ email: data.email });
+      if (!user) return Send(res, 404, 'user does not exist');
       req.data = data;
       req.user = user.dataValues;
       next();
@@ -18,9 +18,9 @@ const UserMiddleware = {
 
   decodeToken(req, res, next) {
     const token = AuthHelper.getToken(req);
-    AuthHelper.decodeToken(token, async (error, data) => {
+    AuthHelper.decodeToken(token, async (error, email) => {
       if (error) return Send(res, 400, error.message);
-      req.data = data;
+      req.body.email = email;
       next();
     });
   },
@@ -28,6 +28,12 @@ const UserMiddleware = {
   async checkForTokenData(req, res, next) {
     const user = await UserService.getUser({ email: req.body.email });
     if (user) return Send(res, 409, 'email address already in use');
+    next();
+  },
+
+  async checkUsername(req, res, next) {
+    const user = await UserService.getUser({ username: req.body.username });
+    if (user) return Send(res, 409, 'username already in use');
     next();
   },
 
@@ -39,33 +45,40 @@ const UserMiddleware = {
     }
     if (req.body.telephone) {
       const user = await UserService.getUser({ telephone: req.body.telephone });
-      if (user) return Send(res, 409, 'email address already in use');
+      if (user) return Send(res, 409, 'telephone number already in use');
       return next();
     }
   },
 
-  async  OauthLogin(req, res) {
-    const {
-      id, email
-    } = await UserService.findOrCreateUser(req.user, req.user.email);
-    return res.redirect(`${process.env.FRONTEND_BASE_URL}/login?token=${AuthHelper.createToken(id, email)}`);
+  async OauthLogin(req, res) {
+    const { id, email } = await UserService.findOrCreateUser(
+      req.user,
+      req.user.email
+    );
+    return res.redirect(
+      `${process.env.FRONTEND_BASE_URL}/login?token=${AuthHelper.createToken(
+        id,
+        email
+      )}`
+    );
   },
 
-  async  OauthLoginFacebook(req, res) {
-    const {
-      id, email
-    } = await UserService.findOrCreateUser(req.user, req.user.email);
+  async OauthLoginFacebook(req, res) {
+    const { id, email } = await UserService.findOrCreateUser(
+      req.user,
+      req.user.email
+    );
     return Send(res, 201, 'User logged successfully', {
       id,
       email,
-      token: AuthHelper.createToken(id, email)
+      token: AuthHelper.createToken(id, email),
     });
   },
 
-
   async getUserDetails(req, res, next) {
-    const { email, password } = req.body;
-    const user = await UserService.getUser({ email });
+    const { username, password } = req.body;
+    const user = await UserService.getUser({ username });
+    console.log('====================+>', username);
     if (user && AuthHelper.comparePassword(password, user.password)) {
       req.user = user;
       return next();
@@ -123,10 +136,9 @@ const UserMiddleware = {
 
   connect(req, res, next) {
     const { io } = req;
-    io.on('connection', async socket => socket.on('disconnect', async () => {
-    }));
+    io.on('connection', async (socket) => socket.on('disconnect', async () => {}));
     next();
-  }
+  },
 };
 
 export default UserMiddleware;

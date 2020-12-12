@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-syntax */
 import AuthHelper from './auth.utils';
+import createSlug from './create.slug';
 
 const Requests = {
-
   signUp(req) {
     const {
+      username,
       firstName,
       lastName,
       password,
@@ -13,9 +14,10 @@ const Requests = {
       address,
       telephone,
       roleId,
-      email
+      email,
     } = req.body;
     const data = {
+      username,
       firstName,
       lastName,
       password: AuthHelper.hashPassword(password),
@@ -23,7 +25,7 @@ const Requests = {
       company,
       address,
       telephone,
-      roleId
+      roleId,
     };
     return data;
   },
@@ -33,50 +35,30 @@ const Requests = {
       name,
       CategoryId,
       price,
-      negotiable,
       description,
       variants,
-      quantity,
-      chargeTax,
-      tags,
       views,
-      discountPrice
+      discountPrice,
+      brand,
+      currency,
+      condition,
     } = req.body;
     const data = {
       name,
+      slug: createSlug(name),
       CategoryId,
       price,
-      negotiable,
       description,
       UserId: req.user.id,
       variants,
-      quantity,
-      chargeTax,
-      tags,
       views,
-      discountPrice
+      discountPrice,
+      brand,
+      currency,
+      condition,
     };
     return data;
   },
-
-  adons(req) {
-    const {
-      // vehicles
-      brand,
-      model,
-      bodyType,
-      transition,
-      fuelType,
-      engineSize,
-      yearOfManufacture,
-      Mileage,
-      steering,
-      // property
-
-    } = req.body;
-    // return data;
-  },
-
   pageBody(req) {
     const {
       CategoryId,
@@ -84,7 +66,7 @@ const Requests = {
       UserId,
       aboutUs,
       faq,
-      backdrop
+      backdrop,
     } = req.body;
     const data = {
       CategoryId,
@@ -92,7 +74,7 @@ const Requests = {
       UserId,
       aboutUs,
       faq,
-      backdrop
+      backdrop,
     };
     return data;
   },
@@ -139,7 +121,7 @@ const Requests = {
       lastName,
       company,
       address,
-      telephone
+      telephone,
     };
     for (const key in data) {
       if (data[key]) {
@@ -147,7 +129,7 @@ const Requests = {
       }
     }
     return userData;
-  }
+  },
 };
 
 export default Requests;

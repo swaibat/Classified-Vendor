@@ -4,12 +4,12 @@ export default {
     [
       {
         name: 'Harrier kawundo',
+        slug: 'harrier-kawundo',
         CategoryId: 16,
         price: 200000,
         UserId: 2,
-        negotiable: true,
         description: 'No scratches',
-        adons: `{
+        variants: `{
         "make": "Toyota",
         "model": "Harrier",
         "fuel": "petrol",
@@ -24,13 +24,13 @@ export default {
       },
       {
         name: '2007 MERCEDES-BENZ GL-CLASS GL550 4MATIC',
+        slug: '2007-mercedes-benz-gl-class-gl550-4matic',
         CategoryId: 1,
         price: 200000,
         UserId: 2,
-        negotiable: true,
         description:
             '[Registration Year/month] is a registration date in Japan',
-        adons: `{
+        variants: `{
         "make": "Toyota",
         "model": "Harrier",
         "fuel": "petrol",
@@ -47,12 +47,12 @@ export default {
       },
       {
         name: 'house for rent in kigali',
+        slug: 'house-for-rent-in-kigali',
         CategoryId: 2,
         price: 23400,
         UserId: 2,
-        negotiable: true,
         description: 'as good as new',
-        adons: `{
+        variants: `{
       "New Property": "No",
       "Bedrooms": 2,
       "Bathrooms": 2,

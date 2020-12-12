@@ -47,9 +47,10 @@ router.post(
  */
 router.post(
   '/register/:token',
-  Validate.signup,
   UserMiddleware.decodeToken,
   UserMiddleware.checkForTokenData,
+  UserMiddleware.checkUsername,
+  Validate.signup,
   UserMiddleware.checkCoExist,
   UserController.signup
 );

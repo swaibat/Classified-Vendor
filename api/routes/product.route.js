@@ -43,7 +43,7 @@ router.patch(
 );
 
 router.get(
-  '/:name',
+  '/:id',
   ProductMiddleware.checkExist,
   productController.getOne
 );

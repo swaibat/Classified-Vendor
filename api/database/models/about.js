@@ -7,7 +7,6 @@ export default (sequelize, DataTypes) => {
     images: DataTypes.STRING,
     video: DataTypes.STRING,
     description: DataTypes.STRING,
-    adons: DataTypes.JSONB
   },
   {});
   About.associate = models => {
