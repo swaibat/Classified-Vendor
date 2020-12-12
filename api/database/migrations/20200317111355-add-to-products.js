@@ -1,7 +1,8 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => Promise.all([
     queryInterface.addColumn('Products', 'views', {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
+      defaultValue: 0
     }),
     queryInterface.addColumn('Products', 'discountPrice', {
       type: Sequelize.INTEGER,

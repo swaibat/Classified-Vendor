@@ -78,7 +78,6 @@ const UserMiddleware = {
   async getUserDetails(req, res, next) {
     const { username, password } = req.body;
     const user = await UserService.getUser({ username });
-    console.log('====================+>', username);
     if (user && AuthHelper.comparePassword(password, user.password)) {
       req.user = user;
       return next();

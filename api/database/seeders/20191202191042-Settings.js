@@ -9,7 +9,7 @@ export default {
         copyrightText: null,
         customCss: null,
         customJs: null,
-        sgKey: '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',
+        sgKey: null,
         emailTemplate: null,
         googleKeys: null,
         twilo_accountSid: null,

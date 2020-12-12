@@ -58,12 +58,11 @@ const User = {
   },
 
   signin(req, res) {
-    const { id, username, email, Role } = req.user;
+    const { id, username, email } = req.user;
     const token = AuthHelper.createToken({
       id,
       username,
       email,
-      role: Role.name,
     });
     return Send(res, 200, 'login successful', { token });
   },
