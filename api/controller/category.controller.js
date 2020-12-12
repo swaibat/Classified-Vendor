@@ -1,6 +1,7 @@
 import Send from '../utils/res.utils';
 import CategoryService from '../services/category.service';
 import Categories from '../utils/category';
+import createSlug from '../utils/create.slug';
 
 const Product = {
   async get(req, res) {
@@ -11,6 +12,7 @@ const Product = {
   async create(req, res) {
     const category = await CategoryService.create({
       name: req.body.name,
+      slug: createSlug(req.body.name),
       UserId: req.user.id,
       ParentId: req.body.ParentId
     });
