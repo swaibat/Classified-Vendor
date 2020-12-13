@@ -8,6 +8,7 @@ const categoryMiddleware = {
   async checkExist(req, res, next) {
     const category = await CategoryService.getOne({ name: req.body.name });
     if (category) return Send(res, 409, 'Category already exists');
+    req.category = category;
     next();
   },
 
@@ -18,12 +19,24 @@ const categoryMiddleware = {
     next();
   },
 
-  async getCatByName(req, res, next) {
-    if (req.params.name.match(/^[0-9]*[1-9][0-9]*$/)) {
-      req.params.id = req.params.name;
-      return next();
+  async checkParentExists(req, res, next) {
+    if (req.category.ParentId) {
+      const cat = await CategoryService.getOne({ id: req.category.ParentId });
+      if (!cat) return Send(res, 404, 'Parent Category does not exists');
     }
-    const cat = await CategoryService.getOne({ name: req.params.name });
+    next();
+  },
+
+  async checkParentBodyExists(req, res, next) {
+    if (req.body.ParentId) {
+      const cat = await CategoryService.getOne({ id: req.body.ParentId });
+      if (!cat) return Send(res, 404, 'Parent Category does not exists');
+    }
+    next();
+  },
+
+  async getCatBySlug(req, res, next) {
+    const cat = await CategoryService.getOne({ slug: req.params.slug });
     if (!cat) return Send(res, 404, 'Category does not exists');
     req.params.id = cat.id;
     next();

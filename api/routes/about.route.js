@@ -1,5 +1,4 @@
 import express from 'express';
-import fileUpload from 'express-fileupload';
 import userMiddleware from '../middleware/user.middleware';
 import AboutController from '../controller/about.controller';
 import AboutMiddleware from '../middleware/about.middleware';

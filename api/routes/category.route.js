@@ -19,8 +19,8 @@ router.get(
 );
 
 router.get(
-  '/:name',
-  CategoryMiddleware.getCatByName,
+  '/:slug',
+  CategoryMiddleware.getCatBySlug,
   CategoryMiddleware.checkCategoryExists,
   ProductController.getPrdctsByCat
 );
@@ -28,24 +28,26 @@ router.get(
 router.post(
   '/',
   UserMiddleware.verifyToken,
-  UserMiddleware.checkRole,
   Validate.category,
   CategoryMiddleware.checkExist,
+  CategoryMiddleware.checkParentBodyExists,
   CategoryController.create
 );
 
 router.patch(
   '/:id',
   UserMiddleware.verifyToken,
+  CategoryMiddleware.checkCategoryExist,
+  CategoryMiddleware.checkParentExists,
   UserMiddleware.checkRole,
   Validate.category,
-  CategoryMiddleware.checkCategoryExist,
   CategoryController.update
 );
 
 router.delete(
   '/:id',
   UserMiddleware.verifyToken,
+  CategoryMiddleware.checkCategoryExist,
   UserMiddleware.checkRole,
   CategoryController.delete
 );

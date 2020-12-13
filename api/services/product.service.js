@@ -13,7 +13,7 @@ const ProductService = {
         req.files.map(e => {
           const { size, link, mimetype } = e;
           data.push({
-            link,
+            name: link,
             size,
             type: mimetype,
             ProductId: product.dataValues.id
@@ -71,7 +71,7 @@ const ProductService = {
     })
       .then(elem => {
         data = JSON.parse(JSON.stringify(elem));
-        if (data.Category.ParentId) {
+        if (data.Category && data.Category.ParentId) {
           return db.Category.findOne({ where: { id: data.Category.ParentId } });
         }
       })
@@ -88,6 +88,10 @@ const ProductService = {
         }
         return data;
       });
+  },
+
+  findOne(condition) {
+    return db.Product.findOne({ where: condition });
   },
 
   VendorGetOwn(condition) {
