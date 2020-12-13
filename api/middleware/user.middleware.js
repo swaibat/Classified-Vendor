@@ -86,7 +86,7 @@ const UserMiddleware = {
   },
 
   async checkRole(req, res, next) {
-    if (req.user && req.user.roleId === 3) {
+    if (req.user && req.user.id !== req.category.UserId) {
       return Send(res, 401, 'Not allowed to perform this operation');
     }
     next();

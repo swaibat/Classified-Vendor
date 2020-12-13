@@ -13,6 +13,7 @@ router.post(
   '/',
   userMiddleware.verifyToken,
   Validate.product,
+  ProductMiddleware.checkIfNameExist,
   Validate.images,
   productController.create
 );
