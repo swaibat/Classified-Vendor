@@ -38,14 +38,14 @@ router.patch(
   userMiddleware.verifyToken,
   Validate.params,
   Validate.updateProduct,
-  ProductMiddleware.checkExist,
+  ProductMiddleware.checkItemExist,
   Validate.images,
   productController.update
 );
 
 router.get(
   '/:id',
-  ProductMiddleware.checkExist,
+  ProductMiddleware.checkItemExist,
   productController.getOne
 );
 
@@ -53,7 +53,7 @@ router.delete(
   '/:id',
   userMiddleware.verifyToken,
   Validate.params,
-  ProductMiddleware.checkExist,
+  ProductMiddleware.checkItemExist,
   productController.delete
 );
 
