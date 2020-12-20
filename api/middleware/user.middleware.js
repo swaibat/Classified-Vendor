@@ -93,7 +93,7 @@ const UserMiddleware = {
   },
 
   async checkAdminRole(req, res, next) {
-    if (req.user && req.user.roleId !== 1) {
+    if (req.user.id !== 1) {
       return Send(res, 401, 'Not allowed to perform this operation');
     }
     next();
