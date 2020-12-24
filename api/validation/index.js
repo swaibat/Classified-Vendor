@@ -85,7 +85,7 @@ const Validation = {
           image.mv(`./api/uploads/about/${req.user.company}/${image.name}`);
         });
       } else {
-        (image.link = `${req.protocol}://${req.headers.host}/products/${`${Date.now()}-${req.body.name.replace(
+        (image.link = `/products/${`${Date.now()}-${req.body.name.replace(
           / /g,
           '-'
         )}.${image.mimetype.split('/')[1]}`}`);
